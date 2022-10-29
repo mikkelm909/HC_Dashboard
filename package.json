@@ -30,6 +30,8 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"mongodb": "4.11"
+		"firebase": "^9.12.1",
+		"mongodb": "4.11",
+		"sveltestrap": "^5.9.0"
 	}
 }
