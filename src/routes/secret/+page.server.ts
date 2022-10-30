@@ -1,7 +1,7 @@
 
 import type { PageServerLoad } from ".svelte-kit/types/src/routes/$types";
 import type { Load } from "@sveltejs/kit";
-import { mongoData } from "src/db/mongoData";
+import { mongoData } from "$db/Collections/test";
 
 
 

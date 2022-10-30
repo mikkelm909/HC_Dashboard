@@ -1,6 +1,6 @@
 import type { PageServerLoad } from "./$types";
 import type { Load } from "@sveltejs/kit";
-import { mongoData } from "$db/mongoData";
+import { mongoData } from "$db/Collections/test";
 import { ObjectId } from "mongodb";
 
 
