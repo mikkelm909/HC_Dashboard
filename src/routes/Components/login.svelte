@@ -2,9 +2,11 @@
     import { onMount } from "svelte"
     import { initializeApp } from "@firebase/app";
     import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, type User } from "firebase/auth";
+
+    export let api = ""
     //https://www.youtube.com/watch?v=PXf0t6Id7i0&ab_channel=IvanSantos
     const firebaseConfig = {
-        apiKey: "AIzaSyCnM42APKThIKwvesEAwoXmE6DLbHlk6Z0",
+        apiKey: api,
         authDomain: "stepup-health.firebaseapp.com",
         projectId: "stepup-health",
         storageBucket: "stepup-health.appspot.com",
