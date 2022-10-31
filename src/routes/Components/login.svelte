@@ -25,7 +25,6 @@
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredentials) => {
             user = userCredentials.user;
-            console.log(user);
         })
         .catch((error) => {
             const errorCode = error.code;

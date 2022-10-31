@@ -1,5 +1,5 @@
-import { start_mongo } from "$db/db";
+import { start_mongo } from '$db/db';
 
 start_mongo().then((): void => {
-    console.log("...Mongo started")
-})
+	console.log('...Mongo started');
+});
