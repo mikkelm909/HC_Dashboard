@@ -5,9 +5,6 @@
 
 
     export let data: PageData
-
-    const test = data //jeg mangler desperat bedre navne til mine properties
-	console.log(data)
 </script>
 
 

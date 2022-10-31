@@ -4,7 +4,6 @@
     import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, type User } from "firebase/auth";
 
     export let api = ""
-    //https://www.youtube.com/watch?v=PXf0t6Id7i0&ab_channel=IvanSantos
     const firebaseConfig = {
         apiKey: api,
         authDomain: "stepup-health.firebaseapp.com",
