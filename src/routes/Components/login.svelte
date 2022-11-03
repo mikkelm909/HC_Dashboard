@@ -2,8 +2,14 @@
     import { onMount } from "svelte"
     import { initializeApp } from "@firebase/app";
     import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, type User } from "firebase/auth";
+	import { storeUser } from "$protectedUser";
+	import { debug } from "svelte/internal";
+    
 
-    export let api = ""
+
+    export let api = ""  //makes it so the api string can be inserted to the component
+
+    //https://www.youtube.com/watch?v=PXf0t6Id7i0&ab_channel=IvanSantos
     const firebaseConfig = {
         apiKey: api,
         authDomain: "stepup-health.firebaseapp.com",
@@ -26,6 +32,8 @@
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredentials) => {
             user = userCredentials.user;
+            storeUser.set(user.email)
+
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -37,6 +45,7 @@
     const logout = async () => {
         signOut(auth).then(() => {
             user = null;
+            storeUser.set("")
             console.log("You are logged out!");
         }).catch((error) => {
             console.log("Error logging out!")
@@ -48,11 +57,11 @@
             user = newUser;
         })
     })
+
+
 </script>
 
-
-
-{#if user}
+{#if user != null}
     <p>Signed in!</p>
     <button on:click={logout}>Logout</button>
 {:else}

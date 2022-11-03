@@ -12,7 +12,6 @@ export const load: PageServerLoad = async function(){
         id: s._id.toString(), 
         message: s.message 
     } })
-    console.log("back",test);
 
     return {
         test: test
