@@ -62,8 +62,6 @@ export const load: PageServerLoad = async function () {
 
 	mergedData();
 
-	console.log('patient', formatPatients, 'merged', mergedDataList);
-
 	return {
 		patients: formatPatients,
 		patientData: formatPatientData,
