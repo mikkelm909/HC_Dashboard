@@ -1,5 +1,3 @@
-
-
 <script lang="ts">
     import type { PageData } from "./$types";
 	import ProtectedLayout from "./Components/ProtectedLayout.svelte";
@@ -29,6 +27,3 @@
         </table>
     </div>
 </ProtectedLayout>
-
-
-
