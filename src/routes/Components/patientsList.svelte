@@ -34,7 +34,7 @@
 </script>
 
 {#if patients}
-	<table>
+	<table width="500" border="10">
 		<tr>
 			<th>Name</th>
 			<th />
@@ -60,7 +60,7 @@
 				<td>{p.HeartRate}</td>
 				<td>{p.HRV}</td>
 				<td>{p.ArythmiaCount}</td>
-				<td>{p.Date}</td>
+				<td>{p.Date.getDay()}-{p.Date.toLocaleString('default', { month: 'short' })}</td>
 			</tr>
 		{/each}
 	</table>

@@ -51,7 +51,7 @@ export const load: PageServerLoad = async function () {
 						HRV: pd.HRV,
 						ArythmiaCount: pd.ArythmiaCount,
 						BodyTemperature: pd.BodyTemperature,
-						Date: pd.Date
+						Date: new Date(pd.Date) 
 					};
 					newArray.push(newObject);
 				}
