@@ -1,1 +1,0 @@
-<img src="https://m.media-amazon.com/images/I/61wvPWDV4FL._AC_SX466_.jpg" alt="">
