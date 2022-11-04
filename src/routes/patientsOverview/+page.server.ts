@@ -5,7 +5,7 @@ import { patientData } from '$db/Collections/patientData';
 
 export const load: PageServerLoad = async function () {
 	const patientList = await patients.find({}).toArray();
-	const patientDataList = await patientData.find({}).toArray();
+	const patientDataList = await patientData.find({}).limit(1).toArray();
 
 	const formatPatients = patientList.map((p) => {
 		return {
@@ -37,6 +37,7 @@ export const load: PageServerLoad = async function () {
 	const mergedPatientData = formatPatients.map((p) => {
 		formatPatientData.find((patient) => patient.patientId === p.id && patient), p;
 	});
+	console.log(formatPatientData);
 
 	return {
 		patients: formatPatients,

@@ -1,9 +1,12 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	export let patients = [{}];
-	export let patientData = [{}];
-	export let mergedData = [{}];
+	export let patients: any[] = [{}];
+	export let patientData: any[] = [{}];
+	export let mergedData: any[] = [{}];
+	console.log(patients);
+	console.log(patientData);
+	console.log(mergedData);
 </script>
 
 {#if patients}
@@ -38,5 +41,5 @@
 		{/each}
 	</table>
 {:else}
-	<h3>You currently have no patiens</h3>
+	<h3>You currently have no patients</h3>
 {/if}
