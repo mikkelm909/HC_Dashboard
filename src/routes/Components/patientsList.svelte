@@ -3,7 +3,7 @@
 
 	export let patients: any[] = [{}];
 	export let patientData: any[] = [{}];
-	let mergedDataList: any[];
+	let mergedDataList: any[] = [{}];
 
 	const mergedData = () => {
 		let newArray = [{}];
@@ -29,10 +29,9 @@
 		mergedDataList = newArray;
 	};
 
-	onMount(mergedData);
+	mergedData;
 </script>
 
-{@debug mergedDataList}
 {#if patients}
 	<table>
 		<tr>

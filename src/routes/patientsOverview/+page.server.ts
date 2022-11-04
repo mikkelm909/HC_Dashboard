@@ -34,6 +34,35 @@ export const load: PageServerLoad = async function () {
 		};
 	});
 
+	let mergedDataList: any[] = [{}];
+
+	const mergedData = () => {
+		const newArray = [{}];
+		formatPatients.forEach((p) => {
+			formatPatientData.forEach((pd) => {
+				if (p.id === pd.patientId) {
+					const newObject = {
+						name: p.name,
+						BreathingRate: pd.BreathingRate,
+						BreathingDepth: pd.BreathingDepth,
+						SPO2: pd.SPO2,
+						CaughingCount: pd.CaughingCount,
+						HeartRate: pd.HeartRate,
+						HRV: pd.HRV,
+						ArythmiaCount: pd.ArythmiaCount,
+						BodyTemperature: pd.BodyTemperature,
+						Date: pd.Date
+					};
+					newArray.push(newObject);
+				}
+			});
+		});
+		mergedDataList = newArray;
+	};
+
+	mergedData;
+
+	console.log('merged', mergedDataList);
 	/*const mergedPatientData = formatPatients.map((p) => {
 		formatPatientData.find((patient) => patient.patientId === p.id && patient), p;
 	});*/
