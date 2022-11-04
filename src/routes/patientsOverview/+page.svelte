@@ -4,4 +4,4 @@
 	export let data: PageData;
 </script>
 
-<PatientsList patients={data.patients} patientData={data.patientData} />
+<PatientsList patients={data.patients} patientData={data.patientData} merged={data.merged} />

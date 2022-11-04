@@ -36,11 +36,11 @@ export const load: PageServerLoad = async function () {
 
 	let mergedDataList: any[] = [{}];
 
-	const mergedData = () => {
-		const newArray = [{}];
+	function mergedData() {
+		const newArray: any[] = [];
 		formatPatients.forEach((p) => {
 			formatPatientData.forEach((pd) => {
-				if (p.id === pd.patientId) {
+				if (p.id == pd.patientId) {
 					const newObject = {
 						name: p.name,
 						BreathingRate: pd.BreathingRate,
@@ -58,17 +58,15 @@ export const load: PageServerLoad = async function () {
 			});
 		});
 		mergedDataList = newArray;
-	};
+	}
 
-	mergedData;
+	mergedData();
 
-	console.log('merged', mergedDataList);
-	/*const mergedPatientData = formatPatients.map((p) => {
-		formatPatientData.find((patient) => patient.patientId === p.id && patient), p;
-	});*/
+	console.log('patient', formatPatients, 'merged', mergedDataList);
 
 	return {
 		patients: formatPatients,
-		patientData: formatPatientData
+		patientData: formatPatientData,
+		merged: mergedDataList
 	};
 };

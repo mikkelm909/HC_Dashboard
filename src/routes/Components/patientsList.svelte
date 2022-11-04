@@ -3,6 +3,7 @@
 
 	export let patients: any[] = [{}];
 	export let patientData: any[] = [{}];
+	export let merged: any[] = [{}];
 	let mergedDataList: any[] = [{}];
 
 	const mergedData = () => {
@@ -47,7 +48,7 @@
 			<th>Arythmia Count</th>
 			<th>Body Temperature</th>
 		</tr>
-		{#each mergedDataList as p}
+		{#each merged as p}
 			<tr>
 				<td>{p.name}</td>
 				<td />
