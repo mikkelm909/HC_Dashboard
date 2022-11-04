@@ -3,12 +3,36 @@
 
 	export let patients: any[] = [{}];
 	export let patientData: any[] = [{}];
-	export let mergedData: any[] = [{}];
-	console.log(patients);
-	console.log(patientData);
-	console.log(mergedData);
+	let mergedDataList: any[];
+
+	const mergedData = () => {
+		let newArray = [{}];
+		patients.forEach((p) => {
+			patientData.forEach((pd) => {
+				if (p._id === pd.patientId) {
+					let newObject = {
+						name: p.name,
+						BreathingRate: pd.BreathingRate,
+						BreathingDepth: pd.BreathingDepth,
+						SPO2: pd.SPO2,
+						CaughingCount: pd.CaughingCount,
+						HeartRate: pd.HeartRate,
+						HRV: pd.HRV,
+						ArythmiaCount: pd.ArythmiaCount,
+						BodyTemperature: pd.BodyTemperature,
+						Date: pd.Date
+					};
+					newArray.push(newObject);
+				}
+			});
+		});
+		mergedDataList = newArray;
+	};
+
+	onMount(mergedData);
 </script>
 
+{@debug mergedDataList}
 {#if patients}
 	<table>
 		<tr>
@@ -24,7 +48,7 @@
 			<th>Arythmia Count</th>
 			<th>Body Temperature</th>
 		</tr>
-		{#each mergedData as p}
+		{#each mergedDataList as p}
 			<tr>
 				<td>{p.name}</td>
 				<td />

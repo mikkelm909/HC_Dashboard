@@ -34,14 +34,12 @@ export const load: PageServerLoad = async function () {
 		};
 	});
 
-	const mergedPatientData = formatPatients.map((p) => {
+	/*const mergedPatientData = formatPatients.map((p) => {
 		formatPatientData.find((patient) => patient.patientId === p.id && patient), p;
-	});
-	console.log(formatPatientData);
+	});*/
 
 	return {
 		patients: formatPatients,
-		patientData: formatPatientData,
-		totalPatientData: mergedPatientData
+		patientData: formatPatientData
 	};
 };
