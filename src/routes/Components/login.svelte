@@ -31,14 +31,13 @@
     const login = () => {
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredentials) => {
-            user = userCredentials.user;
-            storeUser.set(user.email)
-
+            storeUser.set(JSON.stringify(user))
         })
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
             console.log(errorCode + errorMessage);
+
         })
     };
 

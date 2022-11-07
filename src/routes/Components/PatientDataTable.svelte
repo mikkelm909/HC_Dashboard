@@ -4,7 +4,6 @@
 
 <table width="500" border="10">
     <tr>
-
         <th>Mikkel Meiling</th>
         {#each patients as patient}
         <th>{patient.Date.getDay()}-{patient.Date.toLocaleString('default', { month: 'short' })}</th> <!-- Getting the date for the session -->
