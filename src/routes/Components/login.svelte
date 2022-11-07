@@ -77,6 +77,7 @@
 	});
 </script>
 
+//cum
 {#if user != null}
 	<p>Signed in!</p>
 	<button on:click={logout}>Logout</button>
