@@ -43,6 +43,7 @@
 				);
 				if (foundUser != null) {
 					user = userCredentials.user;
+					storeUser.set(JSON.stringify(user));
 					errorMessage = '';
 				} else {
 					user = null;
