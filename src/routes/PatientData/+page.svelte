@@ -1,4 +1,4 @@
-<script lang="ts">
+<!--<script lang="ts">
 	import PatientDataTable from '../Components/PatientDataTable.svelte';
     import type { PageData } from './$types';
     
@@ -7,6 +7,6 @@
 </script>
 
 
-<!-- {data.PatientData[0]} -->
+ {data.PatientData[0]} 
 
-<PatientDataTable patients = {data.PatientData}></PatientDataTable>
+<PatientDataTable patients = {data.PatientData}></PatientDataTable>-->

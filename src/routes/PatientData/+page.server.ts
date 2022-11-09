@@ -1,4 +1,4 @@
-import type { PageServerLoad } from './$types';
+/*import type { PageServerLoad } from './$types';
 import { patientData } from '$db/Collections/patientData';
 
 
@@ -25,4 +25,4 @@ export const load: PageServerLoad = async function(){
     }
     
     
-}
+}*/

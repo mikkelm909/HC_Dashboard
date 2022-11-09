@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 
 	export let patients: any[] = [{}];
 	export let patientData: any[] = [{}];
@@ -20,10 +20,11 @@
 			<th>HRV</th>
 			<th>Arythmia Count</th>
 			<th>Body Temperature</th>
+			<th>Date</th>
 		</tr>
 		{#each merged as p}
 			<tr>
-				<td>{p.name}</td>
+				<td on:click={() => goto('patientsOverview/' + p.id)}>{p.name}</td>
 				<td />
 				<td>N/A</td>
 				<td>{p.BreathingRate}</td>
@@ -33,7 +34,8 @@
 				<td>{p.HeartRate}</td>
 				<td>{p.HRV}</td>
 				<td>{p.ArythmiaCount}</td>
-				<td>{p.Date.getDay()}-{p.Date.toLocaleString('default', { month: 'short' })}</td>
+				<td>{p.BodyTemperature}</td>
+				<td>{p.Date.toLocaleString()}</td>
 			</tr>
 		{/each}
 	</table>
