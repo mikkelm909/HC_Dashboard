@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 
 	export let patients: any[] = [{}];
 	export let patientData: any[] = [{}];
@@ -23,7 +23,7 @@
 		</tr>
 		{#each merged as p}
 			<tr>
-				<td>{p.name}</td>
+				<td on:click={() => goto('patientsOverview/' + p.id)}>{p.name}</td>
 				<td />
 				<td>N/A</td>
 				<td>{p.BreathingRate}</td>

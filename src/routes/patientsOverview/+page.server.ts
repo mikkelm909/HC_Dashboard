@@ -5,7 +5,7 @@ import { patientData } from '$db/Collections/patientData';
 
 export const load: PageServerLoad = async function () {
 	const patientList = await patients.find({}).toArray();
-	const patientDataList = await patientData.find({}).limit(1).toArray();
+	const patientDataList = await patientData.find({}).toArray();
 
 	const formatPatients = patientList.map((p) => {
 		return {
@@ -42,6 +42,7 @@ export const load: PageServerLoad = async function () {
 			formatPatientData.forEach((pd) => {
 				if (p.id == pd.patientId) {
 					const newObject = {
+						id: pd.patientId,
 						name: p.name,
 						BreathingRate: pd.BreathingRate,
 						BreathingDepth: pd.BreathingDepth,
@@ -51,9 +52,11 @@ export const load: PageServerLoad = async function () {
 						HRV: pd.HRV,
 						ArythmiaCount: pd.ArythmiaCount,
 						BodyTemperature: pd.BodyTemperature,
-						Date: new Date(pd.Date) 
+						Date: new Date(pd.Date)
 					};
-					newArray.push(newObject);
+					if (!newArray.find((obj) => obj.name == newObject.name)) {
+						newArray.push(newObject);
+					}
 				}
 			});
 		});
@@ -61,6 +64,8 @@ export const load: PageServerLoad = async function () {
 	}
 
 	mergedData();
+
+	console.log(mergedDataList);
 
 	return {
 		patients: formatPatients,
