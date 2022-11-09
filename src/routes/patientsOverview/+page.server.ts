@@ -54,6 +54,10 @@ export const load: PageServerLoad = async function () {
 						BodyTemperature: pd.BodyTemperature,
 						Date: new Date(pd.Date)
 					};
+					//Checks if an object with the same patientName exists.
+					//If it doesn't push the new object to the list
+					//If it does but the date is more recent: remove the old and push the new
+					//Else do nothing with the object
 					const foundObject = newArray.find((obj) => obj.name == newObject.name);
 					if (foundObject == null) {
 						newArray.push(newObject);
