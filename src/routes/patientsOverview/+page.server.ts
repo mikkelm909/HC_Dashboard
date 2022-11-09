@@ -54,7 +54,12 @@ export const load: PageServerLoad = async function () {
 						BodyTemperature: pd.BodyTemperature,
 						Date: new Date(pd.Date)
 					};
-					if (!newArray.find((obj) => obj.name == newObject.name)) {
+					const foundObject = newArray.find((obj) => obj.name == newObject.name);
+					if (foundObject == null) {
+						newArray.push(newObject);
+					} else if (foundObject.Date < newObject.Date) {
+						const index = newArray.indexOf(foundObject);
+						newArray.splice(index);
 						newArray.push(newObject);
 					}
 				}

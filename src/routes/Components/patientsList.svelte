@@ -20,6 +20,7 @@
 			<th>HRV</th>
 			<th>Arythmia Count</th>
 			<th>Body Temperature</th>
+			<th>Date</th>
 		</tr>
 		{#each merged as p}
 			<tr>
@@ -33,7 +34,8 @@
 				<td>{p.HeartRate}</td>
 				<td>{p.HRV}</td>
 				<td>{p.ArythmiaCount}</td>
-				<td>{p.Date.getDay()}-{p.Date.toLocaleString('default', { month: 'short' })}</td>
+				<td>{p.BodyTemperature}</td>
+				<td>{p.Date.toLocaleString()}</td>
 			</tr>
 		{/each}
 	</table>

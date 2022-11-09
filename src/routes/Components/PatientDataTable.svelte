@@ -6,7 +6,7 @@
 	<tr>
 		<th>{patient[0].id}</th>
 		{#each patient as patient}
-			<th>{patient.Date.getDay()}-{patient.Date.toLocaleString('default', { month: 'short' })}</th>
+			<th>{patient.Date.toLocaleString()}</th>
 			<!-- Getting the date for the session -->
 		{/each}
 	</tr>
