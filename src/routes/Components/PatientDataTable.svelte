@@ -4,7 +4,7 @@
 
 <table width="500" border="10">
 	<tr>
-		<th>{patient[0].id}</th>
+		<th>{patient[0].name}</th>
 		{#each patient as patient}
 			<th>{patient.Date.toLocaleString()}</th>
 			<!-- Getting the date for the session -->
