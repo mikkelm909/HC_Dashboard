@@ -11,7 +11,8 @@ const config = {
 		adapter: adapter(),
 		alias: {
 			$db: "./src/db",
-			$protectedUser: "src/Stores/LoginStore"
+			$protectedUser: "src/Stores/LoginStore",
+			$lib: "src/routes/lib"
 		}
 	}
 };
