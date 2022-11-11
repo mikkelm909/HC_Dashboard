@@ -74,6 +74,7 @@ export const load: PageServerLoad = async function () {
 
 	mergedData();
 
+
 	return {
 		patients: formatPatients,
 		patientData: formatPatientData,
