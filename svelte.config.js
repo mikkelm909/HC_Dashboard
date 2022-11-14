@@ -12,7 +12,7 @@ const config = {
 		alias: {
 			$db: "./src/db",
 			$protectedUser: "src/Stores/LoginStore",
-			$lib: "src/routes/lib"
+			$comps: "src/Comps/editThreshold.svelte"
 		}
 	}
 };

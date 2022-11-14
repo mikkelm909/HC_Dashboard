@@ -1,4 +1,4 @@
-import type { PageServerLoad } from "./$types";
+import type { PageServerLoad } from "../../.svelte-kit/types/src/routes/$types";
 import type { Load } from "@sveltejs/kit";
 import { mongoData } from "$db/Collections/test";
 import { ObjectId } from "mongodb";
