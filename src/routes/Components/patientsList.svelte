@@ -6,50 +6,82 @@
 	export let patientData: any[] = [{}];
 	export let merged: any[] = [{}];
 
+	let sortedPatientData = merged;
+
+	let selectedHeader = 'Name';
+	let ascendingOrder = true;
+
 	let searchCriteria = '';
 	let foundPatients: any[] = [];
 	function search() {
 		if (searchCriteria != '') {
-			foundPatients = merged.filter((p) =>
-				p.name.toLowerCase().includes(searchCriteria.toLowerCase())
+			foundPatients = sortedPatientData.filter((p) =>
+				p.Name.toLowerCase().includes(searchCriteria.toLowerCase())
 			);
-		} else if (searchCriteria == '' || !merged.includes(searchCriteria)) {
+		} else if (searchCriteria == '' || !sortedPatientData.includes(searchCriteria)) {
 			foundPatients.forEach((fp) => {
 				foundPatients.pop();
 			});
 		}
 	}
+
+	//SORTING VIDEO https://www.youtube.com/watch?v=TKIALJcTJDU&ab_channel=SixStringsCoder
+	const tableHeaders = Object.keys(merged[0]);
+
+	const sortByNumber = (tableHeader: any) => {
+		sortedPatientData = sortedPatientData.sort((obj1, obj2) => {
+			return ascendingOrder
+				? obj1[tableHeader] - obj2[tableHeader]
+				: obj2[tableHeader] - obj1[tableHeader];
+		});
+		selectedHeader = tableHeader;
+	};
+
+	const sortByString = (tableHeader: any) => {
+		sortedPatientData = sortedPatientData.sort((obj1, obj2) => {
+			if (obj1[tableHeader] < obj2[tableHeader]) {
+				return -1;
+			} else if (obj1[tableHeader] > obj2[tableHeader]) {
+				return 1;
+			}
+			return 0;
+		});
+		if (!ascendingOrder) {
+			sortedPatientData = sortedPatientData.reverse();
+		}
+		selectedHeader = tableHeader;
+	};
 </script>
 
 <input
 	type="text"
-	id="name"
 	placeholder="Patient name"
 	bind:value={searchCriteria}
 	on:input={() => search()}
 />
-
-{#if foundPatients.length == 0}
+{#if foundPatients.length <= 0}
 	<table width="500" border="10">
 		<tr>
-			<th>Name</th>
-			<th />
-			<th>Risk Score</th>
-			<th>Breathing Rate</th>
-			<th>Breathing Depth</th>
-			<th>Oxygen</th>
-			<th>Coughing Count</th>
-			<th>Heart Rate</th>
-			<th>HRV</th>
-			<th>Arythmia Count</th>
-			<th>Body Temperature</th>
-			<th>Date</th>
+			{#each tableHeaders as header}
+				{#if header != 'id'}
+					<th
+						class:highlighted={selectedHeader === header}
+						on:click={() => (header === 'Name' ? sortByString(header) : sortByNumber(header))}
+						>{header}
+						{#if header === selectedHeader}
+							<span class="order-icon" on:click={() => (ascendingOrder = !ascendingOrder)}
+								>{@html ascendingOrder ? '&#9661;' : '&#9651'}
+							</span>
+						{/if}
+					</th>
+				{/if}
+			{/each}
 		</tr>
-		{#each merged as p}
+		{#each sortedPatientData as p}
 			<tr>
-				<td on:click={() => goto('patientsOverview/' + p.id)}>{p.name}</td>
+				<td on:click={() => goto('patientsOverview/' + p.id)}>{p.Name}</td>
 				<td />
-				<td>N/A</td>
+				<td />
 				<td>{p.BreathingRate}</td>
 				<td>{p.BreathingDepth}</td>
 				<td>{p.SPO2}</td>
@@ -65,24 +97,26 @@
 {:else}
 	<table width="500" border="10">
 		<tr>
-			<th>Name</th>
-			<th />
-			<th>Risk Score</th>
-			<th>Breathing Rate</th>
-			<th>Breathing Depth</th>
-			<th>Oxygen</th>
-			<th>Coughing Count</th>
-			<th>Heart Rate</th>
-			<th>HRV</th>
-			<th>Arythmia Count</th>
-			<th>Body Temperature</th>
-			<th>Date</th>
+			{#each tableHeaders as header}
+				{#if header != 'id'}
+					<th
+						class:highlighted={selectedHeader === header}
+						on:click={() => (header === 'Name' ? sortByString(header) : sortByNumber(header))}
+						>{header}
+						{#if header === selectedHeader}
+							<span class="order-icon" on:click={() => (ascendingOrder = !ascendingOrder)}
+								>{@html ascendingOrder ? '&#9661;' : '&#9651'}
+							</span>
+						{/if}
+					</th>
+				{/if}
+			{/each}
 		</tr>
 		{#each foundPatients as p}
 			<tr>
-				<td on:click={() => goto('patientsOverview/' + p.id)}>{p.name}</td>
+				<td on:click={() => goto('patientsOverview/' + p.id)}>{p.Name}</td>
 				<td />
-				<td>N/A</td>
+				<td />
 				<td>{p.BreathingRate}</td>
 				<td>{p.BreathingDepth}</td>
 				<td>{p.SPO2}</td>
@@ -96,3 +130,13 @@
 		{/each}
 	</table>
 {/if}
+
+<style>
+	th {
+		cursor: pointer;
+	}
+
+	.highlighted {
+		color: orangered;
+	}
+</style>
