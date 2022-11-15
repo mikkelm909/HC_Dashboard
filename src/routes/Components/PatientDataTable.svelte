@@ -1,12 +1,15 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { dataset_dev } from 'svelte/internal';
 	export let patient: any[] = [];
-
+	export var patientId:string; 
 	let startDate: Date = new Date('2000-11-10');
 	let endDate: Date = new Date('3000-11-10');
 
 	$: formatedStart = new Date(startDate);
 	$: formatedEnd = new Date(endDate);
+
+
 
 	var filteredPatient: any[] = [];
 	function getDataByDates() {
@@ -89,3 +92,6 @@
 		{/each}
 	</tr>
 </table>
+
+
+<a href="/threshold/{patientId}"><button>Edit Threshold</button></a>

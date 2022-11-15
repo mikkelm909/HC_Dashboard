@@ -8,4 +8,4 @@
 
 </script>
 
-<PatientDataTable patient={data.patientData} />
+<PatientDataTable patient={data.patientData} patientId={data.id}/>

@@ -7,4 +7,4 @@ export function start_mongo(): Promise<MongoClient> {
 	return client.connect();
 }
 
-export default client.db('sci_db');
+export default client.db('HC_dashboard');
