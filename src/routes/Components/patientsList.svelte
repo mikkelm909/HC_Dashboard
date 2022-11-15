@@ -19,9 +19,7 @@
 				p.Name.toLowerCase().includes(searchCriteria.toLowerCase())
 			);
 		} else if (searchCriteria == '' || !sortedPatientData.includes(searchCriteria)) {
-			foundPatients.forEach((fp) => {
-				foundPatients.pop();
-			});
+			foundPatients = [];
 		}
 	}
 
