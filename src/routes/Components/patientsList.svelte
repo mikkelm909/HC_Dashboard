@@ -67,7 +67,7 @@
 					<th
 						class:highlighted={selectedHeader === header}
 						on:click={() => (header === 'Name' ? sortByString(header) : sortByNumber(header))}
-						>{header}
+						>{header.replace('_', ' ')}
 						{#if header === selectedHeader}
 							<span class="order-icon" on:click={() => (ascendingOrder = !ascendingOrder)}
 								>{@html ascendingOrder ? '&#9661;' : '&#9651'}
@@ -82,15 +82,15 @@
 				<td on:click={() => goto('patientsOverview/' + p.id)}>{p.Name}</td>
 				<td />
 				<td />
-				<td>{p.BreathingRate}</td>
-				<td>{p.BreathingDepth}</td>
-				<td>{p.SPO2}</td>
-				<td>{p.CaughingCount}</td>
-				<td>{p.HeartRate}</td>
-				<td>{p.HRV}</td>
-				<td>{p.ArythmiaCount}</td>
-				<td>{p.BodyTemperature}</td>
 				<td>{p.Date.toLocaleString()}</td>
+				<td>{p.Breathing_Rate}</td>
+				<td>{p.Breathing_Depth}</td>
+				<td>{p.SPO2}</td>
+				<td>{p.Coughing_Count}</td>
+				<td>{p.Heart_Rate}</td>
+				<td>{p.HRV}</td>
+				<td>{p.Arythmia_Count}</td>
+				<td>{p.Body_Temperature}</td>
 			</tr>
 		{/each}
 	</table>
@@ -117,6 +117,7 @@
 				<td on:click={() => goto('patientsOverview/' + p.id)}>{p.Name}</td>
 				<td />
 				<td />
+				<td>{p.Date.toLocaleString()}</td>
 				<td>{p.BreathingRate}</td>
 				<td>{p.BreathingDepth}</td>
 				<td>{p.SPO2}</td>
@@ -125,7 +126,6 @@
 				<td>{p.HRV}</td>
 				<td>{p.ArythmiaCount}</td>
 				<td>{p.BodyTemperature}</td>
-				<td>{p.Date.toLocaleString()}</td>
 			</tr>
 		{/each}
 	</table>

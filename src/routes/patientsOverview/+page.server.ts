@@ -44,17 +44,17 @@ export const load: PageServerLoad = async function () {
 					const newObject = {
 						id: pd.patientId,
 						Name: p.name,
-						Last14Days: '',
-						RiskScore: '',
-						BreathingRate: pd.BreathingRate,
-						BreathingDepth: pd.BreathingDepth,
+						Last_14Days: '',
+						Risk_Score: '',
+						Date: new Date(pd.Date),
+						Breathing_Rate: pd.BreathingRate,
+						Breathing_Depth: pd.BreathingDepth,
 						SPO2: pd.SPO2,
-						CaughingCount: pd.CaughingCount,
-						HeartRate: pd.HeartRate,
+						Coughing_Count: pd.CaughingCount,
+						Heart_Rate: pd.HeartRate,
 						HRV: pd.HRV,
-						ArythmiaCount: pd.ArythmiaCount,
-						BodyTemperature: pd.BodyTemperature,
-						Date: new Date(pd.Date)
+						Arythmia_Count: pd.ArythmiaCount,
+						Body_Temperature: pd.BodyTemperature
 					};
 					//Checks if an object with the same patientName exists.
 					//If it doesn't push the new object to the list
