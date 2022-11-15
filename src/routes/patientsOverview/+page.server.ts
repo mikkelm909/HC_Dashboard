@@ -43,22 +43,24 @@ export const load: PageServerLoad = async function () {
 				if (p.id == pd.patientId) {
 					const newObject = {
 						id: pd.patientId,
-						name: p.name,
-						BreathingRate: pd.BreathingRate,
-						BreathingDepth: pd.BreathingDepth,
+						Name: p.name,
+						Last_14Days: '',
+						Risk_Score: '',
+						Date: new Date(pd.Date),
+						Breathing_Rate: pd.BreathingRate,
+						Breathing_Depth: pd.BreathingDepth,
 						SPO2: pd.SPO2,
-						CaughingCount: pd.CaughingCount,
-						HeartRate: pd.HeartRate,
+						Coughing_Count: pd.CaughingCount,
+						Heart_Rate: pd.HeartRate,
 						HRV: pd.HRV,
-						ArythmiaCount: pd.ArythmiaCount,
-						BodyTemperature: pd.BodyTemperature,
-						Date: new Date(pd.Date)
+						Arythmia_Count: pd.ArythmiaCount,
+						Body_Temperature: pd.BodyTemperature
 					};
 					//Checks if an object with the same patientName exists.
 					//If it doesn't push the new object to the list
 					//If it does but the date is more recent: remove the old and push the new
 					//Else do nothing with the object
-					const foundObject = newArray.find((obj) => obj.name == newObject.name);
+					const foundObject = newArray.find((obj) => obj.Name == newObject.Name);
 					if (foundObject == null) {
 						newArray.push(newObject);
 					} else if (foundObject.Date < newObject.Date) {
@@ -73,7 +75,6 @@ export const load: PageServerLoad = async function () {
 	}
 
 	mergedData();
-
 
 	return {
 		patients: formatPatients,
