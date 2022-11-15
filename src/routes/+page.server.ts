@@ -6,7 +6,7 @@ import { ObjectId } from "mongodb";
 
 export const load: PageServerLoad = async function(){
     const data = await mongoData.find({}, {projection: {message: 1, _id: 1}}).toArray(); //for some reason it will not return objects with new ObjectId("") so we map it out
-
+    console.log(data)
 
     const test = data.map(s => { return { 
         id: s._id.toString(), 

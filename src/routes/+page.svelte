@@ -10,20 +10,8 @@
 
 </script>
 <ProtectedLayout>
-        <div>
-        <h1>Query fetch from Mongodb</h1>
-
-        <table width="500" border="10"> 
-            <tr> 
-                <th>id</th> 
-                <th>Message</th> 
-            </tr> 
-            {#each data.test as i} 
-            <tr> 
-                <td>{i.id}</td> 
-                <td> {i.message}</td> 
-            </tr> 
-            {/each} 
-        </table>
+    <div>
+        <a href="/patientsOverview"><button>patientsOverview</button></a>
+        <a href="/login"><button>login</button></a>
     </div>
 </ProtectedLayout>

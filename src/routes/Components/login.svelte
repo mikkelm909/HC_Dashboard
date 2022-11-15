@@ -34,7 +34,7 @@
 	let email = '';
 	let password = '';
 	let errorMessage = '';
-	user.
+
 	const login = () => {
 		signInWithEmailAndPassword(auth, email, password)
 			.then((userCredentials) => {

@@ -45,6 +45,6 @@ export const load: PageServerLoad = async function ({ params }) {
 	});
 
 	return {
-		patientData: patientDataArray
+		patientData: patientDataArray, id: params.patientId
 	};
 };
