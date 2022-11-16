@@ -1,5 +1,5 @@
 <script lang="ts">
-  	import PatientDataTable from '../../Components/PatientDataTable.svelte';
+
 
     import type {PageData} from "./$types"
 

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { storeHCPId } from '$protectedMongoId';
 	import { onMount } from 'svelte';
 	import { dataset_dev } from 'svelte/internal';
 	export let patient: any[] = [];
@@ -8,7 +9,6 @@
 
 	$: formatedStart = new Date(startDate);
 	$: formatedEnd = new Date(endDate);
-
 
 
 	var filteredPatient: any[] = [];
@@ -94,4 +94,4 @@
 </table>
 
 
-<a href="/threshold/{patientId}"><button>Edit Threshold</button></a>
+<a href="/threshold/{patientId}/{$storeHCPId}"><button>Edit Threshold</button></a>

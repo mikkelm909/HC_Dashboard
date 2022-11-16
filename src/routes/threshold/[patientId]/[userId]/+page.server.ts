@@ -1,48 +1,45 @@
-import type { PageServerLoad, PageServerLoadEvent, RequestEvent } from './$types';
-import { patientData } from '$db/Collections/patientData';
-import { patients } from '$db/Collections/patients';
-import { ObjectId } from 'mongodb';
-import { MONGO_URL } from '$env/static/private';
-import type { RequestHandler } from '@sveltejs/kit/types/internal';
-import type { Actions } from './$types';
+import { page } from "$app/stores";
+import { patients } from "$db/Collections/patients";
+import type { PageServerLoad } from ".svelte-kit/types/src/routes/threshold/[patientId]/[userId]/$types";
+
+import type { Actions } from "@sveltejs/kit";
 
 
-let param: string;
+
+import { ObjectId } from "mongodb";
+
+
+
+let paramPatient: string;
 
 
 export const load: PageServerLoad = async function ({ params }) {
-    param = params.id
+  paramPatient = params.patientId
+	const patient = await patients.find({_id: new ObjectId(params.patientId)}).toArray();
 
-	const patient = await patients.find({_id: new ObjectId(params.id)}).toArray();
+  const patientArray = patient.map((p) => {
+    var thresholds;
+    var exist = p.HCProThresholds.find((value) => {
 
+        thresholds = value
+        return value.HCPro == params.userId
 
+    })
 
-	// const patientArray = patient.map((p) => {
-  //   p.HCProThresholds.forEach((pro: { HCPro: string; }) => {
-  //     if(pro.HCPro == params.id){
-  //       return {
-  //       id: p._id.toString(),
-  //       name: p.name,
-  //       age: p.age,
-  //       sex: p.sex,
-  //       weight: p.weight,
-  //       height: p.height,
-  //       HCProThresholds: p.HCProThresholds.Thresholds
-  //     }}
-  //   });
-
-const patientArray = patient.map((p) => {
-  p.HCProThresholds.forEach(value => {
-
+    console.log("exist",exist)
+    if(exist){
       return {
-        id: "jep"
+        id: p._id.toString(),
+        name: p.name,
+        age: p.age,
+        sex: p.sex,
+        weight: p.weight,
+        height: p.height, 
+        HCProThresholds: thresholds
       }
-
+    }
+    
   });
-
-
-
-})
 
 	return {
 		patientData: patientArray
@@ -50,7 +47,7 @@ const patientArray = patient.map((p) => {
 };
 
 async function UpdateThreashold(BreathingRateTH: any, BreathingDepthTH: any, SPO2TH: any, CaughingCountTH: any, HeartRateTH: any, HRVTH: any, ArythmiaCountTH: any, BodyTemperatureTH: any){
-    patients.updateOne({_id: new ObjectId(param)}, 
+    patients.updateOne({_id: new ObjectId(paramPatient)}, 
     {
     $set: { 
         'BreathingRateThreshold': BreathingRateTH, 
