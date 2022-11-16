@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { storeHCPId } from '$protectedMongoId';
 	import { construct_svelte_component } from 'svelte/internal';
 
 	export let patients: any[] = [{}];
@@ -77,7 +78,7 @@
 		</tr>
 		{#each sortedPatientData as p}
 			<tr>
-				<td on:click={() => goto('patientsOverview/' + p.id)}>{p.Name}</td>
+				<td on:click={() => goto($storeHCPId +"/"+ p.id)}>{p.Name}</td>
 				<td />
 				<td />
 				<td>{p.Date.toLocaleString()}</td>

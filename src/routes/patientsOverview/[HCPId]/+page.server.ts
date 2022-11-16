@@ -5,7 +5,6 @@ import { patientData } from '$db/Collections/patientData';
 import { storeHCPId } from '$protectedMongoId';
 
 export const load: PageServerLoad = async function ( {params}) {
-	console.log(params.HCPId)
 	const patientList = await patients.find({assingedHealthCarePro: params.HCPId}).toArray();
 	const patientDataList = await patientData.find({}).toArray();
 
@@ -16,10 +15,10 @@ export const load: PageServerLoad = async function ( {params}) {
 			age: p.age,
 			sex: p.sex,
 			weight: p.weight,
-			height: p.height
+			height: p.height,
+			HCProThresholds: p.HCProThresholds
 		};
 	});
-	console.log(patientList)
 	const formatPatientData = patientDataList.map((p) => {
 		return {
 			id: p._id.toString(),

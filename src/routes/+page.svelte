@@ -4,7 +4,7 @@
 	import ProtectedLayout from "./Components/ProtectedLayout.svelte";
     export let data: PageData
 
-    console.log(storeHCPId)
+
 
 </script>
 

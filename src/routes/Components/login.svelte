@@ -46,15 +46,12 @@
 				if (foundUser != null) {
 					user = userCredentials.user;
 					storeHCPId.set(foundUser.id)
-					console.log(foundUser.id)
 					storeUser.set(JSON.stringify(user));
-
 					errorMessage = '';
 				} else {
 					user = null;
 					errorMessage = 'Only healthcare professionals can use this service!';
 				}
-				console.log(user);
 			})
 			.catch((error) => {
 				const errorCode = error.code;

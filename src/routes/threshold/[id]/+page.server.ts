@@ -9,21 +9,40 @@ import type { Actions } from './$types';
 
 let param: string;
 
+
 export const load: PageServerLoad = async function ({ params }) {
     param = params.id
 
 	const patient = await patients.find({_id: new ObjectId(params.id)}).toArray();
-	const patientArray = patient.map((p) => {
-		return {
-			id: p._id.toString(),
-			name: p.name,
-			age: p.age,
-			sex: p.sex,
-			weight: p.weight,
-			height: p.height,
-      HCProThresholds: p.HCProThresholds
-		};
-	});	
+
+
+
+	// const patientArray = patient.map((p) => {
+  //   p.HCProThresholds.forEach((pro: { HCPro: string; }) => {
+  //     if(pro.HCPro == params.id){
+  //       return {
+  //       id: p._id.toString(),
+  //       name: p.name,
+  //       age: p.age,
+  //       sex: p.sex,
+  //       weight: p.weight,
+  //       height: p.height,
+  //       HCProThresholds: p.HCProThresholds.Thresholds
+  //     }}
+  //   });
+
+const patientArray = patient.map((p) => {
+  p.HCProThresholds.forEach(value => {
+
+      return {
+        id: "jep"
+      }
+
+  });
+
+
+
+})
 
 	return {
 		patientData: patientArray
