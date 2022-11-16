@@ -9,12 +9,14 @@
 		type User
 	} from 'firebase/auth';
 	import { storeUser } from '$protectedUser';
-	import { debug } from 'svelte/internal';
+	import { debug, has_prop } from 'svelte/internal';
 	import { error } from '@sveltejs/kit';
+	import { storeHCPId } from '$protectedMongoId';
+
 
 	export let api = ''; //makes it so the api string can be inserted to the component
 	export let healthcareProfessionals: any[] = [{}];
-
+	let mongoId = healthcareProfessionals[0]._id
 	//https://www.youtube.com/watch?v=PXf0t6Id7i0&ab_channel=IvanSantos
 	const firebaseConfig = {
 		apiKey: api,
@@ -43,13 +45,13 @@
 				);
 				if (foundUser != null) {
 					user = userCredentials.user;
+					storeHCPId.set(foundUser.id)
 					storeUser.set(JSON.stringify(user));
 					errorMessage = '';
 				} else {
 					user = null;
 					errorMessage = 'Only healthcare professionals can use this service!';
 				}
-				console.log(user);
 			})
 			.catch((error) => {
 				const errorCode = error.code;
@@ -63,6 +65,7 @@
 			.then(() => {
 				user = null;
 				storeUser.set('');
+				storeHCPId.set('');
 				console.log('You are logged out!');
 			})
 			.catch((error) => {

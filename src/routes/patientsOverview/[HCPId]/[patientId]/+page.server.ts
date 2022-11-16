@@ -5,7 +5,6 @@ import { patients } from '$db/Collections/patients';
 export const load: PageServerLoad = async function ({ params }) {
 	const data = await patientData.find({ patientId: params.patientId }).toArray();
 	const patient = await patients.find({}).toArray();
-	console.log(patient);
 
 	const patientArray = patient.map((p) => {
 		return {

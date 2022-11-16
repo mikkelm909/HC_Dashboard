@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { storeHCPId } from '$protectedMongoId';
 
 	export let patients: any[] = [{}];
 	export let patientData: any[] = [{}];
@@ -80,7 +81,7 @@
 		</tr>
 		{#each sortedPatientData as p}
 			<tr>
-				<td on:click={() => goto('patientsOverview/' + p.id)}>{p.Name}</td>
+				<td on:click={() => goto($storeHCPId +"/"+ p.id)}>{p.Name}</td>
 				<td />
 				<td />
 				<td>{p.Last_Reading.toLocaleString()}</td>

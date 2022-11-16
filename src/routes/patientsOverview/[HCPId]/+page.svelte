@@ -1,7 +1,12 @@
 <script lang="ts">
+	import PatientsList from '../../Components/patientsList.svelte';
+
+
 	import type { PageData } from './$types';
-	import PatientsList from '../Components/patientsList.svelte';
+
 	export let data: PageData;
+	console.log(data.patients)
+	
 </script>
 
 <PatientsList patients={data.patients} patientData={data.patientData} merged={data.merged} />
