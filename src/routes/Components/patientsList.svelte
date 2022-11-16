@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { construct_svelte_component } from 'svelte/internal';
 
 	export let patients: any[] = [{}];
 	export let patientData: any[] = [{}];
