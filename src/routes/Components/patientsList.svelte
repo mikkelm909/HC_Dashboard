@@ -1,7 +1,5 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { storeHCPId } from '$protectedMongoId';
-	import { construct_svelte_component } from 'svelte/internal';
 
 	export let patients: any[] = [{}];
 	export let patientData: any[] = [{}];
@@ -64,11 +62,15 @@
 			{#each tableHeaders as header}
 				{#if header != 'id'}
 					<th
+						id="oneLine"
 						class:highlighted={selectedHeader === header}
 						on:click={() => (header === 'Name' ? sortByString(header) : sortByNumber(header))}
-						>{header.replace('_', ' ')}
+						><p>{header.replace('_', ' ')}</p>
 						{#if header === selectedHeader}
-							<span class="order-icon" on:click={() => (ascendingOrder = !ascendingOrder)}
+							<span
+								id="arrow"
+								class="order-icon"
+								on:click={() => (ascendingOrder = !ascendingOrder)}
 								>{@html ascendingOrder ? '&#9661;' : '&#9651'}
 							</span>
 						{/if}
@@ -81,7 +83,7 @@
 				<td on:click={() => goto($storeHCPId +"/"+ p.id)}>{p.Name}</td>
 				<td />
 				<td />
-				<td>{p.Date.toLocaleString()}</td>
+				<td>{p.Last_Reading.toLocaleString()}</td>
 				<td>{p.Breathing_Rate}</td>
 				<td>{p.Breathing_Depth}</td>
 				<td>{p.SPO2}</td>
@@ -99,11 +101,15 @@
 			{#each tableHeaders as header}
 				{#if header != 'id'}
 					<th
+						id="oneLine"
 						class:highlighted={selectedHeader === header}
 						on:click={() => (header === 'Name' ? sortByString(header) : sortByNumber(header))}
-						>{header}
+						>{header.replace('_', ' ')}
 						{#if header === selectedHeader}
-							<span class="order-icon" on:click={() => (ascendingOrder = !ascendingOrder)}
+							<span
+								id="arrow"
+								class="order-icon"
+								on:click={() => (ascendingOrder = !ascendingOrder)}
 								>{@html ascendingOrder ? '&#9661;' : '&#9651'}
 							</span>
 						{/if}
@@ -116,15 +122,15 @@
 				<td on:click={() => goto('patientsOverview/' + p.id)}>{p.Name}</td>
 				<td />
 				<td />
-				<td>{p.Date.toLocaleString()}</td>
-				<td>{p.BreathingRate}</td>
-				<td>{p.BreathingDepth}</td>
+				<td>{p.Last_Reading.toLocaleString()}</td>
+				<td>{p.Breathing_Rate}</td>
+				<td>{p.Breathing_Depth}</td>
 				<td>{p.SPO2}</td>
-				<td>{p.CaughingCount}</td>
-				<td>{p.HeartRate}</td>
+				<td>{p.Coughing_Count}</td>
+				<td>{p.Heart_Rate}</td>
 				<td>{p.HRV}</td>
-				<td>{p.ArythmiaCount}</td>
-				<td>{p.BodyTemperature}</td>
+				<td>{p.Arythmia_Count}</td>
+				<td>{p.Body_Temperature}</td>
 			</tr>
 		{/each}
 	</table>
@@ -137,5 +143,10 @@
 
 	.highlighted {
 		color: orangered;
+	}
+
+	#oneLine {
+		white-space: nowrap;
+		overflow: hidden;
 	}
 </style>
