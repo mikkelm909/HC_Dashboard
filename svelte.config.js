@@ -12,6 +12,7 @@ const config = {
 		alias: {
 			$db: "./src/db",
 			$protectedUser: "src/Stores/LoginStore",
+			$protectedMongoId: "src/Stores/MongoId",
 			$comps: "src/Comps/editThreshold.svelte"
 		}
 	}

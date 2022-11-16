@@ -2,9 +2,11 @@ import type { PageServerLoad } from './$types';
 import type { Load } from '@sveltejs/kit';
 import { patients } from '$db/Collections/patients';
 import { patientData } from '$db/Collections/patientData';
+import { storeHCPId } from '$protectedMongoId';
 
-export const load: PageServerLoad = async function () {
-	const patientList = await patients.find({}).toArray();
+export const load: PageServerLoad = async function ( {params}) {
+	console.log(params.HCPId)
+	const patientList = await patients.find({assingedHealthCarePro: params.HCPId}).toArray();
 	const patientDataList = await patientData.find({}).toArray();
 
 	const formatPatients = patientList.map((p) => {
@@ -17,7 +19,7 @@ export const load: PageServerLoad = async function () {
 			height: p.height
 		};
 	});
-
+	console.log(patientList)
 	const formatPatientData = patientDataList.map((p) => {
 		return {
 			id: p._id.toString(),

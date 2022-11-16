@@ -20,7 +20,8 @@ export const load: PageServerLoad = async function ({ params }) {
 			age: p.age,
 			sex: p.sex,
 			weight: p.weight,
-			height: p.height
+			height: p.height,
+      HCProThresholds: p.HCProThresholds
 		};
 	});	
 

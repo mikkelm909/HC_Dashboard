@@ -1,17 +1,15 @@
 import { browser } from '$app/environment';
 import { writable } from 'svelte/store';
 
-
-
 //we use the browser to avoid erros if this is run before the server side render
 if (browser) {
-	var localUser = localStorage.getItem('storeUser');
+	var selectedHCPId = localStorage.getItem('mongoId');
 }
 
-export const storeUser = writable(localUser);
+export const storeHCPId = writable(selectedHCPId);
 
 if (browser) {
-	storeUser.subscribe((value) => {
-		localStorage.setItem('storeUser', value);
+	storeHCPId.subscribe((value) => {
+		localStorage.setItem('mongoId', value);
 	});
 }
