@@ -46,7 +46,7 @@ export const load: PageServerLoad = async function () {
 						Name: p.name,
 						Last_14Days: '',
 						Risk_Score: '',
-						Date: new Date(pd.Date),
+						Last_Reading: new Date(pd.Date),
 						Breathing_Rate: pd.BreathingRate,
 						Breathing_Depth: pd.BreathingDepth,
 						SPO2: pd.SPO2,
@@ -63,7 +63,7 @@ export const load: PageServerLoad = async function () {
 					const foundObject = newArray.find((obj) => obj.Name == newObject.Name);
 					if (foundObject == null) {
 						newArray.push(newObject);
-					} else if (foundObject.Date < newObject.Date) {
+					} else if (foundObject.Last_Reading < newObject.Last_Reading) {
 						const index = newArray.indexOf(foundObject);
 						newArray.splice(index);
 						newArray.push(newObject);
