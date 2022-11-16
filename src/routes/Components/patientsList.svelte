@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { storeHCPId } from '$protectedMongoId';
 
 	export let patients: any[] = [{}];
 	export let patientData: any[] = [{}];
