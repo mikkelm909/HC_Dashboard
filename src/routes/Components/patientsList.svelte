@@ -1,12 +1,15 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { storeHCPId } from '$protectedMongoId';
+	import { object_without_properties } from 'svelte/internal';
 
 	export let patients: any[] = [{}];
 	export let patientData: any[] = [{}];
 	export let merged: any[] = [{}];
 
 	let sortedPatientData = merged;
+
+	console.log('neger', sortedPatientData);
 
 	let defaultThresholds = [
 		{
@@ -102,6 +105,74 @@
 	}
 	setToDefaultThreshold();
 
+	function riskScore() {
+		sortedPatientData.forEach((p) => {
+			p.Risk_Score = 0;
+			Object.keys(p.Thresholds).forEach(function (key) {
+				switch (key) {
+					case 'BreathingRateThreshold':
+						if (
+							p.Breathing_Rate >= p.Thresholds[key].high ||
+							p.Breathing_Rate <= p.Thresholds[key].low
+						) {
+							p.Risk_Score = p.Risk_Score + 1;
+						}
+						break;
+					case 'BreathingDepthThreshold':
+						if (
+							p.Breathing_Depth >= p.Thresholds[key].high ||
+							p.Breathing_Depth <= p.Thresholds[key].low
+						) {
+							p.Risk_Score = p.Risk_Score + 1;
+						}
+						break;
+					case 'SPO2Threshold':
+						if (p.SPO2 >= p.Thresholds[key].high || p.SPO2 <= p.Thresholds[key].low) {
+							p.Risk_Score = p.Risk_Score + 1;
+						}
+						break;
+					case 'CaughingCountThreshold':
+						if (
+							p.Coughing_Count >= p.Thresholds[key].high ||
+							p.Coughing_Count <= p.Thresholds[key].low
+						) {
+							p.Risk_Score = p.Risk_Score + 1;
+						}
+						break;
+					case 'HeartRateThreshold':
+						if (p.Heart_Rate >= p.Thresholds[key].high || p.Heart_Rate <= p.Thresholds[key].low) {
+							p.Risk_Score = p.Risk_Score + 1;
+						}
+						break;
+					case 'HRVThreshold':
+						if (p.HRV >= p.Thresholds[key].high || p.HRV <= p.Thresholds[key].low) {
+							p.Risk_Score = p.Risk_Score + 1;
+						}
+						break;
+					case 'ArythmiaCountThreshold':
+						if (
+							p.Arythmia_Count >= p.Thresholds[key].high ||
+							p.Arythmia_Count <= p.Thresholds[key].low
+						) {
+							p.Risk_Score = p.Risk_Score + 1;
+						}
+						break;
+					case 'BodyTemperatureThreshold':
+						if (
+							p.Body_Temperature >= p.Thresholds[key].high ||
+							p.Body_Temperature <= p.Thresholds[key].low
+						) {
+							p.Risk_Score = p.Risk_Score + 1;
+						}
+						break;
+					default:
+						break;
+				}
+			});
+		});
+	}
+	riskScore();
+
 	let selectedHeader = 'Name';
 	let ascendingOrder = true;
 
@@ -166,8 +237,6 @@
 		}
 		selectedHeader = tableHeader;
 	};
-
-	console.log(sortedPatientData);
 </script>
 
 <input
