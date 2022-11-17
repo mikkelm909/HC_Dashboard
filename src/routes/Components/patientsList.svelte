@@ -50,54 +50,90 @@
 
 	function setToDefaultThreshold() {
 		sortedPatientData.forEach((p) => {
-			if (p.Thresholds.BreathingRateThreshold.high == null) {
+			if (
+				p.Thresholds.BreathingRateThreshold.high == null ||
+				p.Thresholds.BreathingRateThreshold.high == ''
+			) {
 				p.Thresholds.BreathingRateThreshold.high = defaultThresholds[0].BreathingRateThreshold.high;
 			}
-			if (p.Thresholds.BreathingRateThreshold.low == null) {
+			if (
+				p.Thresholds.BreathingRateThreshold.low == null ||
+				p.Thresholds.BreathingRateThreshold.low == ''
+			) {
 				p.Thresholds.BreathingRateThreshold.low = defaultThresholds[0].BreathingRateThreshold.low;
 			}
-			if (p.Thresholds.BreathingDepthThreshold.high == null) {
+			if (
+				p.Thresholds.BreathingDepthThreshold.high == null ||
+				p.Thresholds.BreathingDepthThreshold.high == ''
+			) {
 				p.Thresholds.BreathingDepthThreshold.high =
 					defaultThresholds[0].BreathingDepthThreshold.high;
 			}
-			if (p.Thresholds.BreathingDepthThreshold.low == null) {
+			if (
+				p.Thresholds.BreathingDepthThreshold.low == null ||
+				p.Thresholds.BreathingDepthThreshold.low == ''
+			) {
 				p.Thresholds.BreathingDepthThreshold.low = defaultThresholds[0].BreathingDepthThreshold.low;
 			}
-			if (p.Thresholds.SPO2Threshold.high == null) {
+			if (p.Thresholds.SPO2Threshold.high == null || p.Thresholds.SPO2Threshold.high == '') {
 				p.Thresholds.SPO2Threshold.high = defaultThresholds[0].SPO2Threshold.high;
 			}
-			if (p.Thresholds.SPO2Threshold.low == null) {
+			if (p.Thresholds.SPO2Threshold.low == null || p.Thresholds.SPO2Threshold.low == '') {
 				p.Thresholds.SPO2Threshold.low = defaultThresholds[0].SPO2Threshold.low;
 			}
-			if (p.Thresholds.CaughingCountThreshold.high == null) {
+			if (
+				p.Thresholds.CaughingCountThreshold.high == null ||
+				p.Thresholds.CaughingCountThreshold.high == ''
+			) {
 				p.Thresholds.CaughingCountThreshold.high = defaultThresholds[0].CoughingCountThreshold.high;
 			}
-			if (p.Thresholds.CaughingCountThreshold.low == null) {
+			if (
+				p.Thresholds.CaughingCountThreshold.low == null ||
+				p.Thresholds.CaughingCountThreshold.low == ''
+			) {
 				p.Thresholds.CaughingCountThreshold.low = defaultThresholds[0].CoughingCountThreshold.low;
 			}
-			if (p.Thresholds.HeartRateThreshold.high == null) {
+			if (
+				p.Thresholds.HeartRateThreshold.high == null ||
+				p.Thresholds.HeartRateThreshold.high == ''
+			) {
 				p.Thresholds.HeartRateThreshold.high = defaultThresholds[0].HeartRateThreshold.high;
 			}
-			if (p.Thresholds.HeartRateThreshold.low == null) {
+			if (
+				p.Thresholds.HeartRateThreshold.low == null ||
+				p.Thresholds.HeartRateThreshold.low == ''
+			) {
 				p.Thresholds.HeartRateThreshold.low = defaultThresholds[0].HeartRateThreshold.low;
 			}
-			if (p.Thresholds.HRVThreshold.high == null) {
+			if (p.Thresholds.HRVThreshold.high == null || p.Thresholds.HRVThreshold.high == '') {
 				p.Thresholds.HRVThreshold.high = defaultThresholds[0].HRVThreshold.high;
 			}
-			if (p.Thresholds.HRVThreshold.low == null) {
+			if (p.Thresholds.HRVThreshold.low == null || p.Thresholds.HRVThreshold.low == '') {
 				p.Thresholds.HRVThreshold.low = defaultThresholds[0].HRVThreshold.low;
 			}
-			if (p.Thresholds.ArythmiaCountThreshold.high == null) {
+			if (
+				p.Thresholds.ArythmiaCountThreshold.high == null ||
+				p.Thresholds.ArythmiaCountThreshold.high == ''
+			) {
 				p.Thresholds.ArythmiaCountThreshold.high = defaultThresholds[0].ArythmiaCountThreshold.high;
 			}
-			if (p.Thresholds.ArythmiaCountThreshold.low == null) {
+			if (
+				p.Thresholds.ArythmiaCountThreshold.low == null ||
+				p.Thresholds.ArythmiaCountThreshold.low == ''
+			) {
 				p.Thresholds.ArythmiaCountThreshold.low = defaultThresholds[0].ArythmiaCountThreshold.low;
 			}
-			if (p.Thresholds.BodyTemperatureThreshold.high == null) {
+			if (
+				p.Thresholds.BodyTemperatureThreshold.high == null ||
+				p.Thresholds.BodyTemperatureThreshold.high == ''
+			) {
 				p.Thresholds.BodyTemperatureThreshold.high =
 					defaultThresholds[0].BodyTemperatureThreshold.high;
 			}
-			if (p.Thresholds.BodyTemperatureThreshold.low == null) {
+			if (
+				p.Thresholds.BodyTemperatureThreshold.low == null ||
+				p.Thresholds.BodyTemperatureThreshold.low == ''
+			) {
 				p.Thresholds.BodyTemperatureThreshold.low =
 					defaultThresholds[0].BodyTemperatureThreshold.low;
 			}
