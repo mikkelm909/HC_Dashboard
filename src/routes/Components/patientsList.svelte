@@ -9,8 +9,6 @@
 
 	let sortedPatientData = merged;
 
-	console.log('neger', sortedPatientData);
-
 	let defaultThresholds = [
 		{
 			BreathingRateThreshold: {
