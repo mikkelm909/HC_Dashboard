@@ -266,7 +266,7 @@
 			<tr>
 				<td on:click={() => goto('patientsOverview/' + p.id)}>{p.Name}</td>
 				<td />
-				<td />
+				<td>{p.Risk_Score}</td>
 				<td>{p.Last_Reading.toLocaleString()}</td>
 				<td
 					class:aboveThreshold={p.Breathing_Rate >= p.Thresholds.BreathingRateThreshold.high ||
