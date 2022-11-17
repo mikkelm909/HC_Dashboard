@@ -1,14 +1,10 @@
-import { page } from "$app/stores";
-import { patients } from "$db/Collections/patients";
-import type { PageServerLoad } from ".svelte-kit/types/src/routes/threshold/[patientId]/[userId]/$types";
+import { page } from '$app/stores';
+import { patients } from '$db/Collections/patients';
+import type { PageServerLoad } from '.svelte-kit/types/src/routes/threshold/[patientId]/[userId]/$types';
 
-import type { Actions } from "@sveltejs/kit";
+import type { Actions } from '@sveltejs/kit';
 
-
-
-import { ObjectId } from "mongodb";
-
-
+import { ObjectId } from 'mongodb';
 
 let paramPatient: string;
 let paramUser: string;
@@ -18,9 +14,12 @@ export const load: PageServerLoad = async function ({ params }) {
   paramUser = params.userId
 	const patient = await patients.find({_id: new ObjectId(params.patientId)}).toArray();
 
-  const patientArray = patient.map((p) => {
-    var thresholds;
-    var exist = p.HCProThresholds.find((value) => {
+	const patientArray = patient.map((p) => {
+		let thresholds;
+		let exist = p.HCProThresholds.find((value) => {
+			thresholds = value;
+			return value.HCPro == params.userId;
+		});
 
         thresholds = value
         return value.HCPro == params.userId
