@@ -4,21 +4,29 @@ import { patients } from '$db/Collections/patients';
 import { patientData } from '$db/Collections/patientData';
 import { storeHCPId } from '$protectedMongoId';
 
-export const load: PageServerLoad = async function ( {params}) {
-	const patientList = await patients.find({assingedHealthCarePro: params.HCPId}).toArray();
+export const load: PageServerLoad = async function ({ params }) {
+	const patientList = await patients.find({ assingedHealthCarePro: params.HCPId }).toArray();
 	const patientDataList = await patientData.find({}).toArray();
 
 	const formatPatients = patientList.map((p) => {
-		return {
-			id: p._id.toString(),
-			name: p.name,
-			age: p.age,
-			sex: p.sex,
-			weight: p.weight,
-			height: p.height,
-			HCProThresholds: p.HCProThresholds
-		};
+		let thresholds;
+		let exist = p.HCProThresholds.find((value) => {
+			thresholds = value;
+			return value.HCPro == params.HCPId;
+		});
+		if (exist) {
+			return {
+				id: p._id.toString(),
+				name: p.name,
+				age: p.age,
+				sex: p.sex,
+				weight: p.weight,
+				height: p.height,
+				HCProThresholds: thresholds
+			};
+		}
 	});
+
 	const formatPatientData = patientDataList.map((p) => {
 		return {
 			id: p._id.toString(),
@@ -45,8 +53,8 @@ export const load: PageServerLoad = async function ( {params}) {
 					const newObject = {
 						id: pd.patientId,
 						Name: p.name,
-						Last_14Days: '',
-						Risk_Score: '',
+						Last_14Days: 0,
+						Risk_Score: 0,
 						Last_Reading: new Date(pd.Date),
 						Breathing_Rate: pd.BreathingRate,
 						Breathing_Depth: pd.BreathingDepth,
@@ -55,7 +63,8 @@ export const load: PageServerLoad = async function ( {params}) {
 						Heart_Rate: pd.HeartRate,
 						HRV: pd.HRV,
 						Arythmia_Count: pd.ArythmiaCount,
-						Body_Temperature: pd.BodyTemperature
+						Body_Temperature: pd.BodyTemperature,
+						Thresholds: p.HCProThresholds.Thresholds
 					};
 					//Checks if an object with the same patientName exists.
 					//If it doesn't push the new object to the list
