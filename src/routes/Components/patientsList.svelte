@@ -1,10 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { storeHCPId } from '$protectedMongoId';
-	import { object_without_properties } from 'svelte/internal';
 
-	export let patients: any[] = [{}];
-	export let patientData: any[] = [{}];
 	export let merged: any[] = [{}];
 
 	let sortedPatientData = merged;
