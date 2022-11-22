@@ -60,7 +60,7 @@ async function UpdateThreashold(
 	patients.updateOne(
 		{
 			_id: new ObjectId(paramPatient),
-			HCProThresholds: { $elemMatch: { HCPro: '6360fbabd51013f66af52a91' } }
+			HCProThresholds: { $elemMatch: { HCPro: paramUser } }
 		},
 		{
 			$set: {
