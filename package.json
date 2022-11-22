@@ -30,8 +30,11 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@rollup/plugin-dsv": "^3.0.1",
+		"d3-quadtree": "^3.0.1",
 		"firebase": "^9.12.1",
 		"ip": "^2.0.0",
+		"layercake": "^7.1.0",
 		"mongodb": "4.11",
 		"sveltestrap": "^5.9.0"
 	}
