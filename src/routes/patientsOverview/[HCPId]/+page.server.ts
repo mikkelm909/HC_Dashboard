@@ -96,13 +96,13 @@ export const load: PageServerLoad = async function ({ params }) {
 			}
 			if (
 				p.HCProThresholds.Thresholds.SPO2Threshold.high == null ||
-				p.Thresholds.SPO2Threshold.high == ''
+				p.HCProThresholds.Thresholds.SPO2Threshold.high == ''
 			) {
 				p.HCProThresholds.Thresholds.SPO2Threshold.high = defaultThresholds[0].SPO2Threshold.high;
 			}
 			if (
 				p.HCProThresholds.Thresholds.SPO2Threshold.low == null ||
-				p.Thresholds.SPO2Threshold.low == ''
+				p.HCProThresholds.Thresholds.SPO2Threshold.low == ''
 			) {
 				p.HCProThresholds.Thresholds.SPO2Threshold.low = defaultThresholds[0].SPO2Threshold.low;
 			}
@@ -136,13 +136,13 @@ export const load: PageServerLoad = async function ({ params }) {
 			}
 			if (
 				p.HCProThresholds.Thresholds.HRVThreshold.high == null ||
-				p.Thresholds.HRVThreshold.high == ''
+				p.HCProThresholds.Thresholds.HRVThreshold.high == ''
 			) {
 				p.HCProThresholds.Thresholds.HRVThreshold.high = defaultThresholds[0].HRVThreshold.high;
 			}
 			if (
 				p.HCProThresholds.Thresholds.HRVThreshold.low == null ||
-				p.Thresholds.HRVThreshold.low == ''
+				p.HCProThresholds.Thresholds.HRVThreshold.low == ''
 			) {
 				p.HCProThresholds.Thresholds.HRVThreshold.low = defaultThresholds[0].HRVThreshold.low;
 			}
