@@ -228,6 +228,6 @@
 	}
 
 	.aboveThreshold {
-		background-color: red;
+		background-color: rgba(255, 0, 0, 0.6);
 	}
 </style>
