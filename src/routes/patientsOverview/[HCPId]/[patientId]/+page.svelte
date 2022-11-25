@@ -2,10 +2,7 @@
 	import PatientDataTable from '../../../Components/PatientDataTable.svelte';
 	import type { PageData } from './$types';
 
-
-
 	export let data: PageData;
-	console.log(data)
 </script>
 
-<PatientDataTable patient={data.patientData} patientId={data.id}/>
+<PatientDataTable patient={data.patientData} patientId={data.id} />
