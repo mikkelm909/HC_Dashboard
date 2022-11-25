@@ -17,14 +17,30 @@
    * Put the label on the highest value
    */
   $: left = values => $xScale(max(values, $x)) /  Math.max(...$xRange);
-  $: top = values => $yScale(max(values, $y)) / Math.max(...$yRange);
+
+
+
+  var colors = [
+    "#e67373",
+    "#e69973",
+    "#e6da73",
+    "#73e67e",
+    "#73e6d4",
+    "#73b4e6",
+    "#7a73e6",
+    "#b873e6",
+    "#e673d0",
+    "#e6da73",
+    "#73e67e",
+  ]
 </script>
 
-{#each $data as group}
+{#each $data as group, i}
   <div
     class="label"
     style="
-      top:{top(group.values) * 100}%;
+      color: {colors[i]};
+      bottom:{group.values[group.values.length - 1].value }%;
       left:{left(group.values) * 100}%;
     "
   >{cap($z(group))}</div>
@@ -32,6 +48,7 @@
 
 <style>
   .label {
+    background-color:rgb(255, 255, 255);
     position: absolute;
     transform: translate(-100%, -100%)translateY(1px);
     font-size: 13px;

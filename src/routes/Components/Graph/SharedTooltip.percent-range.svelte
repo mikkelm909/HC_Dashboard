@@ -5,7 +5,7 @@
  <script>
     import { getContext } from 'svelte';
     import { format } from 'd3-format';
-	import QuadTree from './QuadTree.percent-range.svelte';
+	  import QuadTree from './QuadTree.percent-range.svelte';
   
 
   
@@ -81,31 +81,31 @@
   </style>
   
   <QuadTree
-    dataset={dataset || $data}
-    y='x'
-    let:x
-    let:y
-    let:visible
-    let:found
-    let:e
-  >
-    {@const foundSorted = sortResult(found)}
-    {#if visible === true}
-      <div
-        style="left:{(x / 100) * $width }px;"
-        class="line"></div>
-      <div
-        class="tooltip"
-        style="
-          width:{w}px;
-          display: { visible ? 'block' : 'none' };
-          top:calc({$yScale(foundSorted[0].value)}% + {offset}px);
-          left:{Math.min(Math.max(w2, (x / 100) * $width), $width - w2)}px;"
-        >
-          <div class="title">{formatTitle(found[$config.x])}</div>
-          {#each foundSorted as row}
-            <div class="row"><span class="key">{formatKey(row.key)}:</span> {formatValue(row.value)}</div>
-          {/each}
-      </div>
-    {/if}
-  </QuadTree>
+  dataset={dataset || $data}
+  y='x'
+  let:x
+  let:y
+  let:visible
+  let:found
+  let:e
+> 
+  {@const foundSorted = sortResult(found)}
+  {#if visible === true}
+    <div
+      style="left:{x}px;"
+      class="line"></div>
+    <div
+      class="tooltip"
+      style="
+        width:{w}px;
+        display: { visible ? 'block' : 'none' };
+        top:{$yScale(foundSorted[0].value) + offset}px;
+        left:{Math.min(Math.max(w2, x), $width - w2)}px;"
+      >
+        <div class="title">{formatTitle(found[$config.x])}</div>
+        {#each foundSorted as row}
+          <div class="row"><span class="key">{formatKey(row.key)}:</span> {formatValue(row.value)}</div>
+        {/each}
+    </div>
+  {/if}
+</QuadTree>

@@ -2,8 +2,6 @@
 	import { storeHCPId } from '$protectedMongoId';
 	import { onMount } from 'svelte';
 	import { dataset_dev } from 'svelte/internal';
-<<<<<<< Updated upstream
-=======
 	import { fade } from 'svelte/transition';
 
 	import { LayerCake, Svg, Html } from 'layercake';
@@ -12,12 +10,11 @@
 	import { format, precisionFixed } from 'd3-format';
 	import MultiLine from './Graph/MultiLine.svelte';
 	import AxisX from './Graph/AxisX.svelte'
-	import AxisY from './Graph/AxisX.svelte';
-	import GroupLabels from './Graph/GroupLables.svelte';
+	import AxisY from './Graph/AxisY.svelte';
+	import Labels from './Graph/GroupLables.svelte';
 	import SharedTooltip from './Graph/SharedTooltip.percent-range.svelte';
 
 
->>>>>>> Stashed changes
 	export let patient: any[] = [];
 	export var patientId:string; 
 	let startDate: Date = new Date('2000-11-10');
@@ -25,13 +22,12 @@
 
 	$: formatedStart = new Date(startDate);
 	$: formatedEnd = new Date(endDate);
+	let showGraph = false;
 
+	function toggleGraph(){
+		showGraph = !showGraph
+	}
 
-<<<<<<< Updated upstream
-=======
-	
-
->>>>>>> Stashed changes
 	var filteredPatient: any[] = [];
 	function getDataByDates() {
 		filteredPatient = [];
@@ -43,45 +39,31 @@
 
 
 
+
 	//graph start here
 	onMount(() => {
 		filteredPatient = patient;
 	});
 
-	var data = [
-    {
-        "month": "2015-03-31",
-        "apples": "3840",
-        "bananas": "1920",
-        "cherries": "960",
-        "dates": "400"
-    },
-    {
-        "month": "2015-02-28",
-        "apples": "1600",
-        "bananas": "1440",
-        "cherries": "960",
-        "dates": "400"
-    },
-    {
-        "month": "2015-01-31",
-        "apples": "640",
-        "bananas": "960",
-        "cherries": "640",
-        "dates": "400"
-    },
-    {
-        "month": "2014-12-31",
-        "apples": "320",
-        "bananas": "480",
-        "cherries": "640",
-        "dates": "400"
-    }
-]
-console.log(data)
-const xKey = 'month';
+	var data = patient.map(p => {
+		return {
+			BreathingRate: p.BreathingRate,
+			BreathingDepth: p.BreathingDepth,
+			SPO2: p.SPO2,
+			CaughingCount: p.CaughingCount,
+			HeartRate: p.HeartRate,
+			HRV: p.HRV,
+			ArythmiaCount: p.ArythmiaCount,
+			BodyTemperature: p.BodyTemperature,
+			Date: p.Date
+		}
+	})
+	
+
+
+const xKey = 'Date';
 const yKey = 'value';
-const zKey = 'fruit';
+const zKey = 'Data';
 
   const seriesNames = Object.keys(data[0]).filter(d => d !== xKey);
   const seriesColors = ['#ffe4b8', '#ffb3c0', '#ff7ac7', '#ff00cc'];
@@ -112,54 +94,33 @@ const zKey = 'fruit';
    * we can pluck the field set from `yKey` from each item
    * in the array to measure the full extents
    */
-  const flatten = data => data.reduce((memo, group) => {
+  const flatten = (data: any[]) => data.reduce((memo, group) => {
     return memo.concat(group.values);
   }, []);
+
 
   const formatTickX = timeFormat('%b. %e');
   const formatTickY = d => format(`.${precisionFixed(d)}s`)(d);
 
+
 </script>
 
-<<<<<<< Updated upstream
-=======
 
-<div class="chart-container">
-	<LayerCake
-	  padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
-	  x={xKey}
-	  y={yKey}
-	  z={zKey}
-	  yDomain={[0, null]}
-	  zScale={scaleOrdinal()}
-	  zRange={seriesColors}
-	  flatData={flatten(dataLong)}
-	  data={dataLong}
-	>
-	  <Svg>
-		<AxisX
-		  gridlines={false}
-		  ticks={data.map(d => d[xKey]).sort((a, b) => a - b)}
-		  formatTick={formatTickX}
-		  snapTicks={true}
-		  tickMarks={true}
-		/>
-		<AxisY
-		  ticks={4}
-		  formatTick={formatTickY}
-		/>
-		<MultiLine/>
-	  </Svg>
+<style>
+	/*
+	  The wrapper div needs to have an explicit width and height in CSS.
+	  It can also be a flexbox child or CSS grid element.
+	  The point being it needs dimensions since the <LayerCake> element will
+	  expand to fill it.
+	*/
+	.chart-container {
+	  width: 100%;
+	  height: 800px;
+	}
+  </style>
   
-	  <Html>
-		<Labels/>
-		<SharedTooltip
-		  formatTitle={formatTickX}
-		  dataset={data}
-		/>
-	  </Html>
-	</LayerCake>
-  </div>
+
+
 
 <p transition:fade>
 	Fades in and out
@@ -167,7 +128,6 @@ const zKey = 'fruit';
 
 
 
->>>>>>> Stashed changes
 <p>Start date</p>
 <label>
 	<input type="date" bind:value={startDate} />
@@ -178,6 +138,10 @@ const zKey = 'fruit';
 </label>
 
 <button on:click={getDataByDates}>Show data for dates</button>
+<br>
+<button on:click={toggleGraph}>Toggle Graph-view</button>
+
+{#if !showGraph}
 <table width="500" border="10">
 	<tr>
 		<th>{patient[0].name}</th>
@@ -235,6 +199,48 @@ const zKey = 'fruit';
 		{/each}
 	</tr>
 </table>
+{/if}
+
+
+{#if showGraph}
+<div class="chart-container">
+	<LayerCake
+	  padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
+	  x={xKey}
+	  y={yKey}
+	  z={zKey}
+	  yDomain={[0, null]}
+	  zScale={scaleOrdinal()}
+	  zRange={seriesColors}
+	  flatData={flatten(dataLong)}
+	  data={dataLong}
+	>
+	  <Svg>
+		<AxisX
+		  gridlines={false}
+		  ticks={data.map(d => d[xKey]).sort((a, b) => a - b)}
+		  formatTick={formatTickX}
+		  snapTicks={true}
+		  tickMarks={true}
+		/>
+		<AxisY
+		  ticks={10}
+		  formatTick={formatTickY}
+		/>
+		<MultiLine/>
+	  </Svg>
+  
+	  <Html>
+		<Labels/>
+		<SharedTooltip
+		  formatTitle={formatTickX}
+		  dataset={data}
+		/>
+	  </Html>
+	</LayerCake>
+  </div>
+{/if}
+
 
 
 <a href="/threshold/{patientId}/{$storeHCPId}"><button>Edit Threshold</button></a>

@@ -52,6 +52,7 @@
   }
 </script>
 
+
 <g class="axis x-axis" class:snapTicks>
   {#each tickVals as tick, i (tick)}
     <g class="tick tick-{i}" transform="translate({$xScale(tick)},{Math.max(...$yRange)})">
@@ -59,21 +60,15 @@
         <line class="gridline" y1={$height * -1} y2="0" x1="0" x2="0" />
       {/if}
       {#if tickMarks === true}
-        <line
-          class="tick-mark"
-          y1={0}
-          y2={6}
-          x1={xTick || isBandwidth ? $xScale.bandwidth() / 2 : 0}
-          x2={xTick || isBandwidth ? $xScale.bandwidth() / 2 : 0}
-        />
+
       {/if}
       <text
         x={xTick || isBandwidth ? $xScale.bandwidth() / 2 : 0}
         y={yTick}
         dx=""
         dy=""
-        text-anchor={textAnchor(i)}>{formatTick(tick)}</text
-      >
+        text-anchor={textAnchor(i)}>{formatTick(tick)}
+      </text>
     </g>
   {/each}
   {#if baseline === true}
