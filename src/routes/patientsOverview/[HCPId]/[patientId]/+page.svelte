@@ -5,7 +5,6 @@
 
 
 	export let data: PageData;
-	console.log(data)
 </script>
 
 <PatientDataTable patient={data.patientData} patientId={data.id}/>
