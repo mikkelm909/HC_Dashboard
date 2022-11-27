@@ -4,6 +4,7 @@
  -->
  <script lang="ts">
   import { getContext } from 'svelte';
+	import Login from '../login.svelte';
 
   const { data, xGet, yGet, zGet } = getContext('LayerCake');
 
@@ -14,7 +15,7 @@
       })
       .join('L');
   }; 
-    
+
   
   var colors = [
     "#e67373",

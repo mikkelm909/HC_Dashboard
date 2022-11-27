@@ -37,15 +37,9 @@
 		});
 	}
 
+	filteredPatient = patient;
 
-
-
-	//graph start here
-	onMount(() => {
-		filteredPatient = patient;
-	});
-
-	var data = patient.map(p => {
+	$: test = filteredPatient.map(p => {
 		return {
 			BreathingRate: p.BreathingRate,
 			BreathingDepth: p.BreathingDepth,
@@ -60,6 +54,22 @@
 	})
 	
 
+	//graph start here
+	var data = filteredPatient.map(p => {
+		return {
+			BreathingRate: p.BreathingRate,
+			BreathingDepth: p.BreathingDepth,
+			SPO2: p.SPO2,
+			CaughingCount: p.CaughingCount,
+			HeartRate: p.HeartRate,
+			HRV: p.HRV,
+			ArythmiaCount: p.ArythmiaCount,
+			BodyTemperature: p.BodyTemperature,
+			Date: p.Date
+		}
+	})
+	$: data = test
+	$: console.log("data", data)
 
 const xKey = 'Date';
 const yKey = 'value';
@@ -75,7 +85,7 @@ const zKey = 'Data';
    * Layer Cake uses this data structure and the key names
    * set in xKey, yKey and zKey to map your data into each scale.
    */
-  const dataLong = seriesNames.map(key => {
+  $: dataLong = seriesNames.map(key => {
     return {
       [zKey]: key,
       values: data.map(d => {
