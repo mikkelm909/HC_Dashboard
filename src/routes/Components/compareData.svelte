@@ -18,9 +18,6 @@
 	let firstArray: [] = [];
 	let secondArray: [] = [];
 
-	let compareArrayOne: [] = [];
-	let compareArrayTwo: [] = [];
-
 	const compareData = () => {
 		patientData.forEach((p) => {
 			if (
@@ -28,17 +25,15 @@
 				p.Date.getTime() <= formatedStartOne.getTime() + 604800000
 			) {
 				firstArray.push(p);
-				compareArrayOne = firstArray;
+				firstArray = firstArray;
 			} else if (
 				p.Date.getTime() >= formatedStartTwo.getTime() &&
 				p.Date.getTime() <= formatedStartTwo.getTime() + 604800000
 			) {
 				secondArray.push(p);
-				compareArrayTwo = secondArray;
+				secondArray = secondArray;
 			}
 		});
-
-		console.log(compareArrayOne, compareArrayTwo);
 	};
 </script>
 
@@ -63,7 +58,7 @@
 				{/if}
 			{/each}
 		</tr>
-		{#each compareArrayOne as p}
+		{#each firstArray as p}
 			<tr>
 				<td>{p.Date.toLocaleString()}</td>
 				<td>{p.Breathing_Rate}</td>
@@ -76,12 +71,12 @@
 				<td>{p.Body_Temperature}</td>
 			</tr>
 		{/each}
-		{#if compareArrayTwo.length != 0}
+		{#if secondArray.length != 0}
 			<tr>
 				<th align="left" colspan="9">Second dataset</th>
 			</tr>
 		{/if}
-		{#each compareArrayTwo as p}
+		{#each secondArray as p}
 			<tr>
 				<td>{p.Date.toLocaleString()}</td>
 				<td>{p.Breathing_Rate}</td>
