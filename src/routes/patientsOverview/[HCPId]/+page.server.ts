@@ -6,7 +6,9 @@ import { storeHCPId } from '$protectedMongoId';
 
 export const load: PageServerLoad = async function ({ params }) {
 	const patientList = await patients.find({ assingedHealthCarePro: params.HCPId }).toArray();
-	const patientDataList = await patientData.find({}).toArray();
+	const patientDataList = await patientData.find({}).sort({ Date: 1 }).toArray();
+
+	console.log(patientDataList);
 
 	const formatPatients = patientList.map((p) => {
 		let thresholds;
@@ -185,7 +187,7 @@ export const load: PageServerLoad = async function ({ params }) {
 			BreathingRate: p.BreathingRate,
 			BreathingDepth: p.BreathingDepth,
 			SPO2: p.SPO2,
-			CaughingCount: p.CaughingCount, //change name on mongo
+			CoughingCount: p.CaughingCount, //change name on mongo
 			HeartRate: p.HeartRate,
 			HRV: p.HRV,
 			ArythmiaCount: p.ArythmiaCount,
