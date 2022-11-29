@@ -107,7 +107,7 @@ const zKey = 'Data';
   const flatten = (data: any[]) => data.reduce((memo, group) => {
     return memo.concat(group.values);
   }, []);
-
+ 
 
   const formatTickX = timeFormat('%b. %e');
   const formatTickY = d => format(`.${precisionFixed(d)}s`)(d);
@@ -211,7 +211,7 @@ const zKey = 'Data';
 </table>
 {/if}
 
-
+{console.log(flatten(dataLong))}
 {#if showGraph}
 <div class="chart-container">
 	<LayerCake
