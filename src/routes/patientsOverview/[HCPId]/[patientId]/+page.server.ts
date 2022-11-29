@@ -3,7 +3,7 @@ import { patientData } from '$db/Collections/patientData';
 import { patients } from '$db/Collections/patients';
 
 export const load: PageServerLoad = async function ({ params }) {
-	const data = await patientData.find({ patientId: params.patientId }).toArray();
+	const data = await patientData.find({ patientId: params.patientId }).sort({ Date: 1 }).toArray();
 	const patient = await patients.find({}).toArray();
 
 	const patientArray = patient.map((p) => {
@@ -34,7 +34,7 @@ export const load: PageServerLoad = async function ({ params }) {
 			BreathingRate: p.BreathingRate,
 			BreathingDepth: p.BreathingDepth,
 			SPO2: p.SPO2,
-			CaughingCount: p.CaughingCount,
+			CoughingCount: p.CaughingCount,
 			HeartRate: p.HeartRate,
 			HRV: p.HRV,
 			ArythmiaCount: p.ArythmiaCount,
@@ -44,6 +44,7 @@ export const load: PageServerLoad = async function ({ params }) {
 	});
 
 	return {
-		patientData: patientDataArray, id: params.patientId
+		patientData: patientDataArray,
+		id: params.patientId
 	};
 };
