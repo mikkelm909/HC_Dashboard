@@ -41,8 +41,6 @@
 		});
 	}
 
-	console.log(compareArray);
-
 	let showGraph = false;
 
 	function toggleGraph() {
@@ -89,7 +87,6 @@
 		};
 	});
 	$: data = test;
-	$: console.log('data', data);
 
 	const xKey = 'Date';
 	const yKey = 'value';
@@ -201,7 +198,7 @@
 				<tr>
 					<th>Caughing count (session)</th>
 					{#each filteredPatient as patient}
-						<th>{patient.CaughingCount}</th>
+						<th>{patient.CoughingCount}</th>
 					{/each}
 				</tr>
 				<tr>
@@ -261,7 +258,7 @@
 					<tr>
 						<th>Caughing count (session)</th>
 						{#each compareArray as patient}
-							<th>{patient.CaughingCount}</th>
+							<th>{patient.CoughingCount}</th>
 						{/each}
 					</tr>
 					<tr>
