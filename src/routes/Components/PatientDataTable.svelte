@@ -16,7 +16,7 @@
 
 
 	export let patient: any[] = [];
-	export var patientId:string; 
+	export var patientId: string;
 	let startDate: Date = new Date('2000-11-10');
 	let endDate: Date = new Date('3000-11-10');
 
@@ -27,6 +27,7 @@
 	function toggleGraph(){
 		showGraph = !showGraph
 	}
+
 
 	var filteredPatient: any[] = [];
 	function getDataByDates() {
@@ -252,5 +253,5 @@ const zKey = 'Data';
 {/if}
 
 
-
+<a href="/compareData/{patientId}/{$storeHCPId}">Compare</a>
 <a href="/threshold/{patientId}/{$storeHCPId}"><button>Edit Threshold</button></a>

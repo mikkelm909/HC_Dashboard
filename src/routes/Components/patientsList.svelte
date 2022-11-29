@@ -1,15 +1,13 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { storeHCPId } from '$protectedMongoId';
+	import { patientStoreArray } from '$protectedPatientArray';
 
 	export let merged: any[] = [{}];
 
-	let sortedPatientData = merged;
+	$patientStoreArray = merged;
 
-	function RiskScore14Avg() {
-		if (!foundPatients) {
-		}
-	}
+	let sortedPatientData = merged;
 
 	let selectedHeader = 'Name';
 	let ascendingOrder = true;
@@ -92,7 +90,14 @@
 						id="oneLine"
 						class:highlighted={selectedHeader === header}
 						on:click={() => (header === 'Name' ? sortByString(header) : sortByNumber(header))}
-						><p>{header.replace('_', ' ')}</p>
+					>
+						{#if header != 'Name' && header != 'Risk_Score' && header != 'Last_Reading'}
+							<p>
+								{header.replace('_', ' ')} (avg)
+							</p>
+						{:else}
+							{header.replace('_', ' ')}
+						{/if}
 						{#if header === selectedHeader}
 							<span
 								id="arrow"

@@ -10,10 +10,11 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		alias: {
-			$db: "./src/db",
-			$protectedUser: "src/Stores/LoginStore",
-			$protectedMongoId: "src/Stores/MongoId",
-			$comps: "src/Comps/editThreshold.svelte"
+			$db: './src/db',
+			$protectedUser: 'src/Stores/LoginStore',
+			$protectedMongoId: 'src/Stores/MongoId',
+			$protectedPatientArray: 'src/Stores/patientArrayStore',
+			$comps: 'src/Comps/editThreshold.svelte'
 		}
 	}
 };
