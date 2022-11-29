@@ -13,10 +13,9 @@
 	import { error } from '@sveltejs/kit';
 	import { storeHCPId } from '$protectedMongoId';
 
-
 	export let api = ''; //makes it so the api string can be inserted to the component
 	export let healthcareProfessionals: any[] = [{}];
-	let mongoId = healthcareProfessionals[0]._id
+	let mongoId = healthcareProfessionals[0]._id;
 	//https://www.youtube.com/watch?v=PXf0t6Id7i0&ab_channel=IvanSantos
 	const firebaseConfig = {
 		apiKey: api,
@@ -45,7 +44,7 @@
 				);
 				if (foundUser != null) {
 					user = userCredentials.user;
-					storeHCPId.set(foundUser.id)
+					storeHCPId.set(foundUser.id);
 					storeUser.set(JSON.stringify(user));
 					errorMessage = '';
 				} else {
@@ -55,8 +54,8 @@
 			})
 			.catch((error) => {
 				const errorCode = error.code;
-				const errorMessage = error.message;
-				console.log(errorCode + errorMessage);
+				const fireError = error.message;
+				errorMessage = 'Wrong password!';
 			});
 	};
 
