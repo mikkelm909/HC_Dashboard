@@ -14,7 +14,7 @@
 	import Labels from './Graph/GroupLables.svelte';
 	import SharedTooltip from './Graph/SharedTooltip.percent-range.svelte';
 
-	export let patient: any[] = [];
+	export let patientData: any[] = [];
 	export var patientId: string;
 	let startDate: Date = new Date('2000-11-10');
 	let endDate: Date = new Date('3000-11-10');
@@ -29,8 +29,11 @@
 	let showCompare = false;
 	let compareArray: [] = [];
 
+	const patientName = patientData[0].name.replace(' ', '\n');
+	console.log(patientName);
+
 	function compareData() {
-		patient.forEach((p) => {
+		patientData.forEach((p) => {
 			if (
 				p.Date.getTime() >= formatedCompareStart.getTime() &&
 				p.Date.getTime() <= formatedCompareEnd.getTime()
@@ -50,13 +53,13 @@
 	var filteredPatient: any[] = [];
 	function getDataByDates() {
 		filteredPatient = [];
-		patient.forEach((p) => {
+		patientData.forEach((p) => {
 			if (p.Date.getTime() <= formatedEnd.getTime() && p.Date.getTime() >= formatedStart.getTime())
 				filteredPatient.push(p);
 		});
 	}
 
-	filteredPatient = patient;
+	filteredPatient = patientData;
 
 	$: test = filteredPatient.map((p) => {
 		return {
@@ -167,127 +170,137 @@
 {/if}
 
 {#if !showGraph}
-	<div class="row">
-		<div class="column">
-			<table width="500" border="10">
-				<tr>
-					<th>{patient[0].name}</th>
-					{#each filteredPatient as patient}
-						<th>{patient.Date.toLocaleString()}</th>
-						<!-- Getting the date for the session -->
-					{/each}
-				</tr>
-				<tr>
-					<th>Breathing Rate (avg/min)</th>
-					{#each filteredPatient as patient}
-						<th>{patient.BreathingRate}</th>
-					{/each}
-				</tr>
-				<tr>
-					<th>BreathingDepth (avg%/min)</th>
-					{#each filteredPatient as patient}
-						<th>{patient.BreathingDepth}</th>
-					{/each}
-				</tr>
-				<tr>
-					<th>Oxygen (SPO2) (avg/min)</th>
-					{#each filteredPatient as patient}
-						<th>{patient.SPO2}</th>
-					{/each}
-				</tr>
-				<tr>
-					<th>Caughing count (session)</th>
-					{#each filteredPatient as patient}
-						<th>{patient.CoughingCount}</th>
-					{/each}
-				</tr>
-				<tr>
-					<th>HeartRate (avg/min)</th>
-					{#each filteredPatient as patient}
-						<th>{patient.HeartRate}</th>
-					{/each}
-				</tr>
-				<tr>
-					<th>HRV (avg)</th>
-					{#each filteredPatient as patient}
-						<th>{patient.HRV}</th>
-					{/each}
-				</tr>
-				<tr>
-					<th>Arythmia count (during session)</th>
-					{#each filteredPatient as patient}
-						<th>{patient.ArythmiaCount}</th>
-					{/each}
-				</tr>
-				<tr>
-					<th>BodyTemperature (avg/session)</th>
-					{#each filteredPatient as patient}
-						<th>{patient.BodyTemperature}</th>
-					{/each}
-				</tr>
-			</table>
-		</div>
-		{#if showCompare == true && compareArray.length != 0}
-			<div class="column">
-				<table width="500" border="10">
-					<tr>
-						<th>{patient[0].name}</th>
-						{#each compareArray as patient}
-							<th>{patient.Date.toLocaleString()}</th>
-							<!-- Getting the date for the session -->
-						{/each}
-					</tr>
-					<tr>
-						<th>Breathing Rate (avg/min)</th>
-						{#each compareArray as patient}
-							<th>{patient.BreathingRate}</th>
-						{/each}
-					</tr>
-					<tr>
-						<th>BreathingDepth (avg%/min)</th>
-						{#each compareArray as patient}
-							<th>{patient.BreathingDepth}</th>
-						{/each}
-					</tr>
-					<tr>
-						<th>Oxygen (SPO2) (avg/min)</th>
-						{#each compareArray as patient}
-							<th>{patient.SPO2}</th>
-						{/each}
-					</tr>
-					<tr>
-						<th>Caughing count (session)</th>
-						{#each compareArray as patient}
-							<th>{patient.CoughingCount}</th>
-						{/each}
-					</tr>
-					<tr>
-						<th>HeartRate (avg/min)</th>
-						{#each compareArray as patient}
-							<th>{patient.HeartRate}</th>
-						{/each}
-					</tr>
-					<tr>
-						<th>HRV (avg)</th>
-						{#each compareArray as patient}
-							<th>{patient.HRV}</th>
-						{/each}
-					</tr>
-					<tr>
-						<th>Arythmia count (during session)</th>
-						{#each compareArray as patient}
-							<th>{patient.ArythmiaCount}</th>
-						{/each}
-					</tr>
-					<tr>
-						<th>BodyTemperature (avg/session)</th>
-						{#each compareArray as patient}
-							<th>{patient.BodyTemperature}</th>
-						{/each}
-					</tr>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm">
+				<table class="table table-bordered table-dark">
+					<thead>
+						<tr>
+							<th style="white-space: pre">{patientName}</th>
+							{#each filteredPatient as patient}
+								<th>{patient.Date.toLocaleString().split(' ')[0]}</th>
+								<!-- Getting the date for the session -->
+							{/each}
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>Breathing Rate <br />(avg/min)</th>
+							{#each filteredPatient as patient}
+								<th>{patient.BreathingRate}</th>
+							{/each}
+						</tr>
+						<tr>
+							<th>BreathingDepth <br />(avg%/min)</th>
+							{#each filteredPatient as patient}
+								<th>{patient.BreathingDepth}</th>
+							{/each}
+						</tr>
+						<tr>
+							<th>Oxygen (SPO2) <br />(avg/min)</th>
+							{#each filteredPatient as patient}
+								<th>{patient.SPO2}</th>
+							{/each}
+						</tr>
+						<tr>
+							<th>Caughing count <br />(session)</th>
+							{#each filteredPatient as patient}
+								<th>{patient.CoughingCount}</th>
+							{/each}
+						</tr>
+						<tr>
+							<th>HeartRate <br />(avg/min)</th>
+							{#each filteredPatient as patient}
+								<th>{patient.HeartRate}</th>
+							{/each}
+						</tr>
+						<tr>
+							<th>HRV <br />(avg)</th>
+							{#each filteredPatient as patient}
+								<th>{patient.HRV}</th>
+							{/each}
+						</tr>
+						<tr>
+							<th>Arythmia count <br />(during session)</th>
+							{#each filteredPatient as patient}
+								<th>{patient.ArythmiaCount}</th>
+							{/each}
+						</tr>
+						<tr>
+							<th>BodyTemperature <br />(avg/session)</th>
+							{#each filteredPatient as patient}
+								<th>{patient.BodyTemperature}</th>
+							{/each}
+						</tr>
+					</tbody>
 				</table>
 			</div>
-		{/if}
+			<div class="col-sm">
+				{#if showCompare == true && compareArray.length != 0}
+					<table class="table table-bordered table-dark">
+						<thead>
+							<tr>
+								<th style="white-space:pre">{patientName}</th>
+								{#each compareArray as patient}
+									<th style="white-space:pre">{patient.Date.toLocaleString().split(' ')[0]}</th>
+									<!-- Getting the date for the session -->
+								{/each}
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th>Breathing Rate <br />(avg/min)</th>
+								{#each compareArray as patient}
+									<th>{patient.BreathingRate}</th>
+								{/each}
+							</tr>
+							<tr>
+								<th>BreathingDepth <br />(avg%/min)</th>
+								{#each compareArray as patient}
+									<th>{patient.BreathingDepth}</th>
+								{/each}
+							</tr>
+							<tr>
+								<th>Oxygen (SPO2) <br />(avg/min)</th>
+								{#each compareArray as patient}
+									<th>{patient.SPO2}</th>
+								{/each}
+							</tr>
+							<tr>
+								<th>Caughing count <br />(session)</th>
+								{#each compareArray as patient}
+									<th>{patient.CoughingCount}</th>
+								{/each}
+							</tr>
+							<tr>
+								<th>HeartRate <br />(avg/min)</th>
+								{#each compareArray as patient}
+									<th>{patient.HeartRate}</th>
+								{/each}
+							</tr>
+							<tr>
+								<th>HRV <br />(avg)</th>
+								{#each compareArray as patient}
+									<th>{patient.HRV}</th>
+								{/each}
+							</tr>
+							<tr>
+								<th>Arythmia count <br />(during session)</th>
+								{#each compareArray as patient}
+									<th>{patient.ArythmiaCount}</th>
+								{/each}
+							</tr>
+							<tr>
+								<th>BodyTemperature <br />(avg/session)</th>
+								{#each compareArray as patient}
+									<th>{patient.BodyTemperature}</th>
+								{/each}
+							</tr>
+						</tbody>
+					</table>
+				{/if}
+			</div>
+		</div>
 	</div>
 {/if}
 

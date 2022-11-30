@@ -5,4 +5,4 @@
 	export let data: PageData;
 </script>
 
-<PatientDataTable patient={data.patientData} patientId={data.id} />
+<PatientDataTable patientData={data.patientData} patientId={data.id} />
