@@ -213,7 +213,7 @@ export const load: PageServerLoad = async function ({ params }) {
 						Breathing_Rate: pd.BreathingRate,
 						Breathing_Depth: pd.BreathingDepth,
 						SPO2: pd.SPO2,
-						Coughing_Count: pd.CaughingCount,
+						Coughing_Count: pd.CoughingCount,
 						Heart_Rate: pd.HeartRate,
 						HRV: pd.HRV,
 						Arythmia_Count: pd.ArythmiaCount,
