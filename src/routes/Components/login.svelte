@@ -79,12 +79,31 @@
 	});
 </script>
 
-{#if user != null}
-	<p>Signed in!</p>
-	<button on:click={logout}>Logout</button>
-{:else}
-	<input type="email" id="email" placeholder="email" bind:value={email} />
-	<input type="password" id="password" placeholder="password" bind:value={password} />
-	<button on:click={login}>Login</button>
-	<p style="color: red;">{errorMessage}</p>
-{/if}
+<div
+	class="container-fluid"
+	style="margin: auto; width: 50%; background-color: grey; padding: 10px; margin-top: 20%"
+>
+	{#if user != null}
+		<p>Signed in!</p>
+		<button class="btn btn-primary" on:click={logout}>Logout</button>
+	{:else}
+		<div class="form-group">
+			<input
+				class="form-control"
+				type="email"
+				id="email"
+				placeholder="email"
+				bind:value={email}
+			/><br />
+			<input
+				class="form-control"
+				type="password"
+				id="password"
+				placeholder="password"
+				bind:value={password}
+			/><br />
+			<button class="btn btn-primary" on:click={login}>Login</button>
+			<p style="color: red;">{errorMessage}</p>
+		</div>
+	{/if}
+</div>
