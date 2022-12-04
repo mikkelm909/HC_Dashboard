@@ -94,12 +94,13 @@
     <div
       style="left:{x}px;"
       class="line"></div>
+
     <div
       class="tooltip"
       style="
         width:{w}px;
         display: { visible ? 'block' : 'none' };
-        top:{$yScale(foundSorted[0].value) + offset}px;
+
         left:{Math.min(Math.max(w2, x), $width - w2)}px;"
       >
         <div class="title">{formatTitle(found[$config.x])}</div>
@@ -109,3 +110,4 @@
     </div>
   {/if}
 </QuadTree>
+<!-- top:{$yScale(foundSorted[0].value) + offset}px; styling for dynamic change y axis-->

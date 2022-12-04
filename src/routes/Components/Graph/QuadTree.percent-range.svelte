@@ -29,7 +29,6 @@
   $: xGetter = x === 'x' ? $xGet : $yGet;
   $: yGetter = y === 'y' ? $yGet : $xGet;
 
-
   function findItem (evt) {
     e = evt;
 
@@ -45,6 +44,8 @@
     .x(xGetter)
     .y(yGetter)
     .addAll(dataset || $data);
+
+
 </script>
 
 <style>

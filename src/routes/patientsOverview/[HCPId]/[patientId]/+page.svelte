@@ -3,6 +3,7 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
+	
 </script>
 
-<PatientDataTable patientData={data.patientData} patientId={data.id} />
+<PatientDataTable thresholds={data.patient[0].HCProThresholds.Thresholds}  patient={data.patientData} patientId={data.id} />
