@@ -81,9 +81,8 @@
 
 <div
 	class="container-fluid"
-	style="margin: auto; width: 25%; background-color: grey; padding: 10px; margin-top: 20%"
+	style="margin: auto; width: 50%; background-color: grey; padding: 10px; margin-top: 20%"
 >
-	<h3>Healthcare professional login</h3>
 	{#if user != null}
 		<p>Signed in!</p>
 		<button class="btn btn-primary" on:click={logout}>Logout</button>
