@@ -3,7 +3,6 @@
 	import { onMount } from 'svelte';
 	import { dataset_dev } from 'svelte/internal';
 	import { fade } from 'svelte/transition';
-
 	import { LayerCake, Svg, Html } from 'layercake';
 	import { scaleOrdinal } from 'd3-scale';
 	import { timeParse, timeFormat } from 'd3-time-format';
@@ -14,25 +13,19 @@
 	import Labels from './Graph/GroupLables.svelte';
 	import SharedTooltip from './Graph/SharedTooltip.percent-range.svelte';
 	import ThresholdLine from './Graph/ThresholdLine.svelte';
-
-	export let patientData: any[] = [];
+	export let patient: any[] = [];
 	export var patientId: string;
 	export let thresholds: any
 	let startDate: Date = new Date('2000-11-10');
 	let endDate: Date = new Date('3000-11-10');
-
 	$: formatedStart = new Date(startDate);
 	$: formatedEnd = new Date(endDate);
-
 	let compareStartDate: Date = new Date('2000-11-10');
 	let compareEndDate: Date = new Date(Date.now());
 	$: formatedCompareStart = new Date(compareStartDate);
 	$: formatedCompareEnd = new Date(compareEndDate);
 	let showCompare = false;
 	let compareArray: [] = [];
-
-<<<<<<< HEAD
-
     const baseThreshold =[
     [
         {
@@ -58,19 +51,12 @@
 			
 				
 	var formatedThredsholds = []
-
 	Object.entries(thresholds).forEach(([key, value], index) => {
 		formatedThredsholds.push([[{"value": value.high, "Date": compareStartDate}, {"value": value.high, "Date": new Date(compareEndDate)}]])
 		formatedThredsholds[index].push([{"value": value.low, "Date": compareStartDate}, {"value": value.low, "Date": new Date(compareEndDate)}])
 });
-
-=======
-	const patientName = patientData[0].name.replace(' ', '\n');
-	console.log(patientName);
->>>>>>> main
-
 	function compareData() {
-		patientData.forEach((p) => {
+		patient.forEach((p) => {
 			if (
 				p.Date.getTime() >= formatedCompareStart.getTime() &&
 				p.Date.getTime() <= formatedCompareEnd.getTime()
@@ -79,27 +65,21 @@
 				compareArray = compareArray;
 			}
 		});
-		console.log(compareArray);
 	}
-
 	
 	let showGraph = false;
-
 	function toggleGraph() {
 		showGraph = !showGraph;
 	}
-
 	var filteredPatient: any[] = [];
 	function getDataByDates() {
 		filteredPatient = [];
-		patientData.forEach((p) => {
+		patient.forEach((p) => {
 			if (p.Date.getTime() <= formatedEnd.getTime() && p.Date.getTime() >= formatedStart.getTime())
 				filteredPatient.push(p);
 		});
 	}
-
-	filteredPatient = patientData;
-
+	filteredPatient = patient;
 	$: test = filteredPatient.map((p) => {
 		return {
 			BreathingRate: p.BreathingRate,
@@ -113,7 +93,6 @@
 			Date: p.Date
 		};
 	});
-
 	//graph start here
 	var data = filteredPatient.map((p) => {
 		return {
@@ -129,16 +108,12 @@
 		};
 	});
 	$: data = test;
-
 	const xKey = 'Date';
 	const yKey = 'value';
 	const zKey = 'Data';
-
 	const seriesNames = Object.keys(data[0]).filter((d) => d !== xKey);
 	const seriesColors = ['#ffe4b8', '#ffb3c0', '#ff7ac7', '#ff00cc'];
-
 	const parseDate = timeParse('%Y-%m-%d');
-
 	var titles = [
     "Breathing Rate (avg/min)",
     "BreathingDepth (avg%/min)",
@@ -167,7 +142,6 @@
 			})
 		};
 	});
-
 	/* --------------------------------------------
 	 * Make a flat array of the `values` of our nested series
 	 * we can pluck the field set from `yKey` from each item
@@ -177,232 +151,171 @@
 		data.reduce((memo, group) => {
 			return memo.concat(group.values);
 		}, []);
-
 	const formatTickX = timeFormat('%b. %e');
 	const formatTickY = (d) => format(`.${precisionFixed(d)}s`)(d);
 </script>
 
-<div class="bg-dark text-light">
-	<p transition:fade>Fades in and out</p>
+<p transition:fade>Fades in and out</p>
 
-	<div class="row">
-		<div class="col-sm">
-			<div class="row">
-				<div class="col-sm">
-					<div class="form-group">
-						<label>Start date</label>
-						<input class="form-control" type="date" style="width: 200px" bind:value={startDate} />
-						<label>End date</label>
-						<input class="form-control" type="date" style="width: 200px" bind:value={endDate} /><br
-						/>
-						<button class="btn btn-primary" on:click={getDataByDates}>Show data for dates</button>
-					</div>
-				</div>
-				<div class="col-sm">
-					<div class="form-group">
-						<input type="checkbox" class="form-check-input" bind:checked={showCompare} />
-						<label class="form-check-label">Toggle comparison</label>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm">
-			{#if showCompare && !showGraph}
-				<div class="form-group">
-					<label>Start date</label>
-					<input
-						class="form-control"
-						type="date"
-						style="width: 200px"
-						bind:value={compareStartDate}
-					/>
-
-					<label>End date</label>
-					<input
-						class="form-control"
-						type="date"
-						style="width: 200px"
-						bind:value={compareEndDate}
-					/><br />
-					<button class="btn btn-primary" on:click={compareData}>Compare</button>
-				</div>
-			{/if}
-		</div>
+<div class="row">
+	<div class="column">
+		<p>Start date</p>
+		<label>
+			<input type="date" bind:value={startDate} />
+		</label>
+		<p>End date</p>
+		<label>
+			<input type="date" bind:value={endDate} />
+		</label>
 	</div>
+	{#if showCompare && !showGraph}
+		<div class="column">
+			<p>Start date</p>
+			<label>
+				<input type="date" bind:value={compareStartDate} />
+			</label>
+			<p>End date</p>
+			<label>
+				<input type="date" bind:value={compareEndDate} />
+			</label>
+			<button on:click={compareData}>Compare</button>
+		</div>
+	{/if}
+</div>
 
-	<br />
-	<button class="btn btn-primary" on:click={toggleGraph}>Toggle Graph-view</button>
-	<br />
+<button on:click={getDataByDates}>Show data for dates</button>
+<br />
+<button on:click={toggleGraph}>Toggle Graph-view</button>
+<br />
+{#if !showGraph}
+	<button on:click={() => (showCompare = !showCompare)}>Toggle Comparison</button>
+{/if}
 
-	{#if !showGraph}
-		<div class="container-fluid" style="margin-top: 10px">
-			<div class="row">
-				<div class="col-sm">
-					<table class="table table-bordered table-striped table-dark">
-						<thead>
-							<tr>
-								<th style="white-space: pre">{patientName}</th>
-								{#each filteredPatient as patient}
-									<th>{patient.Date.toLocaleString().split(' ')[0]}</th>
-									<!-- Getting the date for the session -->
-								{/each}
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<th>Breathing Rate <br />(avg/min)</th>
-								{#each filteredPatient as patient}
-									<th>{patient.BreathingRate}</th>
-								{/each}
-							</tr>
-							<tr>
-								<th>BreathingDepth <br />(avg%/min)</th>
-								{#each filteredPatient as patient}
-									<th>{patient.BreathingDepth}</th>
-								{/each}
-							</tr>
-							<tr>
-								<th>Oxygen (SPO2) <br />(avg/min)</th>
-								{#each filteredPatient as patient}
-									<th>{patient.SPO2}</th>
-								{/each}
-							</tr>
-							<tr>
-								<th>Caughing count <br />(session)</th>
-								{#each filteredPatient as patient}
-									<th>{patient.CoughingCount}</th>
-								{/each}
-							</tr>
-							<tr>
-								<th>HeartRate <br />(avg/min)</th>
-								{#each filteredPatient as patient}
-									<th>{patient.HeartRate}</th>
-								{/each}
-							</tr>
-							<tr>
-								<th>HRV <br />(avg)</th>
-								{#each filteredPatient as patient}
-									<th>{patient.HRV}</th>
-								{/each}
-							</tr>
-							<tr>
-								<th>Arythmia count <br />(during session)</th>
-								{#each filteredPatient as patient}
-									<th>{patient.ArythmiaCount}</th>
-								{/each}
-							</tr>
-							<tr>
-								<th>BodyTemperature <br />(avg/session)</th>
-								{#each filteredPatient as patient}
-									<th>{patient.BodyTemperature}</th>
-								{/each}
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div class="col-sm">
-					{#if showCompare == true && compareArray.length != 0}
-						<table class="table table-bordered table-striped table-dark">
-							<thead>
-								<tr>
-									<th style="white-space:pre">{patientName}</th>
-									{#each compareArray as patient}
-										<th style="white-space:pre">{patient.Date.toLocaleString().split(' ')[0]}</th>
-										<!-- Getting the date for the session -->
-									{/each}
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<th>Breathing Rate <br />(avg/min)</th>
-									{#each compareArray as patient}
-										<th>{patient.BreathingRate}</th>
-									{/each}
-								</tr>
-								<tr>
-									<th>BreathingDepth <br />(avg%/min)</th>
-									{#each compareArray as patient}
-										<th>{patient.BreathingDepth}</th>
-									{/each}
-								</tr>
-								<tr>
-									<th>Oxygen (SPO2) <br />(avg/min)</th>
-									{#each compareArray as patient}
-										<th>{patient.SPO2}</th>
-									{/each}
-								</tr>
-								<tr>
-									<th>Caughing count <br />(session)</th>
-									{#each compareArray as patient}
-										<th>{patient.CoughingCount}</th>
-									{/each}
-								</tr>
-								<tr>
-									<th>HeartRate <br />(avg/min)</th>
-									{#each compareArray as patient}
-										<th>{patient.HeartRate}</th>
-									{/each}
-								</tr>
-								<tr>
-									<th>HRV <br />(avg)</th>
-									{#each compareArray as patient}
-										<th>{patient.HRV}</th>
-									{/each}
-								</tr>
-								<tr>
-									<th>Arythmia count <br />(during session)</th>
-									{#each compareArray as patient}
-										<th>{patient.ArythmiaCount}</th>
-									{/each}
-								</tr>
-								<tr>
-									<th>BodyTemperature <br />(avg/session)</th>
-									{#each compareArray as patient}
-										<th>{patient.BodyTemperature}</th>
-									{/each}
-								</tr>
-							</tbody>
-						</table>
-					{/if}
-				</div>
+{#if !showGraph}
+	<div class="row">
+		<div class="column">
+			<table width="500" border="10">
+				<tr>
+					<th>{patient[0].name}</th>
+					{#each filteredPatient as patient}
+						<th>{patient.Date.toLocaleString()}</th>
+						<!-- Getting the date for the session -->
+					{/each}
+				</tr>
+				<tr>
+					<th>Breathing Rate (avg/min)</th>
+					{#each filteredPatient as patient}
+						<th>{patient.BreathingRate}</th>
+					{/each}
+				</tr>
+				<tr>
+					<th>BreathingDepth (avg%/min)</th>
+					{#each filteredPatient as patient}
+						<th>{patient.BreathingDepth}</th>
+					{/each}
+				</tr>
+				<tr>
+					<th>Oxygen (SPO2) (avg/min)</th>
+					{#each filteredPatient as patient}
+						<th>{patient.SPO2}</th>
+					{/each}
+				</tr>
+				<tr>
+					<th>Caughing count (session)</th>
+					{#each filteredPatient as patient}
+						<th>{patient.CoughingCount}</th>
+					{/each}
+				</tr>
+				<tr>
+					<th>HeartRate (avg/min)</th>
+					{#each filteredPatient as patient}
+						<th>{patient.HeartRate}</th>
+					{/each}
+				</tr>
+				<tr>
+					<th>HRV (avg)</th>
+					{#each filteredPatient as patient}
+						<th>{patient.HRV}</th>
+					{/each}
+				</tr>
+				<tr>
+					<th>Arythmia count (during session)</th>
+					{#each filteredPatient as patient}
+						<th>{patient.ArythmiaCount}</th>
+					{/each}
+				</tr>
+				<tr>
+					<th>BodyTemperature (avg/session)</th>
+					{#each filteredPatient as patient}
+						<th>{patient.BodyTemperature}</th>
+					{/each}
+				</tr>
+			</table>
+		</div>
+		{#if showCompare == true && compareArray.length != 0}
+			<div class="column">
+				<table width="500" border="10">
+					<tr>
+						<th>{patient[0].name}</th>
+						{#each compareArray as patient}
+							<th>{patient.Date.toLocaleString()}</th>
+							<!-- Getting the date for the session -->
+						{/each}
+					</tr>
+					<tr>
+						<th>Breathing Rate (avg/min)</th>
+						{#each compareArray as patient}
+							<th>{patient.BreathingRate}</th>
+						{/each}
+					</tr>
+					<tr>
+						<th>BreathingDepth (avg%/min)</th>
+						{#each compareArray as patient}
+							<th>{patient.BreathingDepth}</th>
+						{/each}
+					</tr>
+					<tr>
+						<th>Oxygen (SPO2) (avg/min)</th>
+						{#each compareArray as patient}
+							<th>{patient.SPO2}</th>
+						{/each}
+					</tr>
+					<tr>
+						<th>Caughing count (session)</th>
+						{#each compareArray as patient}
+							<th>{patient.CoughingCount}</th>
+						{/each}
+					</tr>
+					<tr>
+						<th>HeartRate (avg/min)</th>
+						{#each compareArray as patient}
+							<th>{patient.HeartRate}</th>
+						{/each}
+					</tr>
+					<tr>
+						<th>HRV (avg)</th>
+						{#each compareArray as patient}
+							<th>{patient.HRV}</th>
+						{/each}
+					</tr>
+					<tr>
+						<th>Arythmia count (during session)</th>
+						{#each compareArray as patient}
+							<th>{patient.ArythmiaCount}</th>
+						{/each}
+					</tr>
+					<tr>
+						<th>BodyTemperature (avg/session)</th>
+						{#each compareArray as patient}
+							<th>{patient.BodyTemperature}</th>
+						{/each}
+					</tr>
+				</table>
 			</div>
-		</div>
-	{/if}
+		{/if}
+	</div>
+{/if}
 
-	{#if showGraph}
-		<div class="chart-container">
-			<LayerCake
-				padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
-				x={xKey}
-				y={yKey}
-				z={zKey}
-				yDomain={[0, null]}
-				zScale={scaleOrdinal()}
-				zRange={seriesColors}
-				flatData={flatten(dataLong)}
-				data={dataLong}
-			>
-				<Svg>
-					<AxisX
-						gridlines={false}
-						ticks={data.map((d) => d[xKey]).sort((a, b) => a - b)}
-						formatTick={formatTickX}
-						snapTicks={true}
-						tickMarks={true}
-					/>
-					<AxisY ticks={10} formatTick={formatTickY} />
-					<MultiLine />
-				</Svg>
-
-				<Html>
-					<Labels />
-					<SharedTooltip formatTitle={formatTickX} dataset={data} />
-				</Html>
-			</LayerCake>
-		</div>
-	{/if}
-
-<<<<<<< HEAD
 {#if showGraph}
 <div class="graphCanvas">
 	<LayerCake
@@ -420,7 +333,7 @@ data={dataLong}
 	{#each dataLong as graph, i}
 	<div class="chart-container">
 		
-		<h1>{titles[i]}</h1>
+		<h1 style="color: white;">{titles[i]}</h1>
 		
 		<LayerCake
 			padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
@@ -457,12 +370,6 @@ data={dataLong}
 
 <a href="/compareData/{patientId}/{$storeHCPId}">Compare</a>
 <a href="/threshold/{patientId}/{$storeHCPId}"><button>Edit Threshold</button></a>
-=======
-	<a href="/threshold/{patientId}/{$storeHCPId}"
-		><button class="btn btn-primary">Edit Threshold</button></a
-	>
-</div>
->>>>>>> main
 
 <style>
 	/*
@@ -476,18 +383,15 @@ data={dataLong}
 		height: 1210px;
 		margin-bottom: 50px;
 	}
-
 	.chart-container {
 		width: 100%;
 		height: 100px;
 		margin-bottom: 50px;
 	}
-
 	.column {
 		float: left;
 		width: 50%;
 	}
-
 	/* Clear floats after the columns */
 	.row:after {
 		content: '';
