@@ -52,11 +52,11 @@
   <path
       class='path-line'
       d={path(group.values)}
-      stroke=#3421de
+      stroke=#8478f5
     ></path>
     
     {#each getCoordinates(path(group.values)) as coordinates}
-      <circle cx={coordinates[0]}   cy={coordinates[1]}  r="3" />
+      <circle fill=#c0bbed cx={coordinates[0]}   cy={coordinates[1]}  r="3" />
     {/each}
 
   {/each}
