@@ -13,21 +13,56 @@
 	import AxisY from './Graph/AxisY.svelte';
 	import Labels from './Graph/GroupLables.svelte';
 	import SharedTooltip from './Graph/SharedTooltip.percent-range.svelte';
+	import ThresholdLine from './Graph/ThresholdLine.svelte';
 
 	export let patient: any[] = [];
 	export var patientId: string;
+	export let thresholds: any
 	let startDate: Date = new Date('2000-11-10');
 	let endDate: Date = new Date('3000-11-10');
 
 	$: formatedStart = new Date(startDate);
 	$: formatedEnd = new Date(endDate);
 
-	let compareStartDate: Date = new Date(Date.now() - 604800000);
+	let compareStartDate: Date = new Date('2000-11-10');
 	let compareEndDate: Date = new Date(Date.now());
 	$: formatedCompareStart = new Date(compareStartDate);
 	$: formatedCompareEnd = new Date(compareEndDate);
 	let showCompare = false;
 	let compareArray: [] = [];
+
+
+    const baseThreshold =[
+    [
+        {
+            "value": 15,
+            "Date": new Date("2022-09-30T09:21:19.418Z")
+        },
+        {
+            "value": 15,
+            "Date": new Date("2022-11-01T09:21:19.418Z")
+        }
+    ],
+    [
+        {
+            "value": 60,
+            "Date": new Date("2022-09-30T09:21:19.418Z")
+        },
+        {
+            "value": 60,
+            "Date": new Date("2022-11-01T09:21:19.418Z")
+        }
+    ]
+]
+			
+				
+	var formatedThredsholds = []
+
+	Object.entries(thresholds).forEach(([key, value], index) => {
+		formatedThredsholds.push([[{"value": value.high, "Date": compareStartDate}, {"value": value.high, "Date": new Date(compareEndDate)}]])
+		formatedThredsholds[index].push([{"value": value.low, "Date": compareStartDate}, {"value": value.low, "Date": new Date(compareEndDate)}])
+});
+
 
 	function compareData() {
 		patient.forEach((p) => {
@@ -41,6 +76,7 @@
 		});
 	}
 
+	
 	let showGraph = false;
 
 	function toggleGraph() {
@@ -63,7 +99,7 @@
 			BreathingRate: p.BreathingRate,
 			BreathingDepth: p.BreathingDepth,
 			SPO2: p.SPO2,
-			CaughingCount: p.CaughingCount,
+			CaughingCount: p.CoughingCount,
 			HeartRate: p.HeartRate,
 			HRV: p.HRV,
 			ArythmiaCount: p.ArythmiaCount,
@@ -97,6 +133,16 @@
 
 	const parseDate = timeParse('%Y-%m-%d');
 
+	var titles = [
+    "Breathing Rate (avg/min)",
+    "BreathingDepth (avg%/min)",
+    "Oxygen (SPO2) (avg/min)",
+    "Coughing count (session)",
+    "HeartRate (avg/min)",
+    "HRV (avg)",
+    "Arythmia count (during session)",
+    "BodyTemperature (avg/session)"
+  ]
 	/* --------------------------------------------
 	 * Create a "long" format that is a grouped series of data points
 	 * Layer Cake uses this data structure and the key names
@@ -292,7 +338,24 @@
 {/if}
 
 {#if showGraph}
+<div class="bigdik">
+	<LayerCake
+padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
+x={xKey}
+y={yKey}
+z={zKey}
+yDomain={[0, null]}
+zScale={scaleOrdinal()}
+zRange={seriesColors}
+flatData={flatten(dataLong)}
+data={dataLong}
+>
+
+	{#each dataLong as graph, i}
 	<div class="chart-container">
+		
+		<h1>{titles[i]}</h1>
+		
 		<LayerCake
 			padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
 			x={xKey}
@@ -301,28 +364,30 @@
 			yDomain={[0, null]}
 			zScale={scaleOrdinal()}
 			zRange={seriesColors}
-			flatData={flatten(dataLong)}
-			data={dataLong}
+			flatData={flatten([dataLong[i]])}
+			data={[dataLong[i]]}
 		>
 			<Svg>
-				<AxisX
-					gridlines={false}
-					ticks={data.map((d) => d[xKey]).sort((a, b) => a - b)}
-					formatTick={formatTickX}
-					snapTicks={true}
-					tickMarks={true}
-				/>
-				<AxisY ticks={10} formatTick={formatTickY} />
+				<AxisY ticks={4} formatTick={formatTickY} />
+				<ThresholdLine thresholds={formatedThredsholds[i]}/>
 				<MultiLine />
 			</Svg>
 
 			<Html>
+				
 				<Labels />
-				<SharedTooltip formatTitle={formatTickX} dataset={data} />
 			</Html>
 		</LayerCake>
 	</div>
+	{/each}
+	
+<Html>
+	<SharedTooltip formatTitle={formatTickX} dataset={data} />
+</Html>
+</LayerCake>
+</div>
 {/if}
+
 
 <a href="/compareData/{patientId}/{$storeHCPId}">Compare</a>
 <a href="/threshold/{patientId}/{$storeHCPId}"><button>Edit Threshold</button></a>
@@ -334,9 +399,16 @@
 	  The point being it needs dimensions since the <LayerCake> element will
 	  expand to fill it.
 	*/
+	.bigdik{
+		width: 100%;
+		height: 1210px;
+		margin-bottom: 50px;
+	}
+
 	.chart-container {
 		width: 100%;
-		height: 800px;
+		height: 100px;
+		margin-bottom: 50px;
 	}
 
 	.column {

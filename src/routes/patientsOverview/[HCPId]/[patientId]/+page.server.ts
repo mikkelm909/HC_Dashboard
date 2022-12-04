@@ -1,21 +1,34 @@
 import type { PageServerLoad } from './$types';
 import { patientData } from '$db/Collections/patientData';
 import { patients } from '$db/Collections/patients';
+import { ObjectId } from 'mongodb';
 
 export const load: PageServerLoad = async function ({ params }) {
 	const data = await patientData.find({ patientId: params.patientId }).sort({ Date: 1 }).toArray();
-	const patient = await patients.find({}).toArray();
+	const patient = await patients.find({ _id: ObjectId(params.patientId) }).toArray();
+
+
 
 	const patientArray = patient.map((p) => {
-		return {
-			id: p._id.toString(),
-			name: p.name,
-			age: p.age,
-			sex: p.sex,
-			weight: p.weight,
-			height: p.height
-		};
+		let thresholds;
+		let exist = p.HCProThresholds.find((value) => {
+			thresholds = value;
+			return value.HCPro == params.HCPId;
+		});
+
+		if (exist) {
+			return {
+				id: p._id.toString(),
+				name: p.name,
+				age: p.age,
+				sex: p.sex,
+				weight: p.weight,
+				height: p.height,
+				HCProThresholds: thresholds
+			};
+		}
 	});
+
 
 	const newObject = {
 		name: ''
@@ -43,7 +56,11 @@ export const load: PageServerLoad = async function ({ params }) {
 		};
 	});
 
+
+
+
 	return {
+		patient: patientArray,
 		patientData: patientDataArray,
 		id: params.patientId
 	};

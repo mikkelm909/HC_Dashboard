@@ -269,7 +269,7 @@ export const actions: Actions = {
 
 		const BodyTemperatureUP = form.get('BodyTemperature-UP');
 		const BodyTemperatureLO = form.get('BodyTemperature-LO');
-		console.log(SPO2LO, SPO2UP);
+
 
 		UpdateThreashold(
 			BreathingRateUP,

@@ -30,18 +30,35 @@
     "#e6da73",
     "#73e67e",
   ]
+
+  //this is for coordinats to plot the circles
+  function getCoordinates(path: string){
+    var split = path.split("L")
+    split[0] = split[0].replace("M", "")
+
+    var coordinates: string[][] = []
+    
+    split.forEach(e => {
+      coordinates.push( e.split(","))
+    });
+    return coordinates
+  }
+
 </script>
 
 <g class="line-group">
   {#each $data as group, i}
-
+  
   <path
       class='path-line'
-      d='{path(group.values)}'
-      stroke={colors[i]}
+      d={path(group.values)}
+      stroke=#3421de
     ></path>
-
     
+    {#each getCoordinates(path(group.values)) as coordinates}
+      <circle cx={coordinates[0]}   cy={coordinates[1]}  r="3" />
+    {/each}
+
   {/each}
 </g>
 
