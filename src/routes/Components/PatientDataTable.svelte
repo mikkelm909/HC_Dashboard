@@ -404,7 +404,7 @@
 
 <<<<<<< HEAD
 {#if showGraph}
-<div class="graphCanvas">
+<div class="bigdik">
 	<LayerCake
 padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
 x={xKey}
@@ -471,7 +471,7 @@ data={dataLong}
 	  The point being it needs dimensions since the <LayerCake> element will
 	  expand to fill it.
 	*/
-	.graphCanvas{
+	.bigdik{
 		width: 100%;
 		height: 1210px;
 		margin-bottom: 50px;
