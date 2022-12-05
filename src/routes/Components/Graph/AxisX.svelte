@@ -89,7 +89,7 @@
   }
 
   .tick text {
-    fill: #666;
+    fill: rgb(198, 198, 198)
   }
 
   .tick .tick-mark,

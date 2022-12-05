@@ -353,53 +353,61 @@
 			</div>
 		{/if}
 
-		{#if showGraph}
-			<div class="graphCanvas">
-				<LayerCake
-					padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
-					x={xKey}
-					y={yKey}
-					z={zKey}
-					yDomain={[0, null]}
-					zScale={scaleOrdinal()}
-					zRange={seriesColors}
-					flatData={flatten(dataLong)}
-					data={dataLong}
-				>
-					{#each dataLong as graph, i}
-						<div class="chart-container">
-							<h1 style="color: white;">{titles[i]}</h1>
+	{#if showGraph}
+		<div class="graphCanvas">
+			<LayerCake
+				padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
+				x={xKey}
+				y={yKey}
+				z={zKey}
+				yDomain={[0, null]}
+				zScale={scaleOrdinal()}
+				zRange={seriesColors}
+				flatData={flatten(dataLong)}
+				data={dataLong}
+			>
 
-							<LayerCake
-								padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
-								x={xKey}
-								y={yKey}
-								z={zKey}
-								yDomain={[0, null]}
-								zScale={scaleOrdinal()}
-								zRange={seriesColors}
-								flatData={flatten([dataLong[i]])}
-								data={[dataLong[i]]}
-							>
-								<Svg>
-									<AxisY ticks={4} formatTick={formatTickY} />
-									<ThresholdLine thresholds={formatedThredsholds[i]} />
-									<MultiLine />
-								</Svg>
+				{#each dataLong as graph, i}
+					<div class="chart-container">
+						<div class="title">{titles[i]}</div>
 
-								<Html>
-									<Labels />
-								</Html>
-							</LayerCake>
-						</div>
-					{/each}
+						<LayerCake
+							padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
+							x={xKey}
+							y={yKey}
+							z={zKey}
+							yDomain={[0, null]}
+							zScale={scaleOrdinal()}
+							zRange={seriesColors}
+							flatData={flatten([dataLong[i]])}
+							data={[dataLong[i]]}
+						>
+							<Svg>
+								<ThresholdLine thresholds={formatedThredsholds[i]} />
+								<MultiLine />
+								<AxisY ticks={4} formatTick={formatTickY} />
+							</Svg>
 
-					<Html>
-						<SharedTooltip formatTitle={formatTickX} dataset={data} />
-					</Html>
-				</LayerCake>
-			</div>
-		{/if}
+
+						</LayerCake>
+					</div>
+				{/each}
+
+				<Svg>
+					<AxisX
+					gridlines={false}
+					ticks={data.map((d) => d[xKey]).sort((a, b) => a - b)}
+					formatTick={formatTickX}
+					snapTicks={true}
+					tickMarks={true}
+				/>
+				</Svg>
+				<Html>
+					<SharedTooltip formatTitle={formatTickX} dataset={data} />
+				</Html>
+			</LayerCake>
+		</div>
+	{/if}
 
 		<a href="/threshold/{patientId}/{$storeHCPId}"
 			><button class="btn btn-primary">Edit Threshold</button></a
@@ -423,6 +431,11 @@
 		width: 100%;
 		height: 100px;
 		margin-bottom: 50px;
+	}
+	.title {
+		color: rgb(223, 223, 223);
+		font-size: 100%;
+		
 	}
 	.column {
 		float: left;
