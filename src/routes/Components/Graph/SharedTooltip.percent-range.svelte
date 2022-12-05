@@ -56,7 +56,7 @@
 		<div style="left:{x}px;" class="line" />
 
 		<div
-			class="tooltip"
+			id="tooltip"
 			style="
         width:{w}px;
         display: {visible ? 'block' : 'none'};
@@ -76,7 +76,7 @@
 
 <!-- top:{$yScale(foundSorted[0].value) + offset}px; styling for dynamic change y axis-->
 <style>
-	.tooltip {
+	#tooltip {
 		position: absolute;
 		font-size: 13px;
 		pointer-events: none;
