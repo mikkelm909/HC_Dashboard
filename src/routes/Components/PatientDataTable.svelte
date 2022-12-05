@@ -7,12 +7,14 @@
 	import { scaleOrdinal } from 'd3-scale';
 	import { timeParse, timeFormat } from 'd3-time-format';
 	import { format, precisionFixed } from 'd3-format';
+	import Modal from 'svelte-simple-modal';
 	import MultiLine from './Graph/MultiLine.svelte';
 	import AxisX from './Graph/AxisX.svelte';
 	import AxisY from './Graph/AxisY.svelte';
 	import Labels from './Graph/GroupLables.svelte';
 	import SharedTooltip from './Graph/SharedTooltip.percent-range.svelte';
 	import ThresholdLine from './Graph/ThresholdLine.svelte';
+	import ModalContent from './modalContent.svelte';
 	export let patientData: any[] = [];
 	export var patientId: string;
 	export let thresholds: any;
@@ -167,6 +169,9 @@
 <div class="container-fluid">
 	<div class="bg-dark text-light">
 		<p transition:fade>Fades in and out</p>
+
+		<Modal><ModalContent /></Modal>
+
 		<div class="row">
 			<div class="col-sm">
 				<div class="row">
