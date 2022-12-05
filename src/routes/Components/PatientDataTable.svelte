@@ -180,12 +180,14 @@
 						<button class="btn btn-primary" on:click={getDataByDates}>Show data for dates</button>
 					</div>
 				</div>
-				<div class="col-sm">
-					<div class="form-group">
-						<input type="checkbox" class="form-check-input" bind:checked={showCompare} />
-						<label class="form-check-label">Toggle comparison</label>
+				{#if !showGraph}
+					<div class="col-sm">
+						<div class="form-group">
+							<input type="checkbox" class="form-check-input" bind:checked={showCompare} />
+							<label class="form-check-label">Toggle comparison</label>
+						</div>
 					</div>
-				</div>
+				{/if}
 				<div class="col-sm">
 					{#if showCompare && !showGraph}
 						<div class="form-group">
