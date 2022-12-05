@@ -164,130 +164,70 @@
 	const formatTickY = (d) => format(`.${precisionFixed(d)}s`)(d);
 </script>
 
-<div class="bg-dark text-light">
-	
-
-	<div class="row">
-		<div class="col-sm">
-			<div class="row">
-				<div class="col-sm">
-					<div class="form-group">
-						<label>Start date</label>
-						<input class="form-control" type="date" style="width: 200px" bind:value={startDate} />
-						<label>End date</label>
-						<input class="form-control" type="date" style="width: 200px" bind:value={endDate} /><br
-						/>
-						<button class="btn btn-primary" on:click={getDataByDates}>Show data for dates</button>
-					</div>
-				</div>
-				{#if !showGraph}
+<div class="container-fluid">
+	<div class="bg-dark text-light">
+		<p transition:fade>Fades in and out</p>
+		<div class="row">
+			<div class="col-sm">
+				<div class="row">
 					<div class="col-sm">
 						<div class="form-group">
-							<input type="checkbox" class="form-check-input" bind:checked={showCompare} />
-							<label class="form-check-label">Toggle comparison</label>
-						</div>
-					</div>
-				{/if}
-				<div class="col-sm">
-					{#if showCompare && !showGraph}
-						<div class="form-group">
 							<label>Start date</label>
-							<input
-								class="form-control"
-								type="date"
-								style="width: 200px"
-								bind:value={compareStartDate}
-							/>
+							<input class="form-control" type="date" style="width: 200px" bind:value={startDate} />
 							<label>End date</label>
 							<input
 								class="form-control"
 								type="date"
 								style="width: 200px"
-								bind:value={compareEndDate}
+								bind:value={endDate}
 							/><br />
-							<button class="btn btn-primary" on:click={compareData}>Compare</button>
+							<button class="btn btn-primary" on:click={getDataByDates}>Show data for dates</button>
+						</div>
+					</div>
+					{#if !showGraph}
+						<div class="col-sm">
+							<div class="form-group">
+								<input type="checkbox" class="form-check-input" bind:checked={showCompare} />
+								<label class="form-check-label">Toggle comparison</label>
+							</div>
 						</div>
 					{/if}
+					<div class="col-sm">
+						{#if showCompare && !showGraph}
+							<div class="form-group">
+								<label>Start date</label>
+								<input
+									class="form-control"
+									type="date"
+									style="width: 200px"
+									bind:value={compareStartDate}
+								/>
+								<label>End date</label>
+								<input
+									class="form-control"
+									type="date"
+									style="width: 200px"
+									bind:value={compareEndDate}
+								/><br />
+								<button class="btn btn-primary" on:click={compareData}>Compare</button>
+							</div>
+						{/if}
+					</div>
 				</div>
+				<br />
+				<button class="btn btn-primary" on:click={toggleGraph}>Toggle Graph-view</button>
+				<br />
 			</div>
-			<br />
-			<button class="btn btn-primary" on:click={toggleGraph}>Toggle Graph-view</button>
-			<br />
 		</div>
-	</div>
 
-	{#if !showGraph}
-		<div class="row">
-			<div class="col-sm">
-				<table class="table table-bordered table-striped table-dark">
-					<thead>
-						<tr>
-							<th style="white-space: pre">{patientName}</th>
-							{#each filteredPatient as patient}
-								<th>{patient.Date.toLocaleString().split(' ')[0]}</th>
-								<!-- Getting the date for the session -->
-							{/each}
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<th>Breathing Rate <br />(avg/min)</th>
-							{#each filteredPatient as patient}
-								<th>{patient.BreathingRate}</th>
-							{/each}
-						</tr>
-						<tr>
-							<th>BreathingDepth <br />(avg%/min)</th>
-							{#each filteredPatient as patient}
-								<th>{patient.BreathingDepth}</th>
-							{/each}
-						</tr>
-						<tr>
-							<th>Oxygen (SPO2) <br />(avg/min)</th>
-							{#each filteredPatient as patient}
-								<th>{patient.SPO2}</th>
-							{/each}
-						</tr>
-						<tr>
-							<th>Caughing count <br />(session)</th>
-							{#each filteredPatient as patient}
-								<th>{patient.CoughingCount}</th>
-							{/each}
-						</tr>
-						<tr>
-							<th>HeartRate <br />(avg/min)</th>
-							{#each filteredPatient as patient}
-								<th>{patient.HeartRate}</th>
-							{/each}
-						</tr>
-						<tr>
-							<th>HRV <br />(avg)</th>
-							{#each filteredPatient as patient}
-								<th>{patient.HRV}</th>
-							{/each}
-						</tr>
-						<tr>
-							<th>Arythmia count <br />(during session)</th>
-							{#each filteredPatient as patient}
-								<th>{patient.ArythmiaCount}</th>
-							{/each}
-						</tr>
-						<tr>
-							<th>BodyTemperature <br />(avg/session)</th>
-							{#each filteredPatient as patient}
-								<th>{patient.BodyTemperature}</th>
-							{/each}
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			{#if showCompare == true && compareArray.length != 0}
+		{#if !showGraph}
+			<div class="row">
 				<div class="col-sm">
 					<table class="table table-bordered table-striped table-dark">
 						<thead>
 							<tr>
-								<th>{patientName}</th>
-								{#each compareArray as patient}
+								<th style="white-space: pre">{patientName}</th>
+								{#each filteredPatient as patient}
 									<th>{patient.Date.toLocaleString().split(' ')[0]}</th>
 									<!-- Getting the date for the session -->
 								{/each}
@@ -296,58 +236,122 @@
 						<tbody>
 							<tr>
 								<th>Breathing Rate <br />(avg/min)</th>
-								{#each compareArray as patient}
+								{#each filteredPatient as patient}
 									<th>{patient.BreathingRate}</th>
 								{/each}
 							</tr>
 							<tr>
 								<th>BreathingDepth <br />(avg%/min)</th>
-								{#each compareArray as patient}
+								{#each filteredPatient as patient}
 									<th>{patient.BreathingDepth}</th>
 								{/each}
 							</tr>
 							<tr>
 								<th>Oxygen (SPO2) <br />(avg/min)</th>
-								{#each compareArray as patient}
+								{#each filteredPatient as patient}
 									<th>{patient.SPO2}</th>
 								{/each}
 							</tr>
 							<tr>
 								<th>Caughing count <br />(session)</th>
-								{#each compareArray as patient}
+								{#each filteredPatient as patient}
 									<th>{patient.CoughingCount}</th>
 								{/each}
 							</tr>
 							<tr>
 								<th>HeartRate <br />(avg/min)</th>
-								{#each compareArray as patient}
+								{#each filteredPatient as patient}
 									<th>{patient.HeartRate}</th>
 								{/each}
 							</tr>
 							<tr>
 								<th>HRV <br />(avg)</th>
-								{#each compareArray as patient}
+								{#each filteredPatient as patient}
 									<th>{patient.HRV}</th>
 								{/each}
 							</tr>
 							<tr>
 								<th>Arythmia count <br />(during session)</th>
-								{#each compareArray as patient}
+								{#each filteredPatient as patient}
 									<th>{patient.ArythmiaCount}</th>
 								{/each}
 							</tr>
 							<tr>
 								<th>BodyTemperature <br />(avg/session)</th>
-								{#each compareArray as patient}
+								{#each filteredPatient as patient}
 									<th>{patient.BodyTemperature}</th>
 								{/each}
 							</tr>
 						</tbody>
 					</table>
 				</div>
-			{/if}
-		</div>
-	{/if}
+				{#if showCompare == true && compareArray.length != 0}
+					<div class="col-sm">
+						<table class="table table-bordered table-striped table-dark">
+							<thead>
+								<tr>
+									<th>{patientName}</th>
+									{#each compareArray as patient}
+										<th>{patient.Date.toLocaleString().split(' ')[0]}</th>
+										<!-- Getting the date for the session -->
+									{/each}
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th>Breathing Rate <br />(avg/min)</th>
+									{#each compareArray as patient}
+										<th>{patient.BreathingRate}</th>
+									{/each}
+								</tr>
+								<tr>
+									<th>BreathingDepth <br />(avg%/min)</th>
+									{#each compareArray as patient}
+										<th>{patient.BreathingDepth}</th>
+									{/each}
+								</tr>
+								<tr>
+									<th>Oxygen (SPO2) <br />(avg/min)</th>
+									{#each compareArray as patient}
+										<th>{patient.SPO2}</th>
+									{/each}
+								</tr>
+								<tr>
+									<th>Caughing count <br />(session)</th>
+									{#each compareArray as patient}
+										<th>{patient.CoughingCount}</th>
+									{/each}
+								</tr>
+								<tr>
+									<th>HeartRate <br />(avg/min)</th>
+									{#each compareArray as patient}
+										<th>{patient.HeartRate}</th>
+									{/each}
+								</tr>
+								<tr>
+									<th>HRV <br />(avg)</th>
+									{#each compareArray as patient}
+										<th>{patient.HRV}</th>
+									{/each}
+								</tr>
+								<tr>
+									<th>Arythmia count <br />(during session)</th>
+									{#each compareArray as patient}
+										<th>{patient.ArythmiaCount}</th>
+									{/each}
+								</tr>
+								<tr>
+									<th>BodyTemperature <br />(avg/session)</th>
+									{#each compareArray as patient}
+										<th>{patient.BodyTemperature}</th>
+									{/each}
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				{/if}
+			</div>
+		{/if}
 
 	{#if showGraph}
 		<div class="graphCanvas">
@@ -405,9 +409,10 @@
 		</div>
 	{/if}
 
-	<a href="/threshold/{patientId}/{$storeHCPId}"
-		><button class="btn btn-primary">Edit Threshold</button></a
-	>
+		<a href="/threshold/{patientId}/{$storeHCPId}"
+			><button class="btn btn-primary">Edit Threshold</button></a
+		>
+	</div>
 </div>
 
 <style>

@@ -123,7 +123,10 @@
 				<tbody>
 					{#each sortedPatientData as p}
 						<tr>
-							<td on:click={() => goto($storeHCPId + '/' + p.id)}>{p.Name}</td>
+							<td
+								on:click={() => goto($storeHCPId + '/' + p.id)}
+								style="cursor: pointer; font-weight: bold">{p.Name}</td
+							>
 							<td>{p.Last_14Days}</td>
 							<td>{p.Risk_Score}</td>
 							<td>{p.Last_Reading.toLocaleString()}</td>
@@ -199,7 +202,10 @@
 				<tbody>
 					{#each foundPatients as p}
 						<tr>
-							<td on:click={() => goto('patientsOverview/' + p.id)}>{p.Name}</td>
+							<td
+								on:click={() => goto('patientsOverview/' + p.id)}
+								style="cursor: pointer; font-weight: bold">{p.Name}</td
+							>
 							<td />
 							<td>{p.Risk_Score}</td>
 							<td>{p.Last_Reading.toLocaleString()}</td>

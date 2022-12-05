@@ -36,6 +36,7 @@
 		"ip": "^2.0.0",
 		"layercake": "^7.1.0",
 		"mongodb": "4.11",
+		"svelte-simple-modal": "^1.4.5",
 		"sveltestrap": "^5.10.0"
 	}
 }
