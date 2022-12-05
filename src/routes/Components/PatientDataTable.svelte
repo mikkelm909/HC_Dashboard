@@ -165,7 +165,7 @@
 </script>
 
 <div class="bg-dark text-light">
-	<p transition:fade>Fades in and out</p>
+	
 
 	<div class="row">
 		<div class="col-sm">
@@ -362,9 +362,10 @@
 				flatData={flatten(dataLong)}
 				data={dataLong}
 			>
+
 				{#each dataLong as graph, i}
 					<div class="chart-container">
-						<h1 style="color: white;">{titles[i]}</h1>
+						<div class="title">{titles[i]}</div>
 
 						<LayerCake
 							padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
@@ -378,18 +379,25 @@
 							data={[dataLong[i]]}
 						>
 							<Svg>
-								<AxisY ticks={4} formatTick={formatTickY} />
 								<ThresholdLine thresholds={formatedThredsholds[i]} />
 								<MultiLine />
+								<AxisY ticks={4} formatTick={formatTickY} />
 							</Svg>
 
-							<Html>
-								<Labels />
-							</Html>
+
 						</LayerCake>
 					</div>
 				{/each}
 
+				<Svg>
+					<AxisX
+					gridlines={false}
+					ticks={data.map((d) => d[xKey]).sort((a, b) => a - b)}
+					formatTick={formatTickX}
+					snapTicks={true}
+					tickMarks={true}
+				/>
+				</Svg>
 				<Html>
 					<SharedTooltip formatTitle={formatTickX} dataset={data} />
 				</Html>
@@ -418,6 +426,11 @@
 		width: 100%;
 		height: 100px;
 		margin-bottom: 50px;
+	}
+	.title {
+		color: rgb(223, 223, 223);
+		font-size: 100%;
+		
 	}
 	.column {
 		float: left;
