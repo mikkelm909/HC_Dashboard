@@ -2,7 +2,7 @@
 	import type { PageData } from './$types';
 	import EditThreshold from '../../../Components/editThreshold.svelte';
 
-	export let data: PageData;
+	export let data;
 </script>
 
-<EditThreshold />
+<EditThreshold patientData={data.patientData} />

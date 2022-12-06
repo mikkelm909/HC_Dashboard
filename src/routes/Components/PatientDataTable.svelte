@@ -167,10 +167,10 @@
 </script>
 
 <div class="container-fluid">
-	<div class="bg-dark text-light">
+	<div class="bg-dark text-light" style="margin-top: 20px">
 		<p transition:fade>Fades in and out</p>
 
-		<Modal><ModalContent /></Modal>
+		<Modal><ModalContent {thresholds} /></Modal>
 
 		<div class="row">
 			<div class="col-sm">
@@ -178,7 +178,12 @@
 					<div class="col-sm">
 						<div class="form-group">
 							<label>Start date</label>
-							<input class="form-control" type="date" style="width: 200px" bind:value={startDate} />
+							<input
+								class="form-control"
+								type="date"
+								style="width: 200px"
+								bind:value={startDate}
+							/><br />
 							<label>End date</label>
 							<input
 								class="form-control"
@@ -206,7 +211,7 @@
 									type="date"
 									style="width: 200px"
 									bind:value={compareStartDate}
-								/>
+								/><br />
 								<label>End date</label>
 								<input
 									class="form-control"
@@ -221,6 +226,7 @@
 				</div>
 				<br />
 				<button class="btn btn-primary" on:click={toggleGraph}>Toggle Graph-view</button>
+				<br />
 				<br />
 			</div>
 		</div>

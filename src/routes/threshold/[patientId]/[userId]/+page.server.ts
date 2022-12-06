@@ -185,12 +185,14 @@ export const load: PageServerLoad = async function ({ params }) {
 	}
 	setToDefaultThreshold();
 
+	console.log(patientArray);
+
 	return {
 		patientData: patientArray
 	};
 };
 
-async function UpdateThreashold(
+async function UpdateThreshold(
 	BreathingRateUP: any,
 	BreathingRateLO: any,
 	BreathingDepthUP: any,
@@ -270,8 +272,7 @@ export const actions: Actions = {
 		const BodyTemperatureUP = form.get('BodyTemperature-UP');
 		const BodyTemperatureLO = form.get('BodyTemperature-LO');
 
-
-		UpdateThreashold(
+		UpdateThreshold(
 			BreathingRateUP,
 			BreathingRateLO,
 			BreathingDepthUP,
