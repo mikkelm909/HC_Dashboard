@@ -18,6 +18,7 @@
 			type="number"
 			name="BreathingRate-LO"
 		/>
+
 	{:else if chosenValue == 'BreathingDepth'}
 		<p>BreathingDepth-UP 🔼</p>
 		<input
@@ -31,11 +32,21 @@
 			type="number"
 			name="BreathingDepth-LO"
 		/>
+
 	{:else if chosenValue == 'SPO2'}
 		<p>SPO2-UP 🔼</p>
-		<input bind:value={thresholds.SPO2Threshold.high} type="number" name="SPO2-UP" />
+		<input 
+			bind:value={thresholds.SPO2Threshold.high} 
+			type="number" 
+			name="SPO2-UP" 
+	/>
 		<p>SPO2-LO 🔽</p>
-		<input bind:value={thresholds.SPO2Threshold.low} type="number" name="SPO2-LO" />
+		<input 
+			bind:value={thresholds.SPO2Threshold.low} 
+			type="number" 
+			name="SPO2-LO" 
+	/>
+
 	{:else if chosenValue == 'CoughingCount'}
 		<p>CoughingCount-UP 🔼</p>
 		<input

@@ -221,7 +221,7 @@ async function updateBreathingRateThreshold(BreathingRateUP: any, BreathingRateL
 	patients.updateOne(
 		{
 			_id: new ObjectId(paramPatient),
-			HCProTresholds: { $elemMatch: { HCPro: paramUser } }
+			HCProThresholds: { $elemMatch: { HCPro: paramUser } }
 		},
 		{
 			$set: {
@@ -236,12 +236,97 @@ async function updateBreathingDepthThreshold(BreathingDepthUP: any, BreathingDep
 	patients.updateOne(
 		{
 			_id: new ObjectId(paramPatient),
-			HCProTresholds: { $elemMatch: { HCPro: paramUser } }
+			HCProThresholds: { $elemMatch: { HCPro: paramUser } }
 		},
 		{
 			$set: {
 				'HCProThresholds.$.Thresholds.BreathingDepthThreshold.high': BreathingDepthUP,
 				'HCProThresholds.$.Thresholds.BreathingDepthThreshold.low': BreathingDepthLO
+			}
+		}
+	);
+}
+
+async function updateSPO2Threshold(SPO2UP: any, SPO2LO: any) {
+	patients.updateOne(
+		{
+			_id: new ObjectId(paramPatient),
+			HCProThresholds: { $elemMatch: { HCPro: paramUser } }
+		},
+		{
+			$set: {
+				'HCProThresholds.$.Thresholds.SPO2Threshold.high': SPO2UP,
+				'HCProThresholds.$.Thresholds.SPO2Threshold.low': SPO2LO
+			}
+		}
+	);
+}
+async function updateCaughingCountThreshold(CaughingCountUP: any, CaughingCountLO: any) {
+	patients.updateOne(
+		{
+			_id: new ObjectId(paramPatient),
+			HCProThresholds: { $elemMatch: { HCPro: paramUser } }
+		},
+		{
+			$set: {
+				'HCProThresholds.$.Thresholds.CaughingCountThreshold.high': CaughingCountUP,
+				'HCProThresholds.$.Thresholds.CaughingCountThreshold.low': CaughingCountLO
+			}
+		}
+	);
+}
+async function updateHeartRateThreshold(HeartRateUP: any, HeartRateLO: any) {
+	patients.updateOne(
+		{
+			_id: new ObjectId(paramPatient),
+			HCProThresholds: { $elemMatch: { HCPro: paramUser } }
+		},
+		{
+			$set: {
+				'HCProThresholds.$.Thresholds.HeartRateThreshold.high': HeartRateUP,
+				'HCProThresholds.$.Thresholds.HeartRateThreshold.low': HeartRateLO
+			}
+		}
+	);
+}
+async function updateHRVThreshold(HRVUP: any, HRVLO: any) {
+	patients.updateOne(
+		{
+			_id: new ObjectId(paramPatient),
+			HCProThresholds: { $elemMatch: { HCPro: paramUser } }
+		},
+		{
+			$set: {
+				'HCProThresholds.$.Thresholds.HRVThreshold.high': HRVUP,
+				'HCProThresholds.$.Thresholds.HRVThreshold.low': HRVLO
+			}
+		}
+	);
+}
+async function updateArythmiaCountThreshold(ArythmiaCountUP: any, ArythmiaCountLO: any) {
+	patients.updateOne(
+		{
+			_id: new ObjectId(paramPatient),
+			HCProThresholds: { $elemMatch: { HCPro: paramUser } }
+		},
+		{
+			$set: {
+				'HCProThresholds.$.Thresholds.ArythmiaCountThreshold.high': ArythmiaCountUP,
+				'HCProThresholds.$.Thresholds.ArythmiaCountThreshold.low': ArythmiaCountLO,
+			}
+		}
+	);
+}
+async function updateBodyTemperatureThreshold(BodyTemperatureUP: any, BodyTemperatureLO: any) {
+	patients.updateOne(
+		{
+			_id: new ObjectId(paramPatient),
+			HCProThresholds: { $elemMatch: { HCPro: paramUser } }
+		},
+		{
+			$set: {
+				'HCProThresholds.$.Thresholds.BodyTemperatureThreshold.high': BodyTemperatureUP,
+				'HCProThresholds.$.Thresholds.BodyTemperatureThreshold.low': BodyTemperatureLO
 			}
 		}
 	);
@@ -450,9 +535,26 @@ export const actions: Actions = {
 		if (BreathingRateUP != null && BreathingRateLO != null) {
 			updateBreathingRateThreshold(BreathingRateUP, BreathingRateLO);
 		}
-
 		if (BreathingDepthUP != null && BreathingDepthLO != null) {
 			updateBreathingDepthThreshold(BreathingDepthUP, BreathingDepthLO);
+		}
+		if (SPO2UP != null && SPO2LO != null) {
+			updateSPO2Threshold(SPO2UP, SPO2LO);
+		}
+		if (CaughingCountUP != null && CaughingCountLO != null) {
+			updateCaughingCountThreshold(CaughingCountUP, CaughingCountLO);
+		}
+		if (HeartRateUP != null && HeartRateLO != null) {
+			updateHeartRateThreshold(HeartRateUP, HeartRateLO);
+		}
+		if ( HRVUP!= null && HRVLO != null) {
+			updateHRVThreshold(HRVUP, HRVLO);
+		}
+		if ( ArythmiaCountUP!= null && ArythmiaCountLO != null) {
+			updateArythmiaCountThreshold(ArythmiaCountUP, ArythmiaCountLO);
+		}
+		if ( BodyTemperatureUP!= null && BodyTemperatureLO != null) {
+			updateBodyTemperatureThreshold(BodyTemperatureUP, BodyTemperatureLO);
 		}
 
 		/*UpdateThreshold(
