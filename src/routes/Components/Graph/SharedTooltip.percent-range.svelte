@@ -63,10 +63,10 @@
 
         left:{Math.min(Math.max(w2, x), $width - w2)}px;"
 		>
-			<div class="title">{formatTitle(found[$config.x])}</div>
+			<div id="title">{formatTitle(found[$config.x])}</div>
 			{#each foundSorted as row}
-				<div class="row">
-					<span class="key">{formatKey(row.key)}:</span>
+				<div id="row">
+					<span id="key">{formatKey(row.key)}:</span>
 					{formatValue(row.value)}
 				</div>
 			{/each}
@@ -80,7 +80,7 @@
 		position: absolute;
 		font-size: 13px;
 		pointer-events: none;
-		border: 1px solid #ccc;
+		border: 1px solid rgb(63, 59, 59);
 		background: rgba(255, 255, 255, 0.85);
 		transform: translate(-50%, -100%);
 		padding: 5px;
@@ -91,17 +91,21 @@
 		top: 0;
 		bottom: 0;
 		width: 1px;
-		border-left: 1px dotted #666;
+		border-left: 1px dotted rgb(159, 157, 157);
 		pointer-events: none;
 	}
-	.tooltip,
-	.line {
+	#tooltip,
+	#line {
 		transition: left 250ms ease-out, top 250ms ease-out;
 	}
-	.title {
+	#title {
 		font-weight: bold;
+		color: #666;
 	}
-	.key {
-		color: #999;
+	#key {
+		color: rgb(87, 83, 83);
+	}
+	#row {
+		color: rgb(49, 49, 49);
 	}
 </style>
