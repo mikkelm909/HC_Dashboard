@@ -7,12 +7,14 @@
 	import { scaleOrdinal } from 'd3-scale';
 	import { timeParse, timeFormat } from 'd3-time-format';
 	import { format, precisionFixed } from 'd3-format';
+	import Modal from 'svelte-simple-modal';
 	import MultiLine from './Graph/MultiLine.svelte';
 	import AxisX from './Graph/AxisX.svelte';
 	import AxisY from './Graph/AxisY.svelte';
 	import Labels from './Graph/GroupLables.svelte';
 	import SharedTooltip from './Graph/SharedTooltip.percent-range.svelte';
 	import ThresholdLine from './Graph/ThresholdLine.svelte';
+	import ModalContent from './modalContent.svelte';
 	export let patientData: any[] = [];
 	export var patientId: string;
 	export let thresholds: any;
@@ -27,6 +29,8 @@
 	$: formatedCompareEnd = new Date(compareEndDate);
 	let showCompare = false;
 	let compareArray: [] = [];
+	let chosenThresholdValue = '';
+
 	const baseThreshold = [
 		[
 			{
@@ -164,16 +168,20 @@
 	const formatTickY = (d) => format(`.${precisionFixed(d)}s`)(d);
 </script>
 
-<div class="container-fluid">
-	<div class="bg-dark text-light">
-		<p transition:fade>Fades in and out</p>
+<div class="container-fluid" transition:fade>
+	<div class="bg-dark text-light" style="margin-top: 20px">
 		<div class="row">
 			<div class="col-sm">
 				<div class="row">
 					<div class="col-sm">
 						<div class="form-group">
 							<label>Start date</label>
-							<input class="form-control" type="date" style="width: 200px" bind:value={startDate} />
+							<input
+								class="form-control"
+								type="date"
+								style="width: 200px"
+								bind:value={startDate}
+							/><br />
 							<label>End date</label>
 							<input
 								class="form-control"
@@ -181,7 +189,9 @@
 								style="width: 200px"
 								bind:value={endDate}
 							/><br />
-							<button class="btn btn-primary" on:click={getDataByDates}>Show data for dates</button>
+							<button class="btn btn-outline-primary" on:click={getDataByDates}
+								>Show data for dates</button
+							>
 						</div>
 					</div>
 					{#if !showGraph}
@@ -194,34 +204,35 @@
 					{/if}
 					<div class="col-sm">
 						{#if showCompare && !showGraph}
-							<div class="form-group">
+							<div class="form-group" transition:fade>
 								<label>Start date</label>
 								<input
 									class="form-control"
 									type="date"
 									style="width: 200px"
 									bind:value={compareStartDate}
-								/>
+								/><br />
 								<label>End date</label>
 								<input
 									class="form-control"
 									type="date"
 									style="width: 200px"
 									bind:value={compareEndDate}
-								/><br />
-								<button class="btn btn-primary" on:click={compareData}>Compare</button>
+								/>
+								<button class="btn btn-outline-primary" on:click={compareData}>Compare</button>
 							</div>
 						{/if}
 					</div>
 				</div>
 				<br />
-				<button class="btn btn-primary" on:click={toggleGraph}>Toggle Graph-view</button>
+				<button class="btn btn-outline-primary" on:click={toggleGraph}>Toggle Graph-view</button>
+				<br />
 				<br />
 			</div>
 		</div>
 
 		{#if !showGraph}
-			<div class="row">
+			<div class="row" transition:fade>
 				<div class="col-sm">
 					<table class="table table-bordered table-striped table-dark">
 						<thead>
@@ -235,49 +246,105 @@
 						</thead>
 						<tbody>
 							<tr>
-								<th>Breathing Rate <br />(avg/min)</th>
+								<th
+									>Breathing Rate <br />(avg/min) <Modal
+										><ModalContent
+											{thresholds}
+											chosenValue={(chosenThresholdValue = 'BreathingRate')}
+										/></Modal
+									></th
+								>
 								{#each filteredPatient as patient}
 									<th>{patient.BreathingRate}</th>
 								{/each}
 							</tr>
 							<tr>
-								<th>BreathingDepth <br />(avg%/min)</th>
+								<th
+									>Breathing Depth <br />(avg%/min) <Modal
+										><ModalContent
+											{thresholds}
+											chosenValue={(chosenThresholdValue = 'BreathingDepth')}
+										/></Modal
+									></th
+								>
 								{#each filteredPatient as patient}
 									<th>{patient.BreathingDepth}</th>
 								{/each}
 							</tr>
 							<tr>
-								<th>Oxygen (SPO2) <br />(avg/min)</th>
+								<th
+									>Oxygen (SPO2) <br />(avg/min) <Modal
+										><ModalContent
+											{thresholds}
+											chosenValue={(chosenThresholdValue = 'SPO2')}
+										/></Modal
+									></th
+								>
 								{#each filteredPatient as patient}
 									<th>{patient.SPO2}</th>
 								{/each}
 							</tr>
 							<tr>
-								<th>Caughing count <br />(session)</th>
+								<th
+									>Coughing count <br />(session) <Modal
+										><ModalContent
+											{thresholds}
+											chosenValue={(chosenThresholdValue = 'CoughingCount')}
+										/></Modal
+									></th
+								>
 								{#each filteredPatient as patient}
 									<th>{patient.CoughingCount}</th>
 								{/each}
 							</tr>
 							<tr>
-								<th>HeartRate <br />(avg/min)</th>
+								<th
+									>Heart Rate <br />(avg/min) <Modal
+										><ModalContent
+											{thresholds}
+											chosenValue={(chosenThresholdValue = 'HeartRate')}
+										/></Modal
+									></th
+								>
 								{#each filteredPatient as patient}
 									<th>{patient.HeartRate}</th>
 								{/each}
 							</tr>
 							<tr>
-								<th>HRV <br />(avg)</th>
+								<th
+									>HRV <br />(avg) <Modal
+										><ModalContent
+											{thresholds}
+											chosenValue={(chosenThresholdValue = 'HRV')}
+										/></Modal
+									></th
+								>
 								{#each filteredPatient as patient}
 									<th>{patient.HRV}</th>
 								{/each}
 							</tr>
 							<tr>
-								<th>Arythmia count <br />(during session)</th>
+								<th
+									>Arythmia count <br />(during session) <Modal
+										><ModalContent
+											{thresholds}
+											chosenValue={(chosenThresholdValue = 'ArythmiaCount')}
+										/></Modal
+									></th
+								>
 								{#each filteredPatient as patient}
 									<th>{patient.ArythmiaCount}</th>
 								{/each}
 							</tr>
 							<tr>
-								<th>BodyTemperature <br />(avg/session)</th>
+								<th
+									>BodyTemperature <br />(avg/session) <Modal
+										><ModalContent
+											{thresholds}
+											chosenValue={(chosenThresholdValue = 'BodyTemperature')}
+										/></Modal
+									></th
+								>
 								{#each filteredPatient as patient}
 									<th>{patient.BodyTemperature}</th>
 								{/each}
@@ -299,49 +366,105 @@
 							</thead>
 							<tbody>
 								<tr>
-									<th>Breathing Rate <br />(avg/min)</th>
+									<th
+										>Breathing Rate <br />(avg/min) <Modal
+											><ModalContent
+												{thresholds}
+												chosenValue={(chosenThresholdValue = 'BreathingRate')}
+											/></Modal
+										></th
+									>
 									{#each compareArray as patient}
 										<th>{patient.BreathingRate}</th>
 									{/each}
 								</tr>
 								<tr>
-									<th>BreathingDepth <br />(avg%/min)</th>
+									<th
+										>BreathingDepth <br />(avg%/min) <Modal
+											><ModalContent
+												{thresholds}
+												chosenValue={(chosenThresholdValue = 'BreathingDepth')}
+											/></Modal
+										></th
+									>
 									{#each compareArray as patient}
 										<th>{patient.BreathingDepth}</th>
 									{/each}
 								</tr>
 								<tr>
-									<th>Oxygen (SPO2) <br />(avg/min)</th>
+									<th
+										>Oxygen (SPO2) <br />(avg/min) <Modal
+											><ModalContent
+												{thresholds}
+												chosenValue={(chosenThresholdValue = 'SPO2')}
+											/></Modal
+										></th
+									>
 									{#each compareArray as patient}
 										<th>{patient.SPO2}</th>
 									{/each}
 								</tr>
 								<tr>
-									<th>Caughing count <br />(session)</th>
+									<th
+										>Coughing count <br />(session) <Modal
+											><ModalContent
+												{thresholds}
+												chosenValue={(chosenThresholdValue = 'CoughingCount')}
+											/></Modal
+										></th
+									>
 									{#each compareArray as patient}
 										<th>{patient.CoughingCount}</th>
 									{/each}
 								</tr>
 								<tr>
-									<th>HeartRate <br />(avg/min)</th>
+									<th
+										>HeartRate <br />(avg/min) <Modal
+											><ModalContent
+												{thresholds}
+												chosenValue={(chosenThresholdValue = 'HeartRate')}
+											/></Modal
+										></th
+									>
 									{#each compareArray as patient}
 										<th>{patient.HeartRate}</th>
 									{/each}
 								</tr>
 								<tr>
-									<th>HRV <br />(avg)</th>
+									<th
+										>HRV <br />(avg) <Modal
+											><ModalContent
+												{thresholds}
+												chosenValue={(chosenThresholdValue = 'HRV')}
+											/></Modal
+										></th
+									>
 									{#each compareArray as patient}
 										<th>{patient.HRV}</th>
 									{/each}
 								</tr>
 								<tr>
-									<th>Arythmia count <br />(during session)</th>
+									<th
+										>Arythmia count <br />(during session) <Modal
+											><ModalContent
+												{thresholds}
+												chosenValue={(chosenThresholdValue = 'ArythmiaCount')}
+											/></Modal
+										></th
+									>
 									{#each compareArray as patient}
 										<th>{patient.ArythmiaCount}</th>
 									{/each}
 								</tr>
 								<tr>
-									<th>BodyTemperature <br />(avg/session)</th>
+									<th
+										>BodyTemperature <br />(avg/session) <Modal
+											><ModalContent
+												{thresholds}
+												chosenValue={(chosenThresholdValue = 'BodyTemperature')}
+											/></Modal
+										></th
+									>
 									{#each compareArray as patient}
 										<th>{patient.BodyTemperature}</th>
 									{/each}
@@ -353,23 +476,22 @@
 			</div>
 		{/if}
 
-	{#if showGraph}
-		<div class="graphCanvas">
-			<LayerCake
-				padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
-				x={xKey}
-				y={yKey}
-				z={zKey}
-				yDomain={[0, null]}
-				zScale={scaleOrdinal()}
-				zRange={seriesColors}
-				flatData={flatten(dataLong)}
-				data={dataLong}
-			>
-
-				{#each dataLong as graph, i}
-					<div class="chart-container">
-						<div class="title">{titles[i]}</div>
+		{#if showGraph}
+			<div class="graphCanvas" transition:fade>
+				<LayerCake
+					padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
+					x={xKey}
+					y={yKey}
+					z={zKey}
+					yDomain={[0, null]}
+					zScale={scaleOrdinal()}
+					zRange={seriesColors}
+					flatData={flatten(dataLong)}
+					data={dataLong}
+				>
+					{#each dataLong as graph, i}
+						<div class="chart-container">
+							<h1 style="color: white;">{titles[i]}</h1>
 
 						<LayerCake
 							padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
