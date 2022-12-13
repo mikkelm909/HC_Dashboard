@@ -30,6 +30,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@emailjs/browser": "^3.10.0",
 		"@rollup/plugin-dsv": "^3.0.1",
 		"d3-quadtree": "^3.0.1",
 		"firebase": "^9.12.1",
