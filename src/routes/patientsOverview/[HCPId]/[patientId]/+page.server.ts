@@ -217,7 +217,7 @@ export const load: PageServerLoad = async function ({ params }) {
 	};
 };
 
-async function updateBreathingRateThreshold(BreathingRateUP: any, BreathingRateLO: any) {
+async function updateBreathingRateThreshold(BreathingRateUP: number, BreathingRateLO: number) {
 	patients.updateOne(
 		{
 			_id: new ObjectId(paramPatient),
@@ -232,7 +232,7 @@ async function updateBreathingRateThreshold(BreathingRateUP: any, BreathingRateL
 	);
 }
 
-async function updateBreathingDepthThreshold(BreathingDepthUP: any, BreathingDepthLO: any) {
+async function updateBreathingDepthThreshold(BreathingDepthUP: number, BreathingDepthLO: number) {
 	patients.updateOne(
 		{
 			_id: new ObjectId(paramPatient),
@@ -247,7 +247,7 @@ async function updateBreathingDepthThreshold(BreathingDepthUP: any, BreathingDep
 	);
 }
 
-async function updateSPO2Threshold(SPO2UP: any, SPO2LO: any) {
+async function updateSPO2Threshold(SPO2UP: number, SPO2LO: number) {
 	patients.updateOne(
 		{
 			_id: new ObjectId(paramPatient),
@@ -261,7 +261,7 @@ async function updateSPO2Threshold(SPO2UP: any, SPO2LO: any) {
 		}
 	);
 }
-async function updateCaughingCountThreshold(CaughingCountUP: any, CaughingCountLO: any) {
+async function updateCaughingCountThreshold(CaughingCountUP: number, CaughingCountLO: number) {
 	patients.updateOne(
 		{
 			_id: new ObjectId(paramPatient),
@@ -275,7 +275,7 @@ async function updateCaughingCountThreshold(CaughingCountUP: any, CaughingCountL
 		}
 	);
 }
-async function updateHeartRateThreshold(HeartRateUP: any, HeartRateLO: any) {
+async function updateHeartRateThreshold(HeartRateUP: number, HeartRateLO: number) {
 	patients.updateOne(
 		{
 			_id: new ObjectId(paramPatient),
@@ -289,7 +289,7 @@ async function updateHeartRateThreshold(HeartRateUP: any, HeartRateLO: any) {
 		}
 	);
 }
-async function updateHRVThreshold(HRVUP: any, HRVLO: any) {
+async function updateHRVThreshold(HRVUP: number, HRVLO: number) {
 	patients.updateOne(
 		{
 			_id: new ObjectId(paramPatient),
@@ -303,7 +303,7 @@ async function updateHRVThreshold(HRVUP: any, HRVLO: any) {
 		}
 	);
 }
-async function updateArythmiaCountThreshold(ArythmiaCountUP: any, ArythmiaCountLO: any) {
+async function updateArythmiaCountThreshold(ArythmiaCountUP: number, ArythmiaCountLO: number) {
 	patients.updateOne(
 		{
 			_id: new ObjectId(paramPatient),
@@ -312,12 +312,15 @@ async function updateArythmiaCountThreshold(ArythmiaCountUP: any, ArythmiaCountL
 		{
 			$set: {
 				'HCProThresholds.$.Thresholds.ArythmiaCountThreshold.high': ArythmiaCountUP,
-				'HCProThresholds.$.Thresholds.ArythmiaCountThreshold.low': ArythmiaCountLO,
+				'HCProThresholds.$.Thresholds.ArythmiaCountThreshold.low': ArythmiaCountLO
 			}
 		}
 	);
 }
-async function updateBodyTemperatureThreshold(BodyTemperatureUP: any, BodyTemperatureLO: any) {
+async function updateBodyTemperatureThreshold(
+	BodyTemperatureUP: number,
+	BodyTemperatureLO: number
+) {
 	patients.updateOne(
 		{
 			_id: new ObjectId(paramPatient),
@@ -547,13 +550,13 @@ export const actions: Actions = {
 		if (HeartRateUP != null && HeartRateLO != null) {
 			updateHeartRateThreshold(HeartRateUP, HeartRateLO);
 		}
-		if ( HRVUP!= null && HRVLO != null) {
+		if (HRVUP != null && HRVLO != null) {
 			updateHRVThreshold(HRVUP, HRVLO);
 		}
-		if ( ArythmiaCountUP!= null && ArythmiaCountLO != null) {
+		if (ArythmiaCountUP != null && ArythmiaCountLO != null) {
 			updateArythmiaCountThreshold(ArythmiaCountUP, ArythmiaCountLO);
 		}
-		if ( BodyTemperatureUP!= null && BodyTemperatureLO != null) {
+		if (BodyTemperatureUP != null && BodyTemperatureLO != null) {
 			updateBodyTemperatureThreshold(BodyTemperatureUP, BodyTemperatureLO);
 		}
 
