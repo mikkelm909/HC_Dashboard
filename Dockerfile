@@ -1,24 +1,39 @@
-FROM mhart/alpine-node:12
+# stage build
+FROM node:19-alpine
 
-# install dependencies
 WORKDIR /app
-COPY package.json package-lock.json ./
+
+# copy everything to the container
+COPY . .
+
+# clean install all dependencies
 RUN npm ci
 
-# Copy all local files into the image.
-COPY . .
-
+# remove potential security issues
+RUN npm audit fix
+    
+# build SvelteKit app
 RUN npm run build
 
-###
-# Only copy over the Node pieces we need
-# ~> Saves 35MB
-###
-FROM mhart/alpine-node:slim-12
+
+# stage run
+FROM node:16-alpine
 
 WORKDIR /app
-COPY --from=0 /HC_dashboard .
-COPY . .
+
+# copy dependency list
+COPY --from=0 /app/package*.json ./
+
+# clean install dependencies, no devDependencies, no prepare script
+RUN npm ci --production --ignore-scripts
+
+# remove potential security issues
+RUN npm audit fix
+
+# copy built SvelteKit app to /app
+COPY --from=0 /app/. ./.
+
+
 
 EXPOSE 3000
-CMD ["node", "./build"]
+CMD ["node","build"]
