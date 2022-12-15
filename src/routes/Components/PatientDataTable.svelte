@@ -78,7 +78,6 @@
 				compareArray = compareArray;
 			}
 		});
-		console.log(compareArray);
 	}
 
 	let showGraph = false;
@@ -168,7 +167,7 @@
 	const formatTickX = timeFormat('%b. %e');
 	const formatTickY = (d) => format(`.${precisionFixed(d)}s`)(d);
 
-	console.log(thresholds);
+	console.log(filteredPatient);
 </script>
 
 <div class="container-fluid" transition:fade>
@@ -237,7 +236,7 @@
 		{#if !showGraph}
 			<div class="row" transition:fade>
 				<div class="col-sm">
-					<table class="table table-bordered table-striped table-dark">
+					<table class="table table-bordered table-dark">
 						<thead>
 							<tr>
 								<th style="white-space: pre">{patientName}</th>
@@ -261,7 +260,7 @@
 									<th
 										class:aboveThreshold={patient.BreathingRate >=
 											thresholds.BreathingRateThreshold.high ||
-											patient.Breathing_Rate <= thresholds.BreathingRateThreshold.low}
+											patient.BreathingRate <= thresholds.BreathingRateThreshold.low}
 										><div style="height: 55px">{patient.BreathingRate}</div></th
 									>
 								{/each}
@@ -276,7 +275,12 @@
 									></th
 								>
 								{#each filteredPatient as patient}
-									<th><div style="height: 55px">{patient.BreathingDepth}</div></th>
+									<th
+										class:aboveThreshold={patient.BreathingDepth >=
+											thresholds.BreathingDepthThreshold.high ||
+											patient.BreathingDepth <= thresholds.BreathingDepthThreshold.low}
+										><div style="height: 55px">{patient.BreathingDepth}</div></th
+									>
 								{/each}
 							</tr>
 							<tr>
@@ -289,7 +293,11 @@
 									></th
 								>
 								{#each filteredPatient as patient}
-									<th><div style="height: 55px">{patient.SPO2}</div></th>
+									<th
+										class:aboveThreshold={patient.SPO2 >= thresholds.SPO2Threshold.high ||
+											patient.SPO2 <= thresholds.SPO2Threshold.low}
+										><div style="height: 55px">{patient.SPO2}</div></th
+									>
 								{/each}
 							</tr>
 							<tr>
@@ -302,7 +310,12 @@
 									></th
 								>
 								{#each filteredPatient as patient}
-									<th><div style="height: 55px">{patient.CoughingCount}</div></th>
+									<th
+										class:aboveThreshold={patient.CoughingCount >=
+											thresholds.CaughingCountThreshold.high ||
+											patient.CoughingCount <= thresholds.CaughingCountThreshold.low}
+										><div style="height: 55px">{patient.CoughingCount}</div></th
+									>
 								{/each}
 							</tr>
 							<tr>
@@ -315,7 +328,11 @@
 									></th
 								>
 								{#each filteredPatient as patient}
-									<th><div style="height: 55px">{patient.HeartRate}</div></th>
+									<th
+										class:aboveThreshold={patient.HeartRate >= thresholds.HeartRateThreshold.high ||
+											patient.HeartRate <= thresholds.HeartRateThreshold.low}
+										><div style="height: 55px">{patient.HeartRate}</div></th
+									>
 								{/each}
 							</tr>
 							<tr>
@@ -328,7 +345,11 @@
 									></th
 								>
 								{#each filteredPatient as patient}
-									<th><div style="height: 55px">{patient.HRV}</div></th>
+									<th
+										class:aboveThreshold={patient.HRV >= thresholds.HRVThreshold.high ||
+											patient.HRV <= thresholds.HRVThreshold.low}
+										><div style="height: 55px">{patient.HRV}</div></th
+									>
 								{/each}
 							</tr>
 							<tr>
@@ -341,7 +362,12 @@
 									></th
 								>
 								{#each filteredPatient as patient}
-									<th><div style="height: 55px">{patient.ArythmiaCount}</div></th>
+									<th
+										class:aboveThreshold={patient.ArythmiaCount >=
+											thresholds.ArythmiaCountThreshold.high ||
+											patient.ArythmiaCount <= thresholds.ArythmiaCountThreshold.low}
+										><div style="height: 55px">{patient.ArythmiaCount}</div></th
+									>
 								{/each}
 							</tr>
 							<tr>
@@ -354,7 +380,12 @@
 									></th
 								>
 								{#each filteredPatient as patient}
-									<th><div style="height: 55px">{patient.BodyTemperature}</div></th>
+									<th
+										class:aboveThreshold={patient.BodyTemperature >=
+											thresholds.BodyTemperatureThreshold.high ||
+											patient.BodyTemperature <= thresholds.BodyTemperatureThreshold.low}
+										><div style="height: 55px">{patient.BodyTemperature}</div></th
+									>
 								{/each}
 							</tr>
 						</tbody>
@@ -362,7 +393,7 @@
 				</div>
 				{#if showCompare == true && compareArray.length != 0}
 					<div class="col-sm">
-						<table class="table table-bordered table-striped table-dark">
+						<table class="table table-bordered table-dark">
 							<thead>
 								<tr>
 									{#each compareArray as patient}
@@ -373,42 +404,82 @@
 							<tbody>
 								<tr>
 									{#each compareArray as patient}
-										<th><div style="height: 55px">{patient.BreathingRate}</div></th>
+										<th
+											class:aboveThreshold={patient.BreathingRate >=
+												thresholds.BreathingRateThreshold.high ||
+												patient.BreathingRate <= thresholds.BreathingRateThreshold.low}
+											><div style="height: 55px">
+												{patient.BreathingRate}
+											</div></th
+										>
 									{/each}
 								</tr>
 								<tr>
 									{#each compareArray as patient}
-										<th><div style="height: 55px">{patient.BreathingDepth}</div></th>
+										<th
+											class:aboveThreshold={patient.BreathingDepth >=
+												thresholds.BreathingDepthThreshold.high ||
+												patient.BreathingDepth <= thresholds.BreathingDepthThreshold.low}
+											><div style="height: 55px">{patient.BreathingDepth}</div></th
+										>
 									{/each}
 								</tr>
 								<tr>
 									{#each compareArray as patient}
-										<th><div style="height: 55px">{patient.SPO2}</div></th>
+										<th
+											class:aboveThreshold={patient.SPO2 >= thresholds.SPO2Threshold.high ||
+												patient.SPO2 <= thresholds.SPO2Threshold.low}
+											><div style="height: 55px">{patient.SPO2}</div></th
+										>
 									{/each}
 								</tr>
 								<tr>
 									{#each compareArray as patient}
-										<th><div style="height: 55px">{patient.CoughingCount}</div></th>
+										<th
+											class:aboveThreshold={patient.CoughingCount >=
+												thresholds.CaughingCountThreshold.high ||
+												patient.CoughingCount <= thresholds.CaughingCountThreshold.low}
+											><div style="height: 55px">{patient.CoughingCount}</div></th
+										>
 									{/each}
 								</tr>
 								<tr>
 									{#each compareArray as patient}
-										<th><div style="height: 55px">{patient.HeartRate}</div></th>
+										<th
+											class:aboveThreshold={patient.HeartRate >=
+												thresholds.HeartRateThreshold.high ||
+												patient.HeartRate <= thresholds.HeartRateThreshold.low}
+											><div style="height: 55px">{patient.HeartRate}</div></th
+										>
 									{/each}
 								</tr>
 								<tr>
 									{#each compareArray as patient}
-										<th><div style="height: 55px">{patient.HRV}</div></th>
+										<th
+											class:aboveThreshold={patient.HRV >= thresholds.HRVThreshold.high ||
+												patient.HRV <= thresholds.HRVThreshold.low}
+											><div style="height: 55px">{patient.HRV}</div></th
+										>
 									{/each}
 								</tr>
 								<tr>
 									{#each compareArray as patient}
-										<th><div style="height: 55px">{patient.ArythmiaCount}</div></th>
+										<th
+											class:aboveThreshold={patient.ArythmiaCount >=
+												thresholds.ArythmiaCountThreshold.high ||
+												patient.ArythmiaCount <= thresholds.ArythmiaCountThreshold.low}
+											><div style="height: 55px">{patient.ArythmiaCount}</div></th
+										>
 									{/each}
 								</tr>
 								<tr>
 									{#each compareArray as patient}
-										<th><div style="height: 55px">{patient.BodyTemperature}</div></th>
+										<th
+											class:aboveThreshold={patient.BodyTemperature >=
+												thresholds.BodyTemperatureThreshold.high ||
+												patient.BodyTemperature <= thresholds.BodyTemperatureThreshold.low}
+											><div style="height: 55px">{patient.BodyTemperature}</div></th
+										>
 									{/each}
 								</tr>
 							</tbody>
