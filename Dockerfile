@@ -6,6 +6,8 @@ WORKDIR /app
 # copy everything to the container
 COPY . .
 
+RUN npm install
+# RUN npm install @sveltejs/adapter-node
 # clean install all dependencies
 RUN npm ci
 
@@ -17,7 +19,7 @@ RUN npm run build
 
 
 # stage run
-FROM node:16-alpine
+FROM node:19-alpine
 
 WORKDIR /app
 
