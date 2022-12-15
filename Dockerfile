@@ -1,7 +1,7 @@
 FROM mhart/alpine-node:12
 
 # install dependencies
-WORKDIR /HC_dashboard
+WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 
@@ -16,7 +16,7 @@ RUN npm run build
 ###
 FROM mhart/alpine-node:slim-12
 
-WORKDIR /HC_dashboard
+WORKDIR /app
 COPY --from=0 /HC_dashboard .
 COPY . .
 
