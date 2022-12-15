@@ -78,6 +78,7 @@
 				compareArray = compareArray;
 			}
 		});
+		console.log(compareArray);
 	}
 
 	let showGraph = false;
@@ -166,6 +167,8 @@
 		}, []);
 	const formatTickX = timeFormat('%b. %e');
 	const formatTickY = (d) => format(`.${precisionFixed(d)}s`)(d);
+
+	console.log(thresholds);
 </script>
 
 <div class="container-fluid" transition:fade>
@@ -239,7 +242,7 @@
 							<tr>
 								<th style="white-space: pre">{patientName}</th>
 								{#each filteredPatient as patient}
-									<th>{patient.Date.toLocaleString().split(' ')[0]}</th>
+									<th class="vertical">{patient.Date.toLocaleString().split(' ')[0]}</th>
 									<!-- Getting the date for the session -->
 								{/each}
 							</tr>
@@ -255,7 +258,12 @@
 									></th
 								>
 								{#each filteredPatient as patient}
-									<th>{patient.BreathingRate}</th>
+									<th
+										class:aboveThreshold={patient.BreathingRate >=
+											thresholds.BreathingRateThreshold.high ||
+											patient.Breathing_Rate <= thresholds.BreathingRateThreshold.low}
+										><div style="height: 55px">{patient.BreathingRate}</div></th
+									>
 								{/each}
 							</tr>
 							<tr>
@@ -268,7 +276,7 @@
 									></th
 								>
 								{#each filteredPatient as patient}
-									<th>{patient.BreathingDepth}</th>
+									<th><div style="height: 55px">{patient.BreathingDepth}</div></th>
 								{/each}
 							</tr>
 							<tr>
@@ -281,7 +289,7 @@
 									></th
 								>
 								{#each filteredPatient as patient}
-									<th>{patient.SPO2}</th>
+									<th><div style="height: 55px">{patient.SPO2}</div></th>
 								{/each}
 							</tr>
 							<tr>
@@ -294,7 +302,7 @@
 									></th
 								>
 								{#each filteredPatient as patient}
-									<th>{patient.CoughingCount}</th>
+									<th><div style="height: 55px">{patient.CoughingCount}</div></th>
 								{/each}
 							</tr>
 							<tr>
@@ -307,7 +315,7 @@
 									></th
 								>
 								{#each filteredPatient as patient}
-									<th>{patient.HeartRate}</th>
+									<th><div style="height: 55px">{patient.HeartRate}</div></th>
 								{/each}
 							</tr>
 							<tr>
@@ -320,7 +328,7 @@
 									></th
 								>
 								{#each filteredPatient as patient}
-									<th>{patient.HRV}</th>
+									<th><div style="height: 55px">{patient.HRV}</div></th>
 								{/each}
 							</tr>
 							<tr>
@@ -333,7 +341,7 @@
 									></th
 								>
 								{#each filteredPatient as patient}
-									<th>{patient.ArythmiaCount}</th>
+									<th><div style="height: 55px">{patient.ArythmiaCount}</div></th>
 								{/each}
 							</tr>
 							<tr>
@@ -346,7 +354,7 @@
 									></th
 								>
 								{#each filteredPatient as patient}
-									<th>{patient.BodyTemperature}</th>
+									<th><div style="height: 55px">{patient.BodyTemperature}</div></th>
 								{/each}
 							</tr>
 						</tbody>
@@ -357,116 +365,50 @@
 						<table class="table table-bordered table-striped table-dark">
 							<thead>
 								<tr>
-									<th>{patientName}</th>
 									{#each compareArray as patient}
-										<th>{patient.Date.toLocaleString().split(' ')[0]}</th>
-										<!-- Getting the date for the session -->
+										<th class="vertical">{patient.Date.toLocaleString().split(' ')[0]}</th>
 									{/each}
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
-									<th
-										>Breathing Rate <br />(avg/min) <Modal
-											><ModalContent
-												{thresholds}
-												chosenValue={(chosenThresholdValue = 'BreathingRate')}
-											/></Modal
-										></th
-									>
 									{#each compareArray as patient}
-										<th>{patient.BreathingRate}</th>
+										<th><div style="height: 55px">{patient.BreathingRate}</div></th>
 									{/each}
 								</tr>
 								<tr>
-									<th
-										>BreathingDepth <br />(avg%/min) <Modal
-											><ModalContent
-												{thresholds}
-												chosenValue={(chosenThresholdValue = 'BreathingDepth')}
-											/></Modal
-										></th
-									>
 									{#each compareArray as patient}
-										<th>{patient.BreathingDepth}</th>
+										<th><div style="height: 55px">{patient.BreathingDepth}</div></th>
 									{/each}
 								</tr>
 								<tr>
-									<th
-										>Oxygen (SPO2) <br />(avg/min) <Modal
-											><ModalContent
-												{thresholds}
-												chosenValue={(chosenThresholdValue = 'SPO2')}
-											/></Modal
-										></th
-									>
 									{#each compareArray as patient}
-										<th>{patient.SPO2}</th>
+										<th><div style="height: 55px">{patient.SPO2}</div></th>
 									{/each}
 								</tr>
 								<tr>
-									<th
-										>Coughing count <br />(session) <Modal
-											><ModalContent
-												{thresholds}
-												chosenValue={(chosenThresholdValue = 'CoughingCount')}
-											/></Modal
-										></th
-									>
 									{#each compareArray as patient}
-										<th>{patient.CoughingCount}</th>
+										<th><div style="height: 55px">{patient.CoughingCount}</div></th>
 									{/each}
 								</tr>
 								<tr>
-									<th
-										>HeartRate <br />(avg/min) <Modal
-											><ModalContent
-												{thresholds}
-												chosenValue={(chosenThresholdValue = 'HeartRate')}
-											/></Modal
-										></th
-									>
 									{#each compareArray as patient}
-										<th>{patient.HeartRate}</th>
+										<th><div style="height: 55px">{patient.HeartRate}</div></th>
 									{/each}
 								</tr>
 								<tr>
-									<th
-										>HRV <br />(avg) <Modal
-											><ModalContent
-												{thresholds}
-												chosenValue={(chosenThresholdValue = 'HRV')}
-											/></Modal
-										></th
-									>
 									{#each compareArray as patient}
-										<th>{patient.HRV}</th>
+										<th><div style="height: 55px">{patient.HRV}</div></th>
 									{/each}
 								</tr>
 								<tr>
-									<th
-										>Arythmia count <br />(during session) <Modal
-											><ModalContent
-												{thresholds}
-												chosenValue={(chosenThresholdValue = 'ArythmiaCount')}
-											/></Modal
-										></th
-									>
 									{#each compareArray as patient}
-										<th>{patient.ArythmiaCount}</th>
+										<th><div style="height: 55px">{patient.ArythmiaCount}</div></th>
 									{/each}
 								</tr>
 								<tr>
-									<th
-										>BodyTemperature <br />(avg/session) <Modal
-											><ModalContent
-												{thresholds}
-												chosenValue={(chosenThresholdValue = 'BodyTemperature')}
-											/></Modal
-										></th
-									>
 									{#each compareArray as patient}
-										<th>{patient.BodyTemperature}</th>
+										<th><div style="height: 55px">{patient.BodyTemperature}</div></th>
 									{/each}
 								</tr>
 							</tbody>
@@ -493,43 +435,41 @@
 						<div class="chart-container">
 							<h1 style="color: white;">{titles[i]}</h1>
 
-						<LayerCake
-							padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
-							x={xKey}
-							y={yKey}
-							z={zKey}
-							yDomain={[0, null]}
-							zScale={scaleOrdinal()}
-							zRange={seriesColors}
-							flatData={flatten([dataLong[i]])}
-							data={[dataLong[i]]}
-						>
-							<Svg>
-								<ThresholdLine thresholds={formatedThredsholds[i]} />
-								<MultiLine />
-								<AxisY ticks={4} formatTick={formatTickY} />
-							</Svg>
+							<LayerCake
+								padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
+								x={xKey}
+								y={yKey}
+								z={zKey}
+								yDomain={[0, null]}
+								zScale={scaleOrdinal()}
+								zRange={seriesColors}
+								flatData={flatten([dataLong[i]])}
+								data={[dataLong[i]]}
+							>
+								<Svg>
+									<ThresholdLine thresholds={formatedThredsholds[i]} />
+									<MultiLine />
+									<AxisY ticks={4} formatTick={formatTickY} />
+								</Svg>
+							</LayerCake>
+						</div>
+					{/each}
 
-
-						</LayerCake>
-					</div>
-				{/each}
-
-				<Svg>
-					<AxisX
-					gridlines={false}
-					ticks={data.map((d) => d[xKey]).sort((a, b) => a - b)}
-					formatTick={formatTickX}
-					snapTicks={true}
-					tickMarks={true}
-				/>
-				</Svg>
-				<Html>
-					<SharedTooltip formatTitle={formatTickX} dataset={data} />
-				</Html>
-			</LayerCake>
-		</div>
-	{/if}
+					<Svg>
+						<AxisX
+							gridlines={false}
+							ticks={data.map((d) => d[xKey]).sort((a, b) => a - b)}
+							formatTick={formatTickX}
+							snapTicks={true}
+							tickMarks={true}
+						/>
+					</Svg>
+					<Html>
+						<SharedTooltip formatTitle={formatTickX} dataset={data} />
+					</Html>
+				</LayerCake>
+			</div>
+		{/if}
 
 		<a href="/threshold/{patientId}/{$storeHCPId}"
 			><button class="btn btn-primary">Edit Threshold</button></a
@@ -544,6 +484,10 @@
 	  The point being it needs dimensions since the <LayerCake> element will
 	  expand to fill it.
 	*/
+	.aboveThreshold {
+		background-color: rgba(255, 0, 0, 0.6);
+	}
+
 	.graphCanvas {
 		width: 100%;
 		height: 1210px;
@@ -557,7 +501,6 @@
 	.title {
 		color: rgb(223, 223, 223);
 		font-size: 100%;
-		
 	}
 	.column {
 		float: left;
@@ -568,5 +511,10 @@
 		content: '';
 		display: table;
 		clear: both;
+	}
+
+	.vertical {
+		writing-mode: vertical-rl;
+		transform: rotate(180deg);
 	}
 </style>
