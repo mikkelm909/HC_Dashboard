@@ -12,6 +12,7 @@
 	import { debug, has_prop } from 'svelte/internal';
 	import { error } from '@sveltejs/kit';
 	import { storeHCPId } from '$protectedMongoId';
+	import Navbar from './navbar.svelte';
 
 	export let api = ''; //makes it so the api string can be inserted to the component
 	export let healthcareProfessionals: any[] = [{}];
@@ -79,11 +80,15 @@
 	});
 </script>
 
+<Navbar />
+<div class="container-fluid" style="margin: auto; text-align: center;">
+	<h1>Welcome to Healthcare Dashboard!</h1>
+</div>
 <div
 	class="container-fluid"
-	style="margin: auto; width: 50%; background-color: grey; padding: 10px; margin-top: 20%"
+	style="margin: auto; width: 35%; background-color: grey; padding: 10px; margin-top: 20%"
 >
-	{#if user != null}
+	{#if $storeUser != ''}
 		<p>Signed in!</p>
 		<button class="btn btn-primary" on:click={logout}>Logout</button>
 	{:else}

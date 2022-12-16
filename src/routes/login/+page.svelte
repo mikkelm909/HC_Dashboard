@@ -5,6 +5,4 @@
 	export let data: PageData;
 </script>
 
-<button><a href="/">TO MAIN PAGE</a></button>
-
 <Login api={data.api} healthcareProfessionals={data.healthcareProfessionals} />
