@@ -173,11 +173,11 @@
 <Navbar />
 <ProtectedLayout>
 	<div class="container-fluid" transition:fade>
-		<div class="bg-dark text-light" style="margin-top: 20px">
+		<div class="bg-dark text-light" style="margin-top: 80px">
 			<div class="row">
 				<div class="col-sm">
 					<div class="row">
-						<div class="col-sm">
+						<div class="col-sm-3">
 							<div class="form-group">
 								<label>Start date</label>
 								<input
@@ -199,14 +199,14 @@
 							</div>
 						</div>
 						{#if !showGraph}
-							<div class="col-sm">
+							<div class="col-sm-3">
 								<div class="form-group">
 									<input type="checkbox" class="form-check-input" bind:checked={showCompare} />
 									<label class="form-check-label">Toggle comparison</label>
 								</div>
 							</div>
 						{/if}
-						<div class="col-sm">
+						<div class="col-sm-6">
 							{#if showCompare && !showGraph}
 								<div class="form-group" transition:fade>
 									<label>Start date</label>
@@ -223,6 +223,7 @@
 										style="width: 200px"
 										bind:value={compareEndDate}
 									/>
+									<br />
 									<button class="btn btn-outline-primary" on:click={compareData}>Compare</button>
 								</div>
 							{/if}
@@ -544,10 +545,6 @@
 					</LayerCake>
 				</div>
 			{/if}
-
-			<a href="/threshold/{patientId}/{$storeHCPId}"
-				><button class="btn btn-primary">Edit Threshold</button></a
-			>
 		</div>
 	</div>
 </ProtectedLayout>

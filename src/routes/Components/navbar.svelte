@@ -10,7 +10,7 @@
 	}
 </script>
 
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: grey">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: grey;">
 	<div class="container-fluid">
 		<a class="navbar-brand" href="/">HC Dashboard</a>
 		<button

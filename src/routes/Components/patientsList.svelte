@@ -80,7 +80,7 @@
 <Navbar />
 <ProtectedLayout>
 	<div class="container-fluid">
-		<div style="margin-top: 20px">
+		<div style="margin-top: 80px">
 			<div class="input-group mb-3">
 				<input
 					class="form-control"

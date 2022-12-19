@@ -5,7 +5,7 @@
 
 	onMount(() => {
 		if ($storeUser == '') {
-			goto('/login');
+			goto('/');
 		}
 	});
 </script>

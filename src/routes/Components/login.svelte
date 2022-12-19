@@ -81,7 +81,9 @@
 
 <Navbar />
 <div class="container-fluid" style="margin: auto; text-align: center;">
-	<h1>Welcome to Healthcare Dashboard!</h1>
+	<div class="container-fluid" style="margin-top: 100px">
+		<h1>Welcome to Healthcare Dashboard!</h1>
+	</div>
 </div>
 <div
 	class="container-fluid"
