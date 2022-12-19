@@ -11,6 +11,7 @@
 	import { storeUser } from '$protectedUser';
 	import { storeHCPId } from '$protectedMongoId';
 	import Navbar from './navbar.svelte';
+	import { goto } from '$app/navigation';
 
 	export let api = ''; //makes it so the api string can be inserted to the component
 	export let healthcareProfessionals: any[] = [{}];
@@ -87,7 +88,7 @@
 </div>
 <div
 	class="container-fluid"
-	style="margin: auto; width: 35%; background-color: grey; padding: 10px; margin-top: 20%"
+	style="margin: auto; width: 35%; background-color: grey; padding: 10px; margin-top: 10%"
 >
 	{#if $storeUser != ''}
 		<p>Signed in!</p>
