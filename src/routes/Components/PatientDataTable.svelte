@@ -33,6 +33,8 @@
 	let compareArray: [] = [];
 	let chosenThresholdValue = '';
 
+	let showInputFields = false;
+
 	const baseThreshold = [
 		[
 			{
@@ -174,67 +176,77 @@
 <ProtectedLayout>
 	<div class="container-fluid" transition:fade>
 		<div class="bg-dark text-light" style="margin-top: 80px">
-			<div class="row">
-				<div class="col-sm">
-					<div class="row">
-						<div class="col-sm-3">
-							<div class="form-group">
-								<label>Start date</label>
-								<input
-									class="form-control"
-									type="date"
-									style="width: 200px"
-									bind:value={startDate}
-								/><br />
-								<label>End date</label>
-								<input
-									class="form-control"
-									type="date"
-									style="width: 200px"
-									bind:value={endDate}
-								/><br />
-								<button class="btn btn-outline-primary" on:click={getDataByDates}
-									>Show data for dates</button
-								>
-							</div>
-						</div>
-						{#if !showGraph}
+			{#if showInputFields}
+				<div class="row">
+					<div class="col-sm">
+						<div class="row">
 							<div class="col-sm-3">
 								<div class="form-group">
-									<input type="checkbox" class="form-check-input" bind:checked={showCompare} />
-									<label class="form-check-label">Toggle comparison</label>
-								</div>
-							</div>
-						{/if}
-						<div class="col-sm-6">
-							{#if showCompare && !showGraph}
-								<div class="form-group" transition:fade>
 									<label>Start date</label>
 									<input
 										class="form-control"
 										type="date"
 										style="width: 200px"
-										bind:value={compareStartDate}
+										bind:value={startDate}
 									/><br />
 									<label>End date</label>
 									<input
 										class="form-control"
 										type="date"
 										style="width: 200px"
-										bind:value={compareEndDate}
-									/>
-									<br />
-									<button class="btn btn-outline-primary" on:click={compareData}>Compare</button>
+										bind:value={endDate}
+									/><br />
+									<button class="btn btn-outline-primary" on:click={getDataByDates}
+										>Show data for dates</button
+									>
+								</div>
+							</div>
+							{#if !showGraph}
+								<div class="col-sm-3">
+									<div class="form-group">
+										<input type="checkbox" class="form-check-input" bind:checked={showCompare} />
+										<label class="form-check-label">Toggle comparison</label>
+									</div>
 								</div>
 							{/if}
+							<div class="col-sm-6">
+								{#if showCompare && !showGraph}
+									<div class="form-group" transition:fade>
+										<label>Start date</label>
+										<input
+											class="form-control"
+											type="date"
+											style="width: 200px"
+											bind:value={compareStartDate}
+										/><br />
+										<label>End date</label>
+										<input
+											class="form-control"
+											type="date"
+											style="width: 200px"
+											bind:value={compareEndDate}
+										/>
+										<br />
+										<button class="btn btn-outline-primary" on:click={compareData}>Compare</button>
+									</div>
+								{/if}
+							</div>
 						</div>
+						<br />
+						<button class="btn btn-outline-primary" on:click={toggleGraph}>Toggle Graph-view</button
+						>
+						<br />
+						<br />
 					</div>
-					<br />
-					<button class="btn btn-outline-primary" on:click={toggleGraph}>Toggle Graph-view</button>
-					<br />
-					<br />
 				</div>
-			</div>
+			{/if}
+			<span
+				id="arrow"
+				class="order-icon"
+				style="cursor: pointer"
+				on:click={() => (showInputFields = !showInputFields)}
+				>{@html showInputFields ? '&#9651' : '&#9661;'} Date select/Compare/Graph view
+			</span>
 
 			{#if !showGraph}
 				<div class="row" transition:fade>
