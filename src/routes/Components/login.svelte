@@ -9,8 +9,6 @@
 		type User
 	} from 'firebase/auth';
 	import { storeUser } from '$protectedUser';
-	import { debug, has_prop } from 'svelte/internal';
-	import { error } from '@sveltejs/kit';
 	import { storeHCPId } from '$protectedMongoId';
 	import Navbar from './navbar.svelte';
 
@@ -30,7 +28,7 @@
 
 	const app = initializeApp(firebaseConfig);
 
-	const auth = getAuth(app);
+	let auth: any;
 
 	let user: User | null;
 	let email = '';
@@ -74,6 +72,7 @@
 	};
 
 	onMount(async () => {
+		auth = getAuth(app);
 		onAuthStateChanged(auth, (newUser) => {
 			user = newUser;
 		});

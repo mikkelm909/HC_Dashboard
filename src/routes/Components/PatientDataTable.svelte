@@ -243,7 +243,7 @@
 								<tr>
 									<th style="white-space: pre">{patientName}</th>
 									{#each filteredPatient as patient}
-										<th class="vertical">{patient.Date.toLocaleString().split(' ')[0]}</th>
+										<th><p class="vertical">{patient.Date.toLocaleString().split(' ')[0]}</p></th>
 										<!-- Getting the date for the session -->
 									{/each}
 								</tr>
@@ -400,7 +400,7 @@
 								<thead>
 									<tr>
 										{#each compareArray as patient}
-											<th class="vertical">{patient.Date.toLocaleString().split(' ')[0]}</th>
+											<th><p class="vertical">{patient.Date.toLocaleString().split(' ')[0]}</p></th>
 										{/each}
 									</tr>
 								</thead>

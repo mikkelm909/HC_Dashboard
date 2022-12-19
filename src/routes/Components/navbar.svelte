@@ -6,13 +6,13 @@
 	function logout() {
 		storeUser.set('');
 		storeHCPId.set('');
-		goto('/login');
+		goto('/');
 	}
 </script>
 
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: grey">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="#">HC Dashboard</a>
+		<a class="navbar-brand" href="/">HC Dashboard</a>
 		<button
 			class="navbar-toggler"
 			type="button"

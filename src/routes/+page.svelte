@@ -1,13 +1,8 @@
 <script lang="ts">
-	import { storeHCPId } from '$protectedMongoId';
+	import { storeUser } from '$protectedUser';
+	import Login from './Components/login.svelte';
 	import type { PageData } from './$types';
-	import ProtectedLayout from './Components/ProtectedLayout.svelte';
 	export let data: PageData;
 </script>
 
-<ProtectedLayout>
-	<div>
-		<a href="/patientsOverview/{$storeHCPId}"><button>patientsOverview</button></a>
-		<a href="/login"><button>login</button></a>
-	</div>
-</ProtectedLayout>
+<Login api={data.api} healthcareProfessionals={data.healthcareProfessionals} />
