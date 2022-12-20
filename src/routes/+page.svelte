@@ -12,5 +12,6 @@
     <div>
         <a href="/patientsOverview/{$storeHCPId}"><button>patientsOverview</button></a>
         <a href="/login"><button>login</button></a>
+        <a href="/addPatient"><button>Send Email</button></a>
     </div>
 </ProtectedLayout>

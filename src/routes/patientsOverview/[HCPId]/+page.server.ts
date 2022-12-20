@@ -7,7 +7,6 @@ import { storeHCPId } from '$protectedMongoId';
 export const load: PageServerLoad = async function ({ params }) {
 	const patientList = await patients.find({ assingedHealthCarePro: params.HCPId }).toArray();
 	const patientDataList = await patientData.find({}).sort({ Date: 1 }).toArray();
-
 	const formatPatients = patientList.map((p) => {
 		let thresholds;
 		let exist = p.HCProThresholds.find((value) => {
