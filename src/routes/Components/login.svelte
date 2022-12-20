@@ -9,9 +9,9 @@
 		type User
 	} from 'firebase/auth';
 	import { storeUser } from '$protectedUser';
-	import { debug, has_prop } from 'svelte/internal';
-	import { error } from '@sveltejs/kit';
 	import { storeHCPId } from '$protectedMongoId';
+	import Navbar from './navbar.svelte';
+	import { goto } from '$app/navigation';
 
 	export let api = ''; //makes it so the api string can be inserted to the component
 	export let healthcareProfessionals: any[] = [{}];
@@ -29,7 +29,7 @@
 
 	const app = initializeApp(firebaseConfig);
 
-	const auth = getAuth(app);
+	let auth: any;
 
 	let user: User | null;
 	let email = '';
@@ -73,17 +73,24 @@
 	};
 
 	onMount(async () => {
+		auth = getAuth(app);
 		onAuthStateChanged(auth, (newUser) => {
 			user = newUser;
 		});
 	});
 </script>
 
+<Navbar />
+<div class="container-fluid" style="margin: auto; text-align: center;">
+	<div class="container-fluid" style="margin-top: 100px">
+		<h1>Welcome to Healthcare Dashboard!</h1>
+	</div>
+</div>
 <div
 	class="container-fluid"
-	style="margin: auto; width: 50%; background-color: grey; padding: 10px; margin-top: 20%"
+	style="margin: auto; width: 35%; background-color: grey; padding: 10px; margin-top: 10%"
 >
-	{#if user != null}
+	{#if $storeUser != ''}
 		<p>Signed in!</p>
 		<button class="btn btn-primary" on:click={logout}>Logout</button>
 	{:else}
