@@ -27,7 +27,7 @@
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav">
 				<a class="nav-link" href="/patientsOverview/{$storeHCPId}">Patients</a>
-				<a class="nav-link" href="#">Add patient</a>
+				<a class="nav-link" href="/addPatient">Add patient</a>
 			</div>
 			{#if $storeUser != ''}
 				<ul class="navbar-nav ms-auto">

@@ -15,6 +15,7 @@
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/adapter-node": "^1.0.0",
 		"@sveltejs/kit": "next",
+		"@types/jquery": "^3.5.14",
 		"@typescript-eslint/eslint-plugin": "^5.27.0",
 		"@typescript-eslint/parser": "^5.27.0",
 		"eslint": "^8.16.0",
@@ -31,13 +32,18 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@emailjs/browser": "^3.10.0",
+		"@emailjs/nodejs": "^2.1.1",
 		"@rollup/plugin-dsv": "^3.0.1",
 		"d3-quadtree": "^3.0.1",
 		"firebase": "^9.12.1",
 		"ip": "^2.0.0",
+		"jquery": "^3.6.2",
 		"layercake": "^7.1.0",
 		"mongodb": "4.11",
 		"svelte-simple-modal": "^1.4.5",
-		"sveltestrap": "^5.10.0"
+		"sveltestrap": "^5.10.0",
+		"xhr2": "^0.2.1",
+		"xmlhttprequest": "^1.8.0"
 	}
 }
