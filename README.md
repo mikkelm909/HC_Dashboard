@@ -35,3 +35,17 @@ Toggle comparison to get the option to compare the current data with data from a
 If the healthcare professional wants to add a new patient to their list of patients. They can go to the "Add patient" page. Here they are asked to enter a patients email address.
 
 A verification email is sent to the patient, and if verified they will be added to the healthcare professional.
+
+## For developers
+
+### Routes
+
+Should you want to add a new route to the application, all you have to do is add a new subfolder to the "routes" folder. The subfolder name will be the name of the route.
+
+In this subfolder you add a "+page.svelte" file with the necessary code. You can also add a "+page.server.ts" file to the subfolder, should you want to execute code on the server side of the application.
+
+Official Svelte docs: https://www.youtube.com/watch?v=3luGCzXHH4Y&ab_channel=PurpleCow
+
+### Components
+
+To add a component add a "[componentName].svelte" file to the "Components" folder.
