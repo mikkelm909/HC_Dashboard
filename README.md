@@ -10,27 +10,28 @@ This is where a healthcare professional can see all of his/her patients and thei
 
 A risk score is calculated from the amount of times a patients data is above a threshold. A 14 day average is also calculated from the risk scores.
 
-###
+### Specific patient
 
-## Developing
+To go to the overview of a specific patient, just click on the name of the patient in the table.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Patient Data
 
-```bash
-npm run dev
+This is where a healthcare professional can get a better overview of a specific patients data and how it evolves.
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+### Edit threshold
 
-## Building
+To edit the thresholds for a specific data type on the patient, just click the "Threshold" button next to the specific data type in the table. This will open a modal where you can make the changes.
 
-To create a production version of your app:
+### Date select/Compare/Graph view
 
-```bash
-npm run build
-```
+To view more options for data comparison and viewing the dat: click the arrow above the table to open more options.
 
-You can preview the production build with `npm run preview`.
+### Comparison
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+Toggle comparison to get the option to compare the current data with data from an earlier period of data.
+
+## Adding a patient
+
+If the healthcare professional wants to add a new patient to their list of patients. They can go to the "Add patient" page. Here they are asked to enter a patients email address.
+
+A verification email is sent to the patient, and if verified they will be added to the healthcare professional.
