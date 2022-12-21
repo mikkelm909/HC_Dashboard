@@ -1,18 +1,16 @@
-# create-svelte
+# HC Dashboard
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+HC Dashboard provides an easy overview of patient data, for a healthcare professional.
 
-## Creating a project
+## Patient Overview
 
-If you're seeing this, you've probably already done this step. Congrats!
+This is where a healthcare professional can see all of his/her patients and their most current data.
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+### Risk score
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+A risk score is calculated from the amount of times a patients data is above a threshold. A 14 day average is also calculated from the risk scores.
+
+###
 
 ## Developing
 
