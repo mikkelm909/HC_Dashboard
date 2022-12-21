@@ -41,7 +41,7 @@
     <button class="btn btn-outline-primary">Add yourself</button>
 </form>
 {:else}
-    <h1>Sorry, no healthcare professionals has added you...</h1>
+    <h1>There are no pending requests...</h1>
 {/if }
   
   <style>
