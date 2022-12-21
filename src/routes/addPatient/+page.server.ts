@@ -7,6 +7,7 @@ import { patientCache } from '$db/Collections/patientCache';
 import { storeUser } from '$protectedUser';
 import { patients } from '$db/Collections/patients';
 import emailjs from '@emailjs/nodejs';
+import { healthcareProfessionals } from '$db/Collections/healthcareProfessionals';
 
 function sendEmail(data: Record<string, unknown> | undefined) {
 	emailjs
@@ -24,14 +25,26 @@ function sendEmail(data: Record<string, unknown> | undefined) {
 		);
 }
 
-async function emailExist(email: string) {
+async function emailExist(email: string, mongoId: string) {
 	let arrayCacheEmail = await patientCache.find({ pendingEmail: email }).toArray();
-	let arrayPatientEmail = await patients.find({ email: email }).toArray();
+	let arrayPatientEmail = await patients.find({ email: email, assingedHealthCarePro: mongoId}).toArray();
 	if (arrayCacheEmail.length == 0 && arrayPatientEmail.length == 0) {
 		return true;
 	}
-	console.log('Email already in cache or patient with this email already exist');
+	console.log('Email already in cache or already assigned');
 	return false;
+}
+
+async function hasAssingedHCP(email, mongoId){
+
+	let array = await patients.findOne({ email: email})
+	console.log("mongo",mongoId)
+	console.log("array", array)
+	if(array == null){
+		return false
+	}
+	return true
+
 }
 
 export const actions: Actions = {
@@ -40,15 +53,17 @@ export const actions: Actions = {
 		const form = await request.formData();
 		const email = form.get('email');
 		const uid = form.get('uid');
+		const hcPro = await healthcareProfessionals.findOne({firebaseUID: uid})
+		let hasHCP =	await hasAssingedHCP(email, hcPro._id)
+		const emailexist = await emailExist(email, hcPro._id)
+		if (emailexist) {
 
-		if (await emailExist(email)) {
-			await emailExist(email);
-			let returnId = await patientCache.insertOne({ pendingEmail: email, hcPro: uid });
+			let returnId = await patientCache.insertOne({ pendingEmail: email, hcPro: uid, hasHCP: hasHCP });
 			let Id = returnId.insertedId.toString();
-
+			
 			var data = {
 				link: 'http://127.0.0.1:5173/registerPatient/' + Id, //change link, because it is different in production
-				user_email: email
+				user_email: email,
 			};
 			sendEmail(data);
 		}

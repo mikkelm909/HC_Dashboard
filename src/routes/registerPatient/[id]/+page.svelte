@@ -2,6 +2,5 @@
 	import RegisterUser from "../../../routes/Components/registerUser.svelte"
   import type { PageData } from './$types';
   export let data: PageData;
-
 </script>
-<RegisterUser display={data.cached}></RegisterUser>
+<RegisterUser display={data}></RegisterUser>
