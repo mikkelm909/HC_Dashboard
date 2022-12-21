@@ -21,7 +21,7 @@
 			<input type="string" name="email" />
 			<input type="hidden" name="uid" bind:value={uid} />
 
-			<button class="btn btn-outline-primary">Send email authetication</button>
+			<button class="btn btn-outline-primary">Send verification email</button>
 		</form>
 	</div>
 </ProtectedLayout>
