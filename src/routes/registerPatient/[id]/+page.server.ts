@@ -12,23 +12,27 @@ let patientEmail = ""
 let fireId = ""
 let hcPro = ""
 let cachedPatient = {}
+let hasHCP: Boolean;    //if the patient already are assigned and need another patient
+
+
 export const load: PageServerLoad = async function ({ params }) {
     mongoId = params.id
     cachedPatient = await patientCache.findOne({_id: new ObjectId(mongoId)})
     if(cachedPatient != null){
         patientEmail = cachedPatient.pendingEmail
-        fireId = cachedPatient.hcPro
+        fireId = cachedPatient.	hcPro
         hcPro = await healthcareProfessionals.findOne({firebaseUID: fireId})
+        hasHCP = cachedPatient.hasHCP
 
         return{
-            cached: true
+            cached: true,
+            hasHCP: hasHCP
         }
     }
     return{
         cached: false
     }
-   
-
+    
 }
 
 
@@ -96,9 +100,17 @@ export const actions: Actions = {
         }
 
         if(cachedPatient != null){
-            patients.insertOne(data)
-            patientCache.deleteOne({hcPro: fireId})
-            console.log("Patient added!")
+            
+            if(hasHCP == false){
+                patients.insertOne(data)
+                patientCache.deleteOne({hcPro: fireId})
+                console.log("Patient added!")
+            }
+            if(hasHCP == true){
+                patients.updateOne({email: patientEmail}, {$addToSet: {assingedHealthCarePro: hcPro._id}})
+                patientCache.deleteOne({hcPro: fireId})
+                console.log("updated assingedHealthCarePro")
+            }
         }
         else{
             console.log("The patient is not in cache")
