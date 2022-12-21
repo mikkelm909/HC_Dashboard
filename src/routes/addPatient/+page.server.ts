@@ -52,7 +52,7 @@ export const actions: Actions = { //we use mongo as a cache for pending email co
 			let Id = returnId.insertedId.toString()
 			
 			var data = {link: "http://127.0.0.1:5173/registerPatient/"+Id,  //change link, because it is different in production
-						user_email: "mikkelwnm@gmail.com"}
+						user_email: email}
 			sendEmail(data)
 		}
 	}
