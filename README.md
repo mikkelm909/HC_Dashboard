@@ -44,7 +44,7 @@ Should you want to add a new route to the application, all you have to do is add
 
 In this subfolder you add a "+page.svelte" file with the necessary code. You can also add a "+page.server.ts" file to the subfolder, should you want to execute code on the server side of the application.
 
-Official Svelte docs: https://www.youtube.com/watch?v=3luGCzXHH4Y&ab_channel=PurpleCow
+Official Svelte docs: https://kit.svelte.dev/docs/routing
 
 ### Components
 
