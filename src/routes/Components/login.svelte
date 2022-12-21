@@ -47,6 +47,7 @@
 					storeHCPId.set(foundUser.id);
 					storeUser.set(JSON.stringify(user));
 					errorMessage = '';
+					goto('/patientsOverview/' + $storeHCPId);
 				} else {
 					user = null;
 					errorMessage = 'Only healthcare professionals can use this service!';

@@ -1,38 +1,51 @@
-# create-svelte
+# HC Dashboard
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+HC Dashboard provides an easy overview of patient data, for a healthcare professional.
 
-## Creating a project
+## Patient Overview
 
-If you're seeing this, you've probably already done this step. Congrats!
+This is where a healthcare professional can see all of his/her patients and their most current data.
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+### Risk score
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+A risk score is calculated from the amount of times a patients data is above a threshold. A 14 day average is also calculated from the risk scores.
 
-## Developing
+### Specific patient
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+To go to the overview of a specific patient, just click on the name of the patient in the table.
 
-```bash
-npm run dev
+## Patient Data
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+This is where a healthcare professional can get a better overview of a specific patients data and how it evolves.
 
-## Building
+### Edit threshold
 
-To create a production version of your app:
+To edit the thresholds for a specific data type on the patient, just click the "Threshold" button next to the specific data type in the table. This will open a modal where you can make the changes.
 
-```bash
-npm run build
-```
+### Date select/Compare/Graph view
 
-You can preview the production build with `npm run preview`.
+To view more options for data comparison and viewing the dat: click the arrow above the table to open more options.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+### Comparison
+
+Toggle comparison to get the option to compare the current data with data from an earlier period of data.
+
+## Adding a patient
+
+If the healthcare professional wants to add a new patient to their list of patients. They can go to the "Add patient" page. Here they are asked to enter a patients email address.
+
+A verification email is sent to the patient, and if verified they will be added to the healthcare professional.
+
+## For developers
+
+### Routes
+
+Should you want to add a new route to the application, all you have to do is add a new subfolder to the "routes" folder. The subfolder name will be the name of the route.
+
+In this subfolder you add a "+page.svelte" file with the necessary code. You can also add a "+page.server.ts" file to the subfolder, should you want to execute code on the server side of the application.
+
+Official Svelte docs: https://kit.svelte.dev/docs/routing
+
+### Components
+
+To add a component add a "[componentName].svelte" file to the "Components" folder.
