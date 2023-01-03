@@ -75,3 +75,9 @@ docker build . -t hc_dashboard:latest
 ```
 docker run -it --name hc_dashboard -p 80:3000 hc_dashboard:latest
 ```
+
+### Deploy locally
+
+```
+npm run dev
+```
