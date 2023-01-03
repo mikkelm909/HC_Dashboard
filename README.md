@@ -81,3 +81,11 @@ docker run -it --name hc_dashboard -p 80:3000 hc_dashboard:latest
 ```
 npm run dev
 ```
+
+### MongoDB and EmailJS
+
+Link to mongoDB: https://mongoexpress.stepupsolutions.dk/
+
+link to EmailJS: https://dashboard.emailjs.com/admin/templates
+
+Contact Charles for username and password.
