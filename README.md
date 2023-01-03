@@ -49,3 +49,29 @@ Official Svelte docs: https://kit.svelte.dev/docs/routing
 ### Components
 
 To add a component add a "[componentName].svelte" file to the "Components" folder.
+
+### Deployment with Docker
+
+```
+sudo su
+```
+
+```
+cd HC_dashboard
+```
+
+```
+git pull HC_dashboard
+```
+
+```
+docker rm hc_dashboard
+```
+
+```
+docker build . -t hc_dashboard:latest
+```
+
+```
+docker run -it --name hc_dashboard -p 80:3000 hc_dashboard:latest
+```
