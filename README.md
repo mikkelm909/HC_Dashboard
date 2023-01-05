@@ -1,4 +1,4 @@
-H# Eksamensprojekt for StepUp
+# Eksamensprojekt for StepUp
 Dette er eksamensprojekt for stepUp soloutions
 Projektet virker ikke pga. alle api keys connection strings osv. er blevet fjernet af sikkerhedsårsager
 
