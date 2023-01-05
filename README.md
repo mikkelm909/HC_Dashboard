@@ -1,3 +1,7 @@
+H# Eksamensprojekt for StepUp
+Dette er eksamensprojekt for stepUp soloutions
+Projektet virker ikke pga. alle api keys connection strings osv. er blevet fjernet af sikkerhedsårsager
+
 # HC Dashboard
 
 HC Dashboard provides an easy overview of patient data, for a healthcare professional.
